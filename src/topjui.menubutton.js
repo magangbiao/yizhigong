@@ -31,6 +31,7 @@
             if (typeof parentGrid == "object") {
                 openDialogAndloadDataByParentGrid(options);
             } else if (dialog.url) {
+                $("#" + dialog.id).dialog("createDialog");
                 openDialogAndloadDataByUrl(options);
             } else {
                 if (grid.uncheckedMsg) {

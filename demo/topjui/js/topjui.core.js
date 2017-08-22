@@ -18154,7 +18154,7 @@ function openDialogAndloadDataByUrl(options) {
     if (options.dialog.beforeOpenCheckUrl) {
         if (!beforeOpenCheck(replaceUrlParamValueByBrace(options.dialog.beforeOpenCheckUrl, row))) return;
     }
-
+    
     var $dialogObj = $("#" + options.dialog.id);
     $dialogObj.iDialog(options);
 
@@ -19816,6 +19816,16 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
         $(this).dialog(dialogOptions);
     }
 
+    $.extend($.fn.dialog.methods, {
+        createDialog: function (jq) {
+            var options = $.data(jq[0], "dialog").options;
+            var divOrForm = options.dialog.form == false ? "div" : "form";
+            var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
+            getTabWindow().$('body').append(dialogDom);
+            $("#" + options.dialog.id).iDialog(options.dialog);
+        }
+    });
+
     generateDialogDoc = function (options) {
 
         var defaults = {
@@ -21111,6 +21121,7 @@ Array.prototype.remove = function (val) {
             if (typeof parentGrid == "object") {
                 openDialogAndloadDataByParentGrid(options);
             } else if (dialog.url) {
+                $("#" + dialog.id).dialog("createDialog");
                 openDialogAndloadDataByUrl(options);
             } else {
                 if (grid.uncheckedMsg) {

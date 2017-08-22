@@ -100,7 +100,11 @@
 
     $.extend($.fn.dialog.methods, {
         createDialog: function (jq) {
-            generateDialogDoc($.data(jq[0], "dialog").options;);
+            var options = $.data(jq[0], "dialog").options;
+            var divOrForm = options.dialog.form == false ? "div" : "form";
+            var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
+            getTabWindow().$('body').append(dialogDom);
+            $("#" + options.dialog.id).iDialog(options.dialog);
         }
     });
 
