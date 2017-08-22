@@ -98,6 +98,12 @@
         $(this).dialog(dialogOptions);
     }
 
+    $.extend($.fn.dialog.methods, {
+        createDialog: function (jq) {
+            generateDialogDoc($.data(jq[0], "dialog").options;);
+        }
+    });
+
     generateDialogDoc = function (options) {
 
         var defaults = {

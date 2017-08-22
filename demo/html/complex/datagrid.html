@@ -16,7 +16,7 @@
     <!-- TopJUI框架配置 -->
     <script type="text/javascript" src="../../static/public/js/topjui.config.js"></script>
     <!-- TopJUI框架核心-->
-    <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
+    <script type="text/javascript" src="../../topjui/js/topjui.core.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
 </head>
@@ -96,19 +96,7 @@
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
        }">新增</a>
-    <a href="javascript:void(0)"
-       data-toggle="topjui-menubutton"
-       data-options="clickEvent:'openDialog',btnCls:'topjui-btn',
-       iconCls:'fa fa-pencil',
-       dialog:{
-           id:'articleEditDialog',
-           height:350,
-           href:contextPath + '/html/complex/edit.html?uuid={uuid}',
-           url:contextPath + '/json/product/detail.json?uuid={uuid}',
-           buttonsGroup:[
-               {text:'更新',url:contextPath + '/json/response/success.json',iconCls:'fa fa-save',handler:'ajaxForm',btnCls:'topjui-btn'}
-           ]
-       }">编辑</a>
+    <a href="javascript:void(0)" id="edit">编辑</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'doAjax',btnCls:'topjui-btn-normal',
@@ -130,14 +118,7 @@
        data-options="clickEvent:'openTab',btnCls:'topjui-btn-normal',
        tab:{
            title:'这是新的Tab窗口',
-           href:contextPath + '/html/menu/openTab_index.html',
-           tools:[{
-                iconCls:'icon-add',
-                handler:function(){alert('添加')}
-           },{
-                iconCls:'icon-edit',
-                handler:function(){alert('编辑')}
-           }]
+           href:contextPath + '/html/menu/openTab_index.html'
        }">打开Tab窗口</a>
     <a href="javascript:void(0)" class="topjui-btn-warm"
        data-toggle="topjui-menubutton"
@@ -199,6 +180,24 @@
         htmlstr += '</div>';
         return htmlstr;
     }
+
+    $("#edit").iMenubutton({
+      clickEvent:'openDialog',btnCls:'topjui-btn',
+      grid:{
+           type:'datagrid',
+           id:'productDg'
+       },
+       iconCls:'fa fa-pencil',
+       dialog:{
+           id:'articleEditDialog',
+           height:350,
+           href:contextPath + '/html/complex/edit.html?uuid={uuid}',
+           url:contextPath + '/json/product/detail.json?uuid={uuid}',
+           buttonsGroup:[
+               {text:'更新',url:contextPath + '/json/response/success.json',iconCls:'fa fa-save',handler:'ajaxForm',btnCls:'topjui-btn'}
+           ]
+       }
+    });
 </script>
 </body>
 </html>
