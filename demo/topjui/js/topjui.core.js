@@ -17854,7 +17854,8 @@ function bindMenuClickEvent($element, options) {
         options = $.extend(defaults, options);
 
         if (typeof options.dialog == "object") {
-            generateDialogDoc(options);
+            //generateDialogDoc(options);
+            //$("#" + options.dialog.id).dialog("createDialog", options);
         }
 
         /*var extendDoc = "";
@@ -19817,12 +19818,42 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
     }
 
     $.extend($.fn.dialog.methods, {
-        createDialog: function (jq) {
-            var options = $.data(jq[0], "dialog").options;
+        createDialog: function (jq, options) {
+            //var options = $.data(jq, "dialog").options;
             var divOrForm = options.dialog.form == false ? "div" : "form";
             var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
-            getTabWindow().$('body').append(dialogDom);
-            $("#" + options.dialog.id).iDialog(options.dialog);
+
+            // 判断dialog是否存在linkbutton按钮组
+            var buttonsDom = "";
+            if (typeof options.dialog.buttonsGroup == "object") {
+                var buttonsArr = options.dialog.buttonsGroup;
+                var btLength = buttonsArr.length;
+                if (btLength > 0) {
+                    for (var i = 0; i < btLength; i++) {
+                        // 默认为ajaxForm提交方式
+                        if (!buttonsArr[i].handler) {
+                            buttonsArr[i].handler = 'ajaxForm';
+                        }
+                        buttonsDom += '<a id="buttonId" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
+                    }
+                }
+            }
+            getTabWindow().$('body').append(
+                dialogDom +
+                '<div id="' + options.dialog.id + '-buttons" style="display:none">' +
+                buttonsDom +
+                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
+                '</div>'
+            );
+
+            //getTabWindow().$('body').append(dialogDom);
+            var button1Opt = options.dialog.buttonsGroup[0];
+            $("#buttonId").iLinkbutton(button1Opt);
+            $(".closeDialog").iLinkbutton({
+                iconCls: 'fa fa-close',
+                btnCls: 'topjui-btn-danger'
+            });
+            $("#" + options.dialog.id).iDialog(options);
         }
     });
 
@@ -21028,17 +21059,17 @@ Array.prototype.remove = function (val) {
                     dialogId: 'editDialog'
                 }
                 linkbuttonOptions = $.extend(defaults, linkbuttonOptions);
-                var menubuttonOptions = $("#" + linkbuttonOptions.menubuttonId).linkbutton('options');
+                var menubuttonOptions = $("#" + linkbuttonOptions.id).linkbutton('options');
                 var gridOptions = menubuttonOptions.grid, dialogOptions = menubuttonOptions.dialog;
 
                 // 判断数据是否通过验证
-                if (getTabWindow().$("#" + dialogOptions.id).form('validate')) {
+                if (getTabWindow().$("#" + linkbuttonOptions.dialogId).form('validate')) {
                     // 序列化表单数据
-                    linkbuttonOptions.ajaxData = getTabWindow().$("#" + dialogOptions.id).serialize();
+                    linkbuttonOptions.ajaxData = getTabWindow().$("#" + linkbuttonOptions.dialogId).serialize();
                     if (linkbuttonOptions.combotreeFields != undefined) {
                         var combotreeParams = '';
                         $.each(options.combotreeFields, function (k, v) {
-                            combotreeParams += '&' + v.replace(linkbuttonOptions.postfix, "") + '=' + getTabWindow().$("#" + dialogOptions.id + ' input[textboxname="' + v + '"]').combotree('getValues').join(',') + ', ';
+                            combotreeParams += '&' + v.replace(linkbuttonOptions.postfix, "") + '=' + getTabWindow().$("#" + linkbuttonOptions.dialogId + ' input[textboxname="' + v + '"]').combotree('getValues').join(',') + ', ';
                         });
                         linkbuttonOptions.ajaxData += combotreeParams;
                     }
@@ -21059,7 +21090,7 @@ Array.prototype.remove = function (val) {
                     // 执行ajax动作
                     getTabWindow().doAjax(linkbuttonOptions);
                     // 关闭dialog
-                    getTabWindow().$("#" + dialogOptions.id).dialog("close");
+                    getTabWindow().$("#" + linkbuttonOptions.dialogId).dialog("close");
                     // 重新加载本grid数据
                     if (typeof gridOptions == "object") {
                         if (gridOptions.type == "datagrid") {
@@ -21111,6 +21142,8 @@ Array.prototype.remove = function (val) {
             //var options = $(this).menubutton('options'); // 事件中获取参数
             var options = $.data(target[0], "menubutton").options;
             //var options = target[0].dataset.options;
+            $("#" + options.dialog.id).dialog("createDialog", options);
+
             var dialog = options.dialog;
             var grid = options.grid;
             var parentGrid = options.parentGrid;
@@ -21121,7 +21154,6 @@ Array.prototype.remove = function (val) {
             if (typeof parentGrid == "object") {
                 openDialogAndloadDataByParentGrid(options);
             } else if (dialog.url) {
-                $("#" + dialog.id).dialog("createDialog");
                 openDialogAndloadDataByUrl(options);
             } else {
                 if (grid.uncheckedMsg) {

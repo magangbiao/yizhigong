@@ -28,17 +28,17 @@
                     dialogId: 'editDialog'
                 }
                 linkbuttonOptions = $.extend(defaults, linkbuttonOptions);
-                var menubuttonOptions = $("#" + linkbuttonOptions.menubuttonId).linkbutton('options');
+                var menubuttonOptions = $("#" + linkbuttonOptions.id).linkbutton('options');
                 var gridOptions = menubuttonOptions.grid, dialogOptions = menubuttonOptions.dialog;
 
                 // 判断数据是否通过验证
-                if (getTabWindow().$("#" + dialogOptions.id).form('validate')) {
+                if (getTabWindow().$("#" + linkbuttonOptions.dialogId).form('validate')) {
                     // 序列化表单数据
-                    linkbuttonOptions.ajaxData = getTabWindow().$("#" + dialogOptions.id).serialize();
+                    linkbuttonOptions.ajaxData = getTabWindow().$("#" + linkbuttonOptions.dialogId).serialize();
                     if (linkbuttonOptions.combotreeFields != undefined) {
                         var combotreeParams = '';
                         $.each(options.combotreeFields, function (k, v) {
-                            combotreeParams += '&' + v.replace(linkbuttonOptions.postfix, "") + '=' + getTabWindow().$("#" + dialogOptions.id + ' input[textboxname="' + v + '"]').combotree('getValues').join(',') + ', ';
+                            combotreeParams += '&' + v.replace(linkbuttonOptions.postfix, "") + '=' + getTabWindow().$("#" + linkbuttonOptions.dialogId + ' input[textboxname="' + v + '"]').combotree('getValues').join(',') + ', ';
                         });
                         linkbuttonOptions.ajaxData += combotreeParams;
                     }
@@ -59,7 +59,7 @@
                     // 执行ajax动作
                     getTabWindow().doAjax(linkbuttonOptions);
                     // 关闭dialog
-                    getTabWindow().$("#" + dialogOptions.id).dialog("close");
+                    getTabWindow().$("#" + linkbuttonOptions.dialogId).dialog("close");
                     // 重新加载本grid数据
                     if (typeof gridOptions == "object") {
                         if (gridOptions.type == "datagrid") {

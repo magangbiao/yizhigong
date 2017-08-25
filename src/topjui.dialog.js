@@ -99,12 +99,42 @@
     }
 
     $.extend($.fn.dialog.methods, {
-        createDialog: function (jq) {
-            var options = $.data(jq[0], "dialog").options;
+        createDialog: function (jq, options) {
+            //var options = $.data(jq, "dialog").options;
             var divOrForm = options.dialog.form == false ? "div" : "form";
             var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
-            getTabWindow().$('body').append(dialogDom);
-            $("#" + options.dialog.id).iDialog(options.dialog);
+
+            // 判断dialog是否存在linkbutton按钮组
+            var buttonsDom = "";
+            if (typeof options.dialog.buttonsGroup == "object") {
+                var buttonsArr = options.dialog.buttonsGroup;
+                var btLength = buttonsArr.length;
+                if (btLength > 0) {
+                    for (var i = 0; i < btLength; i++) {
+                        // 默认为ajaxForm提交方式
+                        if (!buttonsArr[i].handler) {
+                            buttonsArr[i].handler = 'ajaxForm';
+                        }
+                        buttonsDom += '<a id="buttonId" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
+                    }
+                }
+            }
+            getTabWindow().$('body').append(
+                dialogDom +
+                '<div id="' + options.dialog.id + '-buttons" style="display:none">' +
+                buttonsDom +
+                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
+                '</div>'
+            );
+
+            //getTabWindow().$('body').append(dialogDom);
+            var button1Opt = options.dialog.buttonsGroup[0];
+            $("#buttonId").iLinkbutton(button1Opt);
+            $(".closeDialog").iLinkbutton({
+                iconCls: 'fa fa-close',
+                btnCls: 'topjui-btn-danger'
+            });
+            $("#" + options.dialog.id).iDialog(options);
         }
     });
 

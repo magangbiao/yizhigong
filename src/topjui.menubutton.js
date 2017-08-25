@@ -21,6 +21,8 @@
             //var options = $(this).menubutton('options'); // 事件中获取参数
             var options = $.data(target[0], "menubutton").options;
             //var options = target[0].dataset.options;
+            $("#" + options.dialog.id).dialog("createDialog", options);
+
             var dialog = options.dialog;
             var grid = options.grid;
             var parentGrid = options.parentGrid;
@@ -31,7 +33,6 @@
             if (typeof parentGrid == "object") {
                 openDialogAndloadDataByParentGrid(options);
             } else if (dialog.url) {
-                $("#" + dialog.id).dialog("createDialog");
                 openDialogAndloadDataByUrl(options);
             } else {
                 if (grid.uncheckedMsg) {

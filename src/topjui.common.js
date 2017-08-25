@@ -175,7 +175,8 @@ function bindMenuClickEvent($element, options) {
         options = $.extend(defaults, options);
 
         if (typeof options.dialog == "object") {
-            generateDialogDoc(options);
+            //generateDialogDoc(options);
+            //$("#" + options.dialog.id).dialog("createDialog", options);
         }
 
         /*var extendDoc = "";

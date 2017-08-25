@@ -96,7 +96,7 @@
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
        }">新增</a>
-    <a href="javascript:void(0)" id="edit">编辑</a>
+    <a href="javascript:void(0)" id="articleEditMenu">编辑</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'doAjax',btnCls:'topjui-btn-normal',
@@ -181,22 +181,31 @@
         return htmlstr;
     }
 
-    $("#edit").iMenubutton({
-      clickEvent:'openDialog',btnCls:'topjui-btn',
-      grid:{
-           type:'datagrid',
-           id:'productDg'
-       },
-       iconCls:'fa fa-pencil',
-       dialog:{
-           id:'articleEditDialog',
-           height:350,
-           href:contextPath + '/html/complex/edit.html?uuid={uuid}',
-           url:contextPath + '/json/product/detail.json?uuid={uuid}',
-           buttonsGroup:[
-               {text:'更新',url:contextPath + '/json/response/success.json',iconCls:'fa fa-save',handler:'ajaxForm',btnCls:'topjui-btn'}
-           ]
-       }
+    $(function () {
+        console.log("te");
+        $("#articleEditMenu").iMenubutton({
+            clickEvent: 'openDialog', btnCls: 'topjui-btn',
+            grid: {
+                type: 'datagrid',
+                id: 'productDg'
+            },
+            iconCls: 'fa fa-pencil',
+            dialog: {
+                id: 'articleEditDialog',
+                height: 350,
+                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                url: contextPath + '/json/product/detail.json?uuid={uuid}',
+                buttonsGroup: [
+                    {
+                        text: '更新',
+                        url: contextPath + '/json/response/success.json',
+                        iconCls: 'fa fa-save',
+                        handler: 'ajaxForm',
+                        btnCls: 'topjui-btn'
+                    }
+                ]
+            }
+        });
     });
 </script>
 </body>
