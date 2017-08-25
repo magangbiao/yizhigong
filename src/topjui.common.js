@@ -63,6 +63,58 @@ function addTab(params) {
     }
 }
 
+openDialog = function(target){
+    //var opts = $(this).menubutton('options');
+    //var opts = target.dataset.options;
+    var opts = $.data(target, "menubutton").options;
+    $("#" + opts.dialog.id).dialog("createDialog", opts);
+
+    var dialog = opts.dialog;
+    var grid = opts.grid;
+    var parentGrid = opts.parentGrid;
+
+    opts.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
+    opts.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
+
+    if (typeof parentGrid == "object") {
+        openDialogAndloadDataByParentGrid(opts);
+    } else if (dialog.url) {
+        openDialogAndloadDataByUrl(opts);
+    } else {
+        if (grid.uncheckedMsg) {
+            var rows = getCheckedRowsData(grid.type, grid.id);
+            if (rows.length == 0) {
+                $.messager.alert(
+                    topJUI.language.message.title.operationTips,
+                    opts.grid.uncheckedMsg,
+                    topJUI.language.message.icon.warning
+                );
+                return;
+            }
+        }
+        if (dialog.onBeforeOpen != "undefined") {
+            // 回调执行传入的自定义函数
+            executeCallBackFun(dialog.onBeforeOpen, opts);
+        }
+
+        opts.href = appendSourceUrlParam(dialog.href);
+        var $dialogObj = $("#" + dialog.id);
+        $dialogObj.iDialog(opts);
+        if (opts.dialog.href.indexOf("{") != -1) {
+            var row = getSelectedRowData(opts.grid.type, opts.grid.id);
+            // 替换本表中选中行占位值
+            var newHref = replaceUrlParamValueByBrace(appendSourceUrlParam(dialog.href), row);
+            $dialogObj.dialog({
+                href: newHref
+            });
+            //$dialogObj.dialog('open').dialog("refresh", newHref); //加载两次href指定的页面
+            $dialogObj.dialog('open');
+        } else {
+            $dialogObj.dialog('open');
+        }
+    }
+}
+
 addParentTab = function (target) {
     var options = $.data(target, "menubutton").options;
     var src, title;
@@ -890,7 +942,8 @@ function deleteHandler(target) {
  * 过滤表格数据
  * @param options
  */
-function filterHandler(options) {
+function filterHandler(target) {
+    var options = $.data(target, "menubutton").options;
     if (typeof options.grid == "object") {
         var gridId = options.grid.id;
         var gridOptions = $("#" + gridId).datagrid("options");
@@ -915,7 +968,8 @@ function filterHandler(options) {
  * 高级查询表格数据
  * @param options
  */
-function searchHandler(options) {
+function searchHandler(target) {
+    var options = $.data(target, "menubutton").options;
     // 获得查询字段信息
     if (typeof options.grid == "object") {
         getColumnsNameAndField(options.grid.type, options.grid.id);
@@ -1057,7 +1111,8 @@ function searchHandler(options) {
  * 导入表格数据
  * @param options
  */
-function importHandler(options) {
+function importHandler(target) {
+    var options = $.data(target, "menubutton").options;
     if (typeof options.grid == "object") {
         getColumnsNameAndField(options.grid.type, options.grid.id);
 
@@ -1115,7 +1170,8 @@ function getColumnsNameAndField(gridType, gridId) {
  * 导出表格数据
  * @param options
  */
-function exportHandler(options) {
+function exportHandler(target) {
+    var options = $.data(target, "menubutton").options;
     var controllerUrl = getUrl("controller");
     var defaults = {
         gridId: 'datagrid',

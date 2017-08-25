@@ -17742,6 +17742,58 @@ function addTab(params) {
     }
 }
 
+openDialog = function(target){
+    //var opts = $(this).menubutton('options');
+    //var opts = target.dataset.options;
+    var opts = $.data(target, "menubutton").options;
+    $("#" + opts.dialog.id).dialog("createDialog", opts);
+
+    var dialog = opts.dialog;
+    var grid = opts.grid;
+    var parentGrid = opts.parentGrid;
+
+    opts.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
+    opts.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
+
+    if (typeof parentGrid == "object") {
+        openDialogAndloadDataByParentGrid(opts);
+    } else if (dialog.url) {
+        openDialogAndloadDataByUrl(opts);
+    } else {
+        if (grid.uncheckedMsg) {
+            var rows = getCheckedRowsData(grid.type, grid.id);
+            if (rows.length == 0) {
+                $.messager.alert(
+                    topJUI.language.message.title.operationTips,
+                    opts.grid.uncheckedMsg,
+                    topJUI.language.message.icon.warning
+                );
+                return;
+            }
+        }
+        if (dialog.onBeforeOpen != "undefined") {
+            // 回调执行传入的自定义函数
+            executeCallBackFun(dialog.onBeforeOpen, opts);
+        }
+
+        opts.href = appendSourceUrlParam(dialog.href);
+        var $dialogObj = $("#" + dialog.id);
+        $dialogObj.iDialog(opts);
+        if (opts.dialog.href.indexOf("{") != -1) {
+            var row = getSelectedRowData(opts.grid.type, opts.grid.id);
+            // 替换本表中选中行占位值
+            var newHref = replaceUrlParamValueByBrace(appendSourceUrlParam(dialog.href), row);
+            $dialogObj.dialog({
+                href: newHref
+            });
+            //$dialogObj.dialog('open').dialog("refresh", newHref); //加载两次href指定的页面
+            $dialogObj.dialog('open');
+        } else {
+            $dialogObj.dialog('open');
+        }
+    }
+}
+
 addParentTab = function (target) {
     var options = $.data(target, "menubutton").options;
     var src, title;
@@ -18569,7 +18621,8 @@ function deleteHandler(target) {
  * 过滤表格数据
  * @param options
  */
-function filterHandler(options) {
+function filterHandler(target) {
+    var options = $.data(target, "menubutton").options;
     if (typeof options.grid == "object") {
         var gridId = options.grid.id;
         var gridOptions = $("#" + gridId).datagrid("options");
@@ -18594,7 +18647,8 @@ function filterHandler(options) {
  * 高级查询表格数据
  * @param options
  */
-function searchHandler(options) {
+function searchHandler(target) {
+    var options = $.data(target, "menubutton").options;
     // 获得查询字段信息
     if (typeof options.grid == "object") {
         getColumnsNameAndField(options.grid.type, options.grid.id);
@@ -18736,7 +18790,8 @@ function searchHandler(options) {
  * 导入表格数据
  * @param options
  */
-function importHandler(options) {
+function importHandler(target) {
+    var options = $.data(target, "menubutton").options;
     if (typeof options.grid == "object") {
         getColumnsNameAndField(options.grid.type, options.grid.id);
 
@@ -18794,7 +18849,8 @@ function getColumnsNameAndField(gridType, gridId) {
  * 导出表格数据
  * @param options
  */
-function exportHandler(options) {
+function exportHandler(target) {
+    var options = $.data(target, "menubutton").options;
     var controllerUrl = getUrl("controller");
     var defaults = {
         gridId: 'datagrid',
@@ -19720,8 +19776,8 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
 })(jQuery);;(function ($) {
 
     $.fn.iDialog = function (options) {
-        var dialogOptions = options.dialog;
-        var $dialogObj = $("#" + dialogOptions.id);
+        var dialog = options.dialog;
+        var $dialogObj = $("#" + dialog.id);
         var defaults = {
             currentDialogId: this.selector,
             width: 700,
@@ -19756,25 +19812,25 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
                 $.messager.progress('close');
                 $(this).trigger(topJUI.eventType.initUI.form);
                 $(this).dialog("center");
-                if (dialogOptions.url != undefined) {
+                if (dialog.url != undefined) {
                     // 获取选中行的数据
                     var row = getSelectedRowData(options.grid.type, options.grid.id);
                     // 如果指定了数据来源URL，则通过URL加载数据
-                    var newDialogUrl = replaceUrlParamValueByBrace(dialogOptions.url, row);
+                    var newDialogUrl = replaceUrlParamValueByBrace(dialog.url, row);
                     $.getJSON(newDialogUrl, function (data) {
                         $dialogObj.form('load', data);
-                        if (typeof dialogOptions.editor == "string" || typeof dialogOptions.editor == "object") {
+                        if (typeof dialog.editor == "string" || typeof dialog.editor == "object") {
                             // kindeditor编辑器处理
-                            if (typeof dialogOptions.editor == "string") {
+                            if (typeof dialog.editor == "string") {
                                 // 富文本编辑器字符串
                                 var ke = [], keObj = [];
-                                ke = dialogOptions.editor.replace(/'/g, '"').split(",");
+                                ke = dialog.editor.replace(/'/g, '"').split(",");
                                 for (var i = 0; i < ke.length; i++) {
                                     keObj.push(strToJson(ke[i]));
                                 }
                             } else {
                                 // 富文本编辑数组
-                                keObj = dialogOptions.editor;
+                                keObj = dialog.editor;
                             }
                             for (var i = 0; i < keObj.length; i++) {
                                 var editorType = keObj[i]["type"];
@@ -19805,62 +19861,54 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
                 }
             },
             onClose: function () {
-                $(dialogOptions.currentDialogId).form('clear');
+                $(dialog.currentDialogId).form('clear');
             }
         }
 
-        dialogOptions = $.extend(defaults, options.dialog);
+        dialog = $.extend(defaults, options.dialog);
 
         var controllerUrl = getUrl('controller');
-        dialogOptions.href = dialogOptions.href ? dialogOptions.href + location.search : controllerUrl + "edit" + location.search;
+        dialog.href = dialog.href ? dialog.href + location.search : controllerUrl + "edit" + location.search;
 
-        $(this).dialog(dialogOptions);
+        $(this).dialog(dialog);
     }
 
     $.extend($.fn.dialog.methods, {
-        createDialog: function (jq, options) {
-            //var options = $.data(jq, "dialog").options;
+        createDialog: function (jq, opts) {
+            //var opts = $.data(jq, "dialog").options;
             //模态窗口随机id
-            console.log(options.dialog.id);
-            if (options.dialog.id == undefined) options.dialog.id = getRandomNumByDef();
-            var divOrForm = options.dialog.form == false ? "div" : "form";
-            var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
+            if (opts.dialog.id == undefined) opts.dialog.id = getRandomNumByDef();
+            var divOrForm = opts.dialog.form == false ? "div" : "form";
+            var dialogDom = '<' + divOrForm + ' id="' + opts.dialog.id + '"></' + divOrForm + '>';
 
-            // 判断dialog是否存在linkbutton按钮组
+            // 判断是否存在linkbutton按钮组
             var buttonsDom = "";
-            var buttonsIdArr = [];
-            if (typeof options.dialog.buttonsGroup == "object") {
-                var buttonsArr = options.dialog.buttonsGroup;
-                var btLength = buttonsArr.length;
-                if (btLength > 0) {
-                    for (var i = 0; i < btLength; i++) {
-                        //默认以ajaxForm方式提交
-                        if (!buttonsArr[i].handler) {
-                            buttonsArr[i].handler = 'ajaxForm';
-                        }
-                        //按钮随机id
-                        if (buttonsArr[i].id == undefined) buttonsIdArr.push(getRandomNumByDef());
-                        buttonsDom += '<a id="' + buttonsIdArr[i] + '" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
+            var btnIdArr = [];
+            if (typeof opts.dialog.buttonsGroup == "object") {
+                var btnArr = opts.dialog.buttonsGroup;
+                $.each(btnArr, function (i, btn) {
+                    //默认以ajaxForm方式提交
+                    if (!btn.handler) {
+                        btn.handler = 'ajaxForm';
                     }
-                }
+                    //按钮随机id
+                    if (btn.id == undefined) btnIdArr.push(getRandomNumByDef());
+                    buttonsDom += '<a id="' + btnIdArr[i] + '" href="#" data-options="menubuttonId:\'' + opts.id + '\',dialogId:\'' + opts.dialog.id + '\'">' + btn.text + '</a>';
+                });
             }
             getTabWindow().$('body').append(
                 dialogDom +
-                '<div id="' + options.dialog.id + '-buttons" style="display:none">' +
+                '<div id="' + opts.dialog.id + '-buttons" style="display:none">' +
                 buttonsDom +
-                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
+                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + opts.dialog.id + '\').dialog(\'close\')">关闭</a>' +
                 '</div>'
             );
-            //自定义按钮
-            if (typeof options.dialog.buttonsGroup == "object") {
-                var buttonsArr = options.dialog.buttonsGroup;
-                var btLength = buttonsArr.length;
-                if (btLength > 0) {
-                    for (var i = 0; i < btLength; i++) {
-                        var button1Opt = options.dialog.buttonsGroup[i];
-                        $("#" + buttonsIdArr[i]).iLinkbutton(button1Opt);
-                    }
-                }
+            //渲染自定义按钮
+            if (typeof opts.dialog.buttonsGroup == "object") {
+                var btnOptsArr = opts.dialog.buttonsGroup;
+                $.each(btnOptsArr, function (i, btnOpts) {
+                    $("#" + btnIdArr[i]).iLinkbutton(btnOpts);
+                });
             }
             //关闭按钮
             $(".closeDialog").iLinkbutton({
@@ -19868,7 +19916,7 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
                 btnCls: 'topjui-btn-danger'
             });
             //模态对话框
-            $("#" + options.dialog.id).iDialog(options);
+            $("#" + opts.dialog.id).iDialog(opts);
         }
     });
 
@@ -21157,67 +21205,19 @@ Array.prototype.remove = function (val) {
 
     $.extend($.fn.menubutton.methods, {
 
-        openDialog: function (target) {
-            //var options = $(this).menubutton('options'); // 事件中获取参数
-            var options = $.data(target[0], "menubutton").options;
-            //var options = target[0].dataset.options;
-            $("#" + options.dialog.id).dialog("createDialog", options);
-
-            var dialog = options.dialog;
-            var grid = options.grid;
-            var parentGrid = options.parentGrid;
-
-            options.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
-            options.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
-
-            if (typeof parentGrid == "object") {
-                openDialogAndloadDataByParentGrid(options);
-            } else if (dialog.url) {
-                openDialogAndloadDataByUrl(options);
-            } else {
-                if (grid.uncheckedMsg) {
-                    var rows = getCheckedRowsData(grid.type, grid.id);
-                    if (rows.length == 0) {
-                        $.messager.alert(
-                            topJUI.language.message.title.operationTips,
-                            options.grid.uncheckedMsg,
-                            topJUI.language.message.icon.warning
-                        );
-                        return;
-                    }
-                }
-                if (dialog.onBeforeOpen != "undefined") {
-                    // 回调执行传入的自定义函数
-                    executeCallBackFun(dialog.onBeforeOpen, options);
-                }
-
-                options.href = appendSourceUrlParam(dialog.href);
-                var $dialogObj = $("#" + dialog.id);
-                $dialogObj.iDialog(options);
-                if (options.dialog.href.indexOf("{") != -1) {
-                    var row = getSelectedRowData(options.grid.type, options.grid.id);
-                    // 替换本表中选中行占位值
-                    var newHref = replaceUrlParamValueByBrace(appendSourceUrlParam(dialog.href), row);
-                    $dialogObj.dialog({
-                        href: newHref
-                    });
-                    //$dialogObj.dialog('open').dialog("refresh", newHref); //加载两次href指定的页面
-                    $dialogObj.dialog('open');
-                } else {
-                    $dialogObj.dialog('open');
-                }
-            }
+        openDialog: function (jq) {
+            //var options = $.data(jq[0], "menubutton").options;
+            //openDialog(jq[0]);
+            return jq.each(function () {
+                openDialog(this);
+            });
         },
         openTab: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //addParentTab(jq[0]);
             return jq.each(function () {
                 addParentTab(this);
             });
         },
         openWindow: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //openWindow(jq[0]);
             return jq.each(function () {
                 openWindow(this);
             });
@@ -21238,20 +21238,24 @@ Array.prototype.remove = function (val) {
             });
         },
         filter: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            filterHandler(options);
+            return jq.each(function () {
+                filterHandler(this);
+            });
         },
         search: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            searchHandler(options);
+            return jq.each(function () {
+                searchHandler(this);
+            });
         },
         export: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            exportHandler(options);
+            return jq.each(function () {
+                exportHandler(this);
+            });
         },
-        import: function (target, options) {
-            var options = $.data(target[0], "menubutton").options;
-            importHandler(options);
+        import: function (jq) {
+            return jq.each(function () {
+                importHandler(this);
+            });
         }
 
     });

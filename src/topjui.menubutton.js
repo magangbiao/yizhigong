@@ -17,67 +17,19 @@
 
     $.extend($.fn.menubutton.methods, {
 
-        openDialog: function (target) {
-            //var options = $(this).menubutton('options'); // 事件中获取参数
-            var options = $.data(target[0], "menubutton").options;
-            //var options = target[0].dataset.options;
-            $("#" + options.dialog.id).dialog("createDialog", options);
-
-            var dialog = options.dialog;
-            var grid = options.grid;
-            var parentGrid = options.parentGrid;
-
-            options.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
-            options.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
-
-            if (typeof parentGrid == "object") {
-                openDialogAndloadDataByParentGrid(options);
-            } else if (dialog.url) {
-                openDialogAndloadDataByUrl(options);
-            } else {
-                if (grid.uncheckedMsg) {
-                    var rows = getCheckedRowsData(grid.type, grid.id);
-                    if (rows.length == 0) {
-                        $.messager.alert(
-                            topJUI.language.message.title.operationTips,
-                            options.grid.uncheckedMsg,
-                            topJUI.language.message.icon.warning
-                        );
-                        return;
-                    }
-                }
-                if (dialog.onBeforeOpen != "undefined") {
-                    // 回调执行传入的自定义函数
-                    executeCallBackFun(dialog.onBeforeOpen, options);
-                }
-
-                options.href = appendSourceUrlParam(dialog.href);
-                var $dialogObj = $("#" + dialog.id);
-                $dialogObj.iDialog(options);
-                if (options.dialog.href.indexOf("{") != -1) {
-                    var row = getSelectedRowData(options.grid.type, options.grid.id);
-                    // 替换本表中选中行占位值
-                    var newHref = replaceUrlParamValueByBrace(appendSourceUrlParam(dialog.href), row);
-                    $dialogObj.dialog({
-                        href: newHref
-                    });
-                    //$dialogObj.dialog('open').dialog("refresh", newHref); //加载两次href指定的页面
-                    $dialogObj.dialog('open');
-                } else {
-                    $dialogObj.dialog('open');
-                }
-            }
+        openDialog: function (jq) {
+            //var options = $.data(jq[0], "menubutton").options;
+            //openDialog(jq[0]);
+            return jq.each(function () {
+                openDialog(this);
+            });
         },
         openTab: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //addParentTab(jq[0]);
             return jq.each(function () {
                 addParentTab(this);
             });
         },
         openWindow: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //openWindow(jq[0]);
             return jq.each(function () {
                 openWindow(this);
             });
@@ -98,20 +50,24 @@
             });
         },
         filter: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            filterHandler(options);
+            return jq.each(function () {
+                filterHandler(this);
+            });
         },
         search: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            searchHandler(options);
+            return jq.each(function () {
+                searchHandler(this);
+            });
         },
         export: function (jq) {
-            var options = $.data(jq[0], "menubutton").options;
-            exportHandler(options);
+            return jq.each(function () {
+                exportHandler(this);
+            });
         },
-        import: function (target, options) {
-            var options = $.data(target[0], "menubutton").options;
-            importHandler(options);
+        import: function (jq) {
+            return jq.each(function () {
+                importHandler(this);
+            });
         }
 
     });

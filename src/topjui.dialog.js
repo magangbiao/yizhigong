@@ -1,8 +1,8 @@
 (function ($) {
 
     $.fn.iDialog = function (options) {
-        var dialogOptions = options.dialog;
-        var $dialogObj = $("#" + dialogOptions.id);
+        var dialog = options.dialog;
+        var $dialogObj = $("#" + dialog.id);
         var defaults = {
             currentDialogId: this.selector,
             width: 700,
@@ -37,25 +37,25 @@
                 $.messager.progress('close');
                 $(this).trigger(topJUI.eventType.initUI.form);
                 $(this).dialog("center");
-                if (dialogOptions.url != undefined) {
+                if (dialog.url != undefined) {
                     // 获取选中行的数据
                     var row = getSelectedRowData(options.grid.type, options.grid.id);
                     // 如果指定了数据来源URL，则通过URL加载数据
-                    var newDialogUrl = replaceUrlParamValueByBrace(dialogOptions.url, row);
+                    var newDialogUrl = replaceUrlParamValueByBrace(dialog.url, row);
                     $.getJSON(newDialogUrl, function (data) {
                         $dialogObj.form('load', data);
-                        if (typeof dialogOptions.editor == "string" || typeof dialogOptions.editor == "object") {
+                        if (typeof dialog.editor == "string" || typeof dialog.editor == "object") {
                             // kindeditor编辑器处理
-                            if (typeof dialogOptions.editor == "string") {
+                            if (typeof dialog.editor == "string") {
                                 // 富文本编辑器字符串
                                 var ke = [], keObj = [];
-                                ke = dialogOptions.editor.replace(/'/g, '"').split(",");
+                                ke = dialog.editor.replace(/'/g, '"').split(",");
                                 for (var i = 0; i < ke.length; i++) {
                                     keObj.push(strToJson(ke[i]));
                                 }
                             } else {
                                 // 富文本编辑数组
-                                keObj = dialogOptions.editor;
+                                keObj = dialog.editor;
                             }
                             for (var i = 0; i < keObj.length; i++) {
                                 var editorType = keObj[i]["type"];
@@ -86,62 +86,54 @@
                 }
             },
             onClose: function () {
-                $(dialogOptions.currentDialogId).form('clear');
+                $(dialog.currentDialogId).form('clear');
             }
         }
 
-        dialogOptions = $.extend(defaults, options.dialog);
+        dialog = $.extend(defaults, options.dialog);
 
         var controllerUrl = getUrl('controller');
-        dialogOptions.href = dialogOptions.href ? dialogOptions.href + location.search : controllerUrl + "edit" + location.search;
+        dialog.href = dialog.href ? dialog.href + location.search : controllerUrl + "edit" + location.search;
 
-        $(this).dialog(dialogOptions);
+        $(this).dialog(dialog);
     }
 
     $.extend($.fn.dialog.methods, {
-        createDialog: function (jq, options) {
-            //var options = $.data(jq, "dialog").options;
+        createDialog: function (jq, opts) {
+            //var opts = $.data(jq, "dialog").options;
             //模态窗口随机id
-            console.log(options.dialog.id);
-            if (options.dialog.id == undefined) options.dialog.id = getRandomNumByDef();
-            var divOrForm = options.dialog.form == false ? "div" : "form";
-            var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
+            if (opts.dialog.id == undefined) opts.dialog.id = getRandomNumByDef();
+            var divOrForm = opts.dialog.form == false ? "div" : "form";
+            var dialogDom = '<' + divOrForm + ' id="' + opts.dialog.id + '"></' + divOrForm + '>';
 
-            // 判断dialog是否存在linkbutton按钮组
+            // 判断是否存在linkbutton按钮组
             var buttonsDom = "";
-            var buttonsIdArr = [];
-            if (typeof options.dialog.buttonsGroup == "object") {
-                var buttonsArr = options.dialog.buttonsGroup;
-                var btLength = buttonsArr.length;
-                if (btLength > 0) {
-                    for (var i = 0; i < btLength; i++) {
-                        //默认以ajaxForm方式提交
-                        if (!buttonsArr[i].handler) {
-                            buttonsArr[i].handler = 'ajaxForm';
-                        }
-                        //按钮随机id
-                        if (buttonsArr[i].id == undefined) buttonsIdArr.push(getRandomNumByDef());
-                        buttonsDom += '<a id="' + buttonsIdArr[i] + '" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
+            var btnIdArr = [];
+            if (typeof opts.dialog.buttonsGroup == "object") {
+                var btnArr = opts.dialog.buttonsGroup;
+                $.each(btnArr, function (i, btn) {
+                    //默认以ajaxForm方式提交
+                    if (!btn.handler) {
+                        btn.handler = 'ajaxForm';
                     }
-                }
+                    //按钮随机id
+                    if (btn.id == undefined) btnIdArr.push(getRandomNumByDef());
+                    buttonsDom += '<a id="' + btnIdArr[i] + '" href="#" data-options="menubuttonId:\'' + opts.id + '\',dialogId:\'' + opts.dialog.id + '\'">' + btn.text + '</a>';
+                });
             }
             getTabWindow().$('body').append(
                 dialogDom +
-                '<div id="' + options.dialog.id + '-buttons" style="display:none">' +
+                '<div id="' + opts.dialog.id + '-buttons" style="display:none">' +
                 buttonsDom +
-                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
+                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + opts.dialog.id + '\').dialog(\'close\')">关闭</a>' +
                 '</div>'
             );
-            //自定义按钮
-            if (typeof options.dialog.buttonsGroup == "object") {
-                var buttonsArr = options.dialog.buttonsGroup;
-                var btLength = buttonsArr.length;
-                if (btLength > 0) {
-                    for (var i = 0; i < btLength; i++) {
-                        var button1Opt = options.dialog.buttonsGroup[i];
-                        $("#" + buttonsIdArr[i]).iLinkbutton(button1Opt);
-                    }
-                }
+            //渲染自定义按钮
+            if (typeof opts.dialog.buttonsGroup == "object") {
+                var btnOptsArr = opts.dialog.buttonsGroup;
+                $.each(btnOptsArr, function (i, btnOpts) {
+                    $("#" + btnIdArr[i]).iLinkbutton(btnOpts);
+                });
             }
             //关闭按钮
             $(".closeDialog").iLinkbutton({
@@ -149,7 +141,7 @@
                 btnCls: 'topjui-btn-danger'
             });
             //模态对话框
-            $("#" + options.dialog.id).iDialog(options);
+            $("#" + opts.dialog.id).iDialog(opts);
         }
     });
 
