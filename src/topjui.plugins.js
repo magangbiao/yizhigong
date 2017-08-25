@@ -419,7 +419,7 @@
             var $element = $(this);
             var options = getOptionsJson($element);
 
-            options.id = getTimestamp();
+            options.id = getRandomNumByDef();
             $(this).attr("id", options.id);
 
             options = bindMenuClickEvent($element, options);

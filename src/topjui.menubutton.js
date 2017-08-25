@@ -83,22 +83,16 @@
             });
         },
         doAjax: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //doAjaxHandler(options);
             return jq.each(function () {
                 doAjaxHandler(this);
             });
         },
         request: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //requestHandler(options);
             return jq.each(function () {
                 requestHandler(this);
             });
         },
         delete: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //deleteHandler(options);
             return jq.each(function () {
                 deleteHandler(this);
             });

@@ -476,7 +476,7 @@ function openDialogAndloadDataByUrl(options) {
     if (options.dialog.beforeOpenCheckUrl) {
         if (!beforeOpenCheck(replaceUrlParamValueByBrace(options.dialog.beforeOpenCheckUrl, row))) return;
     }
-    
+
     var $dialogObj = $("#" + options.dialog.id);
     $dialogObj.iDialog(options);
 

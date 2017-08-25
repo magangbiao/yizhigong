@@ -387,6 +387,10 @@ function getRandomNum(minNum, maxNum) {
     }
 }
 
+function getRandomNumByDef() {
+    return getRandomNum(100000, 999999);
+}
+
 /*Array.prototype.remove = function (dx) {
  if (isNaN(dx) || dx > this.length) {
  return false;

@@ -18155,7 +18155,7 @@ function openDialogAndloadDataByUrl(options) {
     if (options.dialog.beforeOpenCheckUrl) {
         if (!beforeOpenCheck(replaceUrlParamValueByBrace(options.dialog.beforeOpenCheckUrl, row))) return;
     }
-    
+
     var $dialogObj = $("#" + options.dialog.id);
     $dialogObj.iDialog(options);
 
@@ -19820,21 +19820,27 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
     $.extend($.fn.dialog.methods, {
         createDialog: function (jq, options) {
             //var options = $.data(jq, "dialog").options;
+            //模态窗口随机id
+            console.log(options.dialog.id);
+            if (options.dialog.id == undefined) options.dialog.id = getRandomNumByDef();
             var divOrForm = options.dialog.form == false ? "div" : "form";
             var dialogDom = '<' + divOrForm + ' id="' + options.dialog.id + '"></' + divOrForm + '>';
 
             // 判断dialog是否存在linkbutton按钮组
             var buttonsDom = "";
+            var buttonsIdArr = [];
             if (typeof options.dialog.buttonsGroup == "object") {
                 var buttonsArr = options.dialog.buttonsGroup;
                 var btLength = buttonsArr.length;
                 if (btLength > 0) {
                     for (var i = 0; i < btLength; i++) {
-                        // 默认为ajaxForm提交方式
+                        //默认以ajaxForm方式提交
                         if (!buttonsArr[i].handler) {
                             buttonsArr[i].handler = 'ajaxForm';
                         }
-                        buttonsDom += '<a id="buttonId" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
+                        //按钮随机id
+                        if (buttonsArr[i].id == undefined) buttonsIdArr.push(getRandomNumByDef());
+                        buttonsDom += '<a id="' + buttonsIdArr[i] + '" href="#" data-options="menubuttonId:\'' + options.id + '\',dialogId:\'' + options.dialog.id + '\'">' + buttonsArr[i].text + '</a>';
                     }
                 }
             }
@@ -19845,14 +19851,23 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
                 '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
                 '</div>'
             );
-
-            //getTabWindow().$('body').append(dialogDom);
-            var button1Opt = options.dialog.buttonsGroup[0];
-            $("#buttonId").iLinkbutton(button1Opt);
+            //自定义按钮
+            if (typeof options.dialog.buttonsGroup == "object") {
+                var buttonsArr = options.dialog.buttonsGroup;
+                var btLength = buttonsArr.length;
+                if (btLength > 0) {
+                    for (var i = 0; i < btLength; i++) {
+                        var button1Opt = options.dialog.buttonsGroup[i];
+                        $("#" + buttonsIdArr[i]).iLinkbutton(button1Opt);
+                    }
+                }
+            }
+            //关闭按钮
             $(".closeDialog").iLinkbutton({
                 iconCls: 'fa fa-close',
                 btnCls: 'topjui-btn-danger'
             });
+            //模态对话框
             $("#" + options.dialog.id).iDialog(options);
         }
     });
@@ -20995,6 +21010,10 @@ function getRandomNum(minNum, maxNum) {
     }
 }
 
+function getRandomNumByDef() {
+    return getRandomNum(100000, 999999);
+}
+
 /*Array.prototype.remove = function (dx) {
  if (isNaN(dx) || dx > this.length) {
  return false;
@@ -21204,22 +21223,16 @@ Array.prototype.remove = function (val) {
             });
         },
         doAjax: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //doAjaxHandler(options);
             return jq.each(function () {
                 doAjaxHandler(this);
             });
         },
         request: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //requestHandler(options);
             return jq.each(function () {
                 requestHandler(this);
             });
         },
         delete: function (jq) {
-            //var options = $.data(jq[0], "menubutton").options;
-            //deleteHandler(options);
             return jq.each(function () {
                 deleteHandler(this);
             });
@@ -21664,7 +21677,7 @@ Array.prototype.remove = function (val) {
             var $element = $(this);
             var options = getOptionsJson($element);
 
-            options.id = getTimestamp();
+            options.id = getRandomNumByDef();
             $(this).attr("id", options.id);
 
             options = bindMenuClickEvent($element, options);
