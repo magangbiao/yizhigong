@@ -107,8 +107,7 @@
             var dialogDom = '<' + divOrForm + ' id="' + opts.dialog.id + '"></' + divOrForm + '>';
 
             // 判断是否存在linkbutton按钮组
-            var buttonsDom = "";
-            var btnIdArr = [];
+            var buttonsDom = "", btnIdArr = [];
             if (typeof opts.dialog.buttonsGroup == "object") {
                 var btnArr = opts.dialog.buttonsGroup;
                 $.each(btnArr, function (i, btn) {
