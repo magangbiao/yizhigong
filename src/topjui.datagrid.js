@@ -101,6 +101,7 @@
             singleSelect: options.singleSelect,
             url: appendSourceUrlParam(options.url),
             toolbar: options.toolbar,
+            filter: options.filter,
             //queryParams : {},
             //loadMsg: options.loadMsg,
             rownumbers: options.rownumbers,

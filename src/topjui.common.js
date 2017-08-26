@@ -82,17 +82,17 @@ openDialog = function (target) {
         openDialogAndloadDataByUrl(opts);
     } else {
         /*console.log(typeof opts.grid.uncheckedMsg);
-        if (typeof opts.grid.uncheckedMsg == "string") {
-            var rows = getCheckedRowsData(grid.type, grid.id);
-            if (rows.length == 0) {
-                $.messager.alert(
-                    topJUI.language.message.title.operationTips,
-                    opts.grid.uncheckedMsg,
-                    topJUI.language.message.icon.warning
-                );
-                return;
-            }
-        }*/
+         if (typeof opts.grid.uncheckedMsg == "string") {
+         var rows = getCheckedRowsData(grid.type, grid.id);
+         if (rows.length == 0) {
+         $.messager.alert(
+         topJUI.language.message.title.operationTips,
+         opts.grid.uncheckedMsg,
+         topJUI.language.message.icon.warning
+         );
+         return;
+         }
+         }*/
         if (dialog.onBeforeOpen != "undefined") {
             // 回调执行传入的自定义函数
             executeCallBackFun(dialog.onBeforeOpen, opts);
@@ -944,18 +944,18 @@ function deleteHandler(target) {
  * @param options
  */
 function filterHandler(target) {
-    var options = $.data(target, "menubutton").options;
-    if (typeof options.grid == "object") {
-        var gridId = options.grid.id;
+    var opts = $.data(target, "menubutton").options;
+    if (typeof opts.grid == "object") {
+        var gridId = opts.grid.id;
         var gridOptions = $("#" + gridId).datagrid("options");
         var filter = gridOptions.filter ? gridOptions.filter : [];
-        if (options.grid.type == "datagrid") {
+        if (opts.grid.type == "datagrid") {
             if ($(".datagrid-filter-row").length > 0) {
                 $("#" + gridId).datagrid('disableFilter');
             } else {
                 $("#" + gridId).datagrid('enableFilter', filter);
             }
-        } else if (options.grid.type == "treegrid") {
+        } else if (opts.grid.type == "treegrid") {
             if ($(".datagrid-filter-row").length > 0) {
                 $("#" + gridId).treegrid('disableFilter');
             } else {
