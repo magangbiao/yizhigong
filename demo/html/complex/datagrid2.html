@@ -185,12 +185,12 @@
 
         $("#edit").iMenubutton({
             clickEvent: 'openDialog',
+            iconCls: 'fa fa-pencil',
             btnCls: 'topjui-btn',
             grid: {
                 type: 'datagrid',
                 id: 'productDg'
             },
-            iconCls: 'fa fa-pencil',
             dialog: {
                 height: 350,
                 href: contextPath + '/html/complex/edit.html?uuid={uuid}',
@@ -209,8 +209,8 @@
 
         $("#delete").iMenubutton({
             clickEvent: 'doAjax',
-            btnCls: 'topjui-btn-normal',
             iconCls: 'fa fa-trash',
+            btnCls: 'topjui-btn-normal',
             url: contextPath + '/json/response/success.json',
             grid: {
                 type: 'datagrid',
