@@ -16129,7 +16129,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 					}
 				}
 			});
-			return deleteMethod1.call($.fn.datagrid.methods, jq, index);
+			return deleteMethod1.call($.fn.datagrid.methods, jq, index);		
 		}
 	});
 
@@ -16256,7 +16256,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 				};
 			}
 			return data;
-
+			
 			function isMatch(row, index){
 				var rules = opts.filterRules;
 				if (!rules.length){return true;}
@@ -16343,7 +16343,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 	};
 	$.extend($.fn.datagrid.defaults, extendedOptions);
 	$.extend($.fn.treegrid.defaults, extendedOptions);
-
+	
 	// filter types
 	$.fn.datagrid.defaults.filters = $.extend({}, $.fn.datagrid.defaults.editors, {
 		label: {
@@ -16362,7 +16362,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		}
 	});
 	$.fn.treegrid.defaults.filters = $.fn.datagrid.defaults.filters;
-
+	
 	// filter operators
 	$.fn.datagrid.defaults.operators = {
 		nofilter: {
@@ -16430,7 +16430,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		}
 	};
 	$.fn.treegrid.defaults.operators = $.fn.datagrid.defaults.operators;
-
+	
 	function resizeFilter(target, field){
 		var toFixColumnSize = false;
 		var dg = $(target);
@@ -16454,7 +16454,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			}
 		});
 		if (toFixColumnSize){
-			$(target).datagrid('fixColumnSize');
+			$(target).datagrid('fixColumnSize');			
 		}
 
 		function _getContentWidth(cc){
@@ -16465,12 +16465,12 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			return w;
 		}
 	}
-
+	
 	function getFilterComponent(target, field){
 		var header = $(target).datagrid('getPanel').find('div.datagrid-header');
 		return header.find('tr.datagrid-filter-row td[field="'+field+'"] .datagrid-filter');
 	}
-
+	
 	/**
 	 * get filter rule index, return -1 if not found.
 	 */
@@ -16495,7 +16495,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			return null;
 		}
 	}
-
+	
 	function addFilterRule(target, param){
 		var name = getPluginName(target);
 		var opts = $(target)[name]('options');
@@ -16528,7 +16528,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			}
 		}
 	}
-
+	
 	function removeFilterRule(target, field){
 		var name = getPluginName(target);
 		var dg = $(target);
@@ -16544,7 +16544,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			var fields = dg.datagrid('getColumnFields',true).concat(dg.datagrid('getColumnFields'));
 			_clear(fields);
 		}
-
+		
 		function _clear(fields){
 			for(var i=0; i<fields.length; i++){
 				var input = getFilterComponent(target, fields[i]);
@@ -16558,7 +16558,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			}
 		}
 	}
-
+	
 	function doFilter(target){
 		var name = getPluginName(target);
 		var state = $.data(target, name);
@@ -16571,7 +16571,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			$(target)[name]('loadData', state.filterSource || state.data);
 		}
 	}
-
+	
 	function translateTreeData(target, children, pid){
 		var opts = $(target).treegrid('options');
 		if (!children || !children.length){return []}
@@ -16679,8 +16679,8 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			        	row._parentId ? childRows.push(row) : topRows.push(row);
 			        });
 			        data.total = topRows.length;
-			        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-			        var end = start + parseInt(opts.pageSize);
+			        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);  
+			        var end = start + parseInt(opts.pageSize);  
 					data.rows = topRows.slice(start, end).concat(childRows);
 				}
 			}
@@ -16690,7 +16690,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		}
 		return data;
 	}
-
+	
 	function init(target, filters){
 		filters = filters || [];
 		var name = getPluginName(target);
@@ -16701,7 +16701,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		}
 		opts.filterCache = opts.filterCache || {};
 		var dgOpts = $.data(target, 'datagrid').options;
-
+		
 		var onResize = dgOpts.onResize;
 		dgOpts.onResize = function(width,height){
 			resizeFilter(target);
@@ -16711,7 +16711,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		dgOpts.onBeforeSortColumn = function(sort, order){
 			var result = onBeforeSortColumn.call(this, sort, order);
 			if (result != false){
-				opts.isSorting = true;
+				opts.isSorting = true;				
 			}
 			return result;
 		};
@@ -16763,7 +16763,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			var d = opts.oldLoadFilter.call(this, data, parentId);
 			return myLoadFilter.call(this, d, parentId);
 		};
-
+		
 		initCss();
 		createFilter(true);
 		createFilter();
@@ -16776,7 +16776,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 		$.map(opts.filterRules, function(rule){
 			addFilterRule(target, rule);
 		});
-
+		
 		function initCss(){
 			if (!$('#datagrid-filter-style').length){
 				$('head').append(
@@ -16790,7 +16790,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 				);
 			}
 		}
-
+		
 		/**
 		 * create filter component
 		 */
@@ -16801,7 +16801,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 				fields.unshift('_');
 			}
 			var table = (frozen?dc.header1:dc.header2).find('table.datagrid-htable');
-
+			
 			// clear the old filter component
 			table.find('.datagrid-filter').each(function(){
 				if (this.filter.destroy){
@@ -16812,7 +16812,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 				}
 			});
 			table.find('tr.datagrid-filter-row').remove();
-
+			
 			var tr = $('<tr class="datagrid-header-row datagrid-filter-row"></tr>');
 			if (opts.filterPosition == 'bottom'){
 				tr.appendTo(table.find('tbody'));
@@ -16822,7 +16822,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			if (!opts.showFilterBar){
 				tr.hide();
 			}
-
+			
 			for(var i=0; i<fields.length; i++){
 				var field = fields[i];
 				var col = $(target).datagrid('getColumnOption', field);
@@ -16870,10 +16870,10 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 				}
 			}
 		}
-
+		
 		function createFilterButton(container, operators){
 			if (!operators){return null;}
-
+			
 			var btn = $('<a class="datagrid-filter-btn">&nbsp;</a>').addClass(opts.filterBtnIconCls);
 			if (opts.filterBtnPosition == 'right'){
 				btn.appendTo(container);
@@ -16896,17 +16896,17 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 					var field = td.attr('field');
 					var input = td.find('.datagrid-filter');
 					var value = input[0].filter.getValue(input);
-
+					
 					if (opts.onClickMenu.call(target, item, btn, field) == false){
 						return;
 					}
-
+					
 					addFilterRule(target, {
 						field: field,
 						op: item.name,
 						value: value
 					});
-
+					
 					doFilter(target);
 				}
 			});
@@ -16918,7 +16918,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			});
 			return menu;
 		}
-
+		
 		function getFilter(field){
 			for(var i=0; i<filters.length; i++){
 				var filter = filters[i];
@@ -16929,7 +16929,7 @@ return opts.min+(opts.max-opts.min)*(pos/size);
 			return null;
 		}
 	}
-
+	
 	$.extend($.fn.datagrid.methods, {
 		enableFilter: function(jq, filters){
 			return jq.each(function(){

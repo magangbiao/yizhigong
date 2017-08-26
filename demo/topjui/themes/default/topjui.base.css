@@ -294,9 +294,9 @@
 .window,
 .window-shadow {
     position: absolute;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .window-shadow {
@@ -520,7 +520,7 @@
 }
 
 .l-btn-plain:hover {
-    padding: 0;
+    /*padding: 0;*/
 }
 
 .l-btn-focus {
@@ -575,7 +575,7 @@
     color: #555; /* #444 */
     background: #fafafa;
     background-repeat: repeat-x;
-    border: 1px solid #bbb;
+    border: 0px solid #bbb;
     /*background: -webkit-linear-gradient(top, #ffffff 0, #eeeeee 100%);
     background: -moz-linear-gradient(top, #ffffff 0, #eeeeee 100%);
     background: -o-linear-gradient(top, #ffffff 0, #eeeeee 100%);
@@ -590,7 +590,7 @@
 .l-btn:hover {
     /*background: #e2e2e2;*/
     color: #000000; /* #000000 */
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     /*filter: none;*/
     opacity: .8;
     filter: alpha(opacity=80);
@@ -611,10 +611,10 @@
 .l-btn-plain:hover {
     /*background: #e2e2e2;*/
     color: #000000;
-    border: 1px solid #ccc;
-    -moz-border-radius: 2px 2px 2px 2px;
+    border: 0px solid #ccc;
+    /*-moz-border-radius: 2px 2px 2px 2px;
     -webkit-border-radius: 2px 2px 2px 2px;
-    border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;*/
 }
 
 .l-btn-disabled,
@@ -1376,9 +1376,9 @@
 }
 
 .tabs-header .tabs-pill li a.tabs-inner {
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .tabs-header-narrow,
@@ -2143,9 +2143,9 @@
     line-height: 18px;
     font-size: 12px;
     cursor: pointer;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-prevmonth,
@@ -2159,9 +2159,9 @@
     height: 14px;
     cursor: pointer;
     font-size: 1px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-prevmonth {
@@ -2197,9 +2197,9 @@
     border: 0;
     padding: 1px;
     cursor: pointer;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-other-month {
@@ -2241,9 +2241,9 @@
     padding: 2px;
     font-weight: bold;
     font-size: 12px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-menu-prev,
@@ -2253,9 +2253,9 @@
     height: 21px;
     vertical-align: top;
     cursor: pointer;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-menu-prev {
@@ -2272,9 +2272,9 @@
     text-align: center;
     cursor: pointer;
     font-weight: bold;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .calendar-body th,
@@ -2447,9 +2447,9 @@
 .progressbar {
     border-width: 1px;
     border-style: solid;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
     overflow: hidden;
     position: relative;
 }
@@ -2691,11 +2691,11 @@
 .menu-item {
     position: relative;
     margin: 0;
-    padding: 0;
+    padding: 2px;
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
 }
 
@@ -2747,9 +2747,9 @@
 }
 
 .menu-active {
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .menu-item-disabled {
@@ -2765,9 +2765,9 @@
 
 .menu-shadow {
     position: absolute;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
     background: #ccc;
     -moz-box-shadow: 2px 2px 3px #cccccc;
     -webkit-box-shadow: 2px 2px 3px #cccccc;
@@ -2832,19 +2832,19 @@
 .s-btn-active {
     background: #e2e2e2;
     color: #000000;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     filter: none;
 }
 
 .m-btn-plain-active,
 .s-btn-plain-active {
     background: transparent;
-    padding: 0;
-    border-width: 1px;
+    /*padding: 0;*/
+    border-width: 0px;
     border-style: solid;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .m-btn .l-btn-left .l-btn-text {
@@ -3212,9 +3212,9 @@
     border-width: 1px;
     border-style: solid;
     border-radius: 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .tooltip-content {
@@ -3335,9 +3335,9 @@
     cursor: pointer;
     background: #bbb;
     border: 1px solid #bbb;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .switchbutton-inner {
@@ -3356,9 +3356,9 @@
     height: 100%;
     float: left;
     font-size: 12px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
 }
 
 .switchbutton-on {
