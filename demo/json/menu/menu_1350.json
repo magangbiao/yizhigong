@@ -4,8 +4,16 @@
     "pid": 1350,
     "state": "open",
     "iconCls": "",
-    "text": "数据表格",
+    "text": "数据表格（HTML实现）",
     "url": "./html/complex/datagrid.html"
+  },
+  {
+    "id": 13561,
+    "pid": 1350,
+    "state": "open",
+    "iconCls": "",
+    "text": "数据表格（API实现）",
+    "url": "./html/complex/datagrid2.html"
   },
   {
     "id": 1357,

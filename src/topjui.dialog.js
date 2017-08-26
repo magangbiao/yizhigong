@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.fn.iDialog = function (options) {
+    $.fn.iDialog = function (options, param) {
         var dialog = options.dialog;
         var $dialogObj = $("#" + dialog.id);
         var defaults = {

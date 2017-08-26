@@ -22,62 +22,7 @@
 </head>
 
 <body>
-<table data-toggle="topjui-datagrid"
-       data-options="id: 'productDg',
-            url: '../../json/product/list.json',
-            filter: [{
-                field: 'name',
-                type: 'textbox',
-                op: ['contains', 'equal', 'notequal', 'less', 'greater']
-            }, {
-                field: 'code',
-                type: 'combobox',
-                options: {
-                    valueField: 'label',
-                    textField: 'value',
-                    data: [{
-                        label: '2103',
-                        value: '2103'
-                    }, {
-                        label: '5103',
-                        value: '5103'
-                    }, {
-                        label: '1204',
-                        value: '1204'
-                    }]
-                },
-                op: ['contains', 'equal', 'notequal', 'less', 'greater']
-            }, {
-                field: 'spec',
-                type: 'combobox',
-                options: {
-                    valueField: 'label',
-                    textField: 'value',
-                    multiple: true,
-                    data: [{
-                        label: 'KC-W200SW',
-                        value: 'KC-W200SW'
-                    }, {
-                        label: '白色LR-1688BY-2',
-                        value: '白色LR-1688BY-2'
-                    }, {
-                        label: '银灰色BCD-339WBA 339',
-                        value: '银灰色BCD-339WBA 339'
-                    }]
-                },
-                op: ['contains', 'equal', 'notequal', 'less', 'greater']
-            }]">
-    <thead>
-    <tr>
-        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
-        <th data-options="field:'name',title:'商品名称',sortable:true"></th>
-        <th data-options="field:'code',title:'商品编号',sortable:true"></th>
-        <th data-options="field:'spec',title:'规格型号',sortable:true"></th>
-        <th data-options="field:'sale_price',title:'销售单价',sortable:true"></th>
-        <th data-options="field:'rate',title:'完成率',sortable:true,formatter:progressFormatter"></th>
-    </tr>
-    </thead>
-</table>
+<table id="productDg"></table>
 
 <!-- 表格工具栏开始 -->
 <div id="productDg-toolbar"
@@ -85,56 +30,16 @@
            type:'datagrid',
            id:'productDg'
        }" style="display:none">
-    <a href="javascript:void(0)"
-       data-toggle="topjui-menubutton"
-       data-options="clickEvent:'openDialog',
-       dialog:{
-           id:'userAddDialog',
-           height:350,
-           href:contextPath + '/html/complex/add.html',
-           buttonsGroup:[
-               {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
-           ]
-       }">新增</a>
-    <a href="javascript:void(0)"
-       data-toggle="topjui-menubutton"
-       data-options="clickEvent: 'openDialog',
-            btnCls: 'topjui-btn',
-            grid: {
-                type: 'datagrid',
-                id: 'productDg'
-            },
-            iconCls: 'fa fa-pencil',
-            dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
-                url: contextPath + '/json/product/detail.json?uuid={uuid}',
-                buttonsGroup: [
-                    {
-                        text: '更新',
-                        url: contextPath + '/json/response/success.json',
-                        iconCls: 'fa fa-save',
-                        handler: 'ajaxForm',
-                        btnCls: 'topjui-btn'
-                    }
-                ]
-            }">编辑</a>
-    <a href="javascript:void(0)"
-       data-toggle="topjui-menubutton"
-       data-options="clickEvent:'doAjax',btnCls:'topjui-btn-normal',
-       iconCls:'fa fa-trash',
-       url:contextPath + '/json/response/success.json',
-       grid: {uncheckedMsg:'请先勾选要删除的数据',param:'uuid:uuid,code:code'}">删除</a>
+    <a id="add" href="javascript:void(0)">新增</a>
+    <a id="edit" href="javascript:void(0)">编辑</a>
+    <a id="delete" href="javascript:void(0)">删除</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'filter',btnCls:'topjui-btn-warm'">过滤</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'search',btnCls:'topjui-btn-danger'">查询</a>
-    <a href="javascript:void(0)"
-       data-toggle="topjui-menubutton"
-       data-options="clickEvent:'export',btnCls:'topjui-btn',
-       url:contextPath + '/json/response/export.html'">导出</a>
+    <a id="export" href="javascript:void(0)">导出</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'openTab',btnCls:'topjui-btn-normal',
@@ -202,6 +107,126 @@
         htmlstr += '</div>';
         return htmlstr;
     }
+
+    $(function () {
+
+        $("#productDg").iDatagrid({
+            id: 'productDg',
+            url: '../../json/product/list.json',
+            columns: [[
+                {field: 'uuid', title: 'UUID', checkbox: true},
+                {field: 'name', title: '商品名称', sortable: true},
+                {field: 'code', title: '商品编号', sortable: true},
+                {field: 'spec', title: '规格型号', sortable: true},
+                {field: 'sale_price', title: '销售单价', sortable: true},
+                {field: 'rate', title: '完成率', sortable: true, formatter: progressFormatter}
+            ]],
+            filter: [{
+                field: 'name',
+                type: 'textbox',
+                op: ['contains', 'equal', 'notequal', 'less', 'greater']
+            }, {
+                field: 'code',
+                type: 'combobox',
+                options: {
+                    valueField: 'label',
+                    textField: 'value',
+                    data: [{
+                        label: '2103',
+                        value: '2103'
+                    }, {
+                        label: '5103',
+                        value: '5103'
+                    }, {
+                        label: '1204',
+                        value: '1204'
+                    }]
+                },
+                op: ['contains', 'equal', 'notequal', 'less', 'greater']
+            }, {
+                field: 'spec',
+                type: 'combobox',
+                options: {
+                    valueField: 'label',
+                    textField: 'value',
+                    multiple: true,
+                    data: [{
+                        label: 'KC-W200SW',
+                        value: 'KC-W200SW'
+                    }, {
+                        label: '白色LR-1688BY-2',
+                        value: '白色LR-1688BY-2'
+                    }, {
+                        label: '银灰色BCD-339WBA 339',
+                        value: '银灰色BCD-339WBA 339'
+                    }]
+                },
+                op: ['contains', 'equal', 'notequal', 'less', 'greater']
+            }]
+        });
+
+        $("#add").iMenubutton({
+            clickEvent: 'openDialog',
+            dialog: {
+                id: 'userAddDialog',
+                height: 350,
+                href: contextPath + '/html/complex/add.html',
+                buttonsGroup: [
+                    {
+                        text: '保存',
+                        url: contextPath + '/json/response/success.json',
+                        iconCls: 'fa fa-plus',
+                        handler: 'ajaxForm',
+                        btnCls: 'topjui-btn-normal'
+                    }
+                ]
+            }
+        });
+
+        $("#edit").iMenubutton({
+            clickEvent: 'openDialog',
+            btnCls: 'topjui-btn',
+            grid: {
+                type: 'datagrid',
+                id: 'productDg'
+            },
+            iconCls: 'fa fa-pencil',
+            dialog: {
+                height: 350,
+                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                url: contextPath + '/json/product/detail.json?uuid={uuid}',
+                buttonsGroup: [
+                    {
+                        text: '更新',
+                        url: contextPath + '/json/response/success.json',
+                        iconCls: 'fa fa-save',
+                        handler: 'ajaxForm',
+                        btnCls: 'topjui-btn'
+                    }
+                ]
+            }
+        });
+
+        $("#delete").iMenubutton({
+            clickEvent: 'doAjax',
+            btnCls: 'topjui-btn-normal',
+            iconCls: 'fa fa-trash',
+            url: contextPath + '/json/response/success.json',
+            grid: {
+                type: 'datagrid',
+                id: 'productDg',
+                uncheckedMsg: '请先勾选要删除的数据',
+                param: 'uuid:uuid,code:code'
+            }
+        });
+
+        $("#export").iMenubutton({
+            clickEvent: 'export',
+            btnCls: 'topjui-btn',
+            url: contextPath + '/json/response/export.html'
+        });
+
+    });
 </script>
 </body>
 </html>

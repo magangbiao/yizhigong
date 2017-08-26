@@ -63,7 +63,7 @@ function addTab(params) {
     }
 }
 
-openDialog = function(target){
+openDialog = function (target) {
     //var opts = $(this).menubutton('options');
     //var opts = target.dataset.options;
     var opts = $.data(target, "menubutton").options;
@@ -81,7 +81,8 @@ openDialog = function(target){
     } else if (dialog.url) {
         openDialogAndloadDataByUrl(opts);
     } else {
-        if (grid.uncheckedMsg) {
+        /*console.log(typeof opts.grid.uncheckedMsg);
+        if (typeof opts.grid.uncheckedMsg == "string") {
             var rows = getCheckedRowsData(grid.type, grid.id);
             if (rows.length == 0) {
                 $.messager.alert(
@@ -91,7 +92,7 @@ openDialog = function(target){
                 );
                 return;
             }
-        }
+        }*/
         if (dialog.onBeforeOpen != "undefined") {
             // 回调执行传入的自定义函数
             executeCallBackFun(dialog.onBeforeOpen, opts);
