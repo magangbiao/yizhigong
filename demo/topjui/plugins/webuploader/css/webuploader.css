@@ -12,11 +12,11 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    background: #00b7ee;
+    background: #1E9FFF;
     padding: 10px 15px;
     color: #fff;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 2px;
     overflow: hidden;
 }
 

@@ -21992,7 +21992,7 @@ Array.prototype.remove = function (val) {
                 $('#startUpload').linkbutton({
                     iconCls: 'fa fa-play-circle',
                     btnCls: 'topjui-btn-normal',
-                    height: 37,
+                    height: 36,
                     onClick: function () {
                         uploadToServer(uploader, parentRow);
                     }
@@ -22000,7 +22000,7 @@ Array.prototype.remove = function (val) {
                 $('#removeFile').linkbutton({
                     iconCls: 'fa fa-remove',
                     btnCls: 'topjui-btn-danger',
-                    height: 37,
+                    height: 36,
                     onClick: removeFile
                 });
                 $('#closeUploaderDialog').linkbutton({
