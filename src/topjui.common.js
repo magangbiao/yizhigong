@@ -383,19 +383,19 @@ function bindMenuClickEvent($element, options) {
                 $('#' + options.grid.id).edatagrid('cancelRow');
         });
     } else if (options.clickEvent == "doAjax") {
-        defaults = {
+        /*defaults = {
             iconCls: 'fa fa-cog'
         }
-        options = $.extend(options, defaults);
+        options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          //doAjaxHandler(options);
          });*/
     } else if (options.clickEvent == "request") {
-        defaults = {
+        /*defaults = {
             iconCls: 'fa fa-cog'
         }
-        options = $.extend(options, defaults);
+        options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          requestHandler(options);
