@@ -27,10 +27,10 @@ var defaultConfig = {
                 confirmDelete: "你确定要删除所选的数据吗？"
             },
             icon: {
-                error: "error",
-                question: "question",
-                info: "info",
-                warning: "fa fa-info-circle fa-3x"
+                error: "fa fa-remove fa-3x",
+                question: "fa fa-question-circle fa-3x",
+                info: "fa fa-info-circle fa-3x",
+                warning: "fa fa-warning fa-3x"
             }
         }
     },

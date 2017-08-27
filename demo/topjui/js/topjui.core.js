@@ -4056,7 +4056,11 @@ dlg.dialog("destroy");
 },100);
 }}));
 var win=dlg.dialog("dialog").addClass("messager-window");
-win.find(".dialog-button").addClass("messager-button").find("a:first").focus();
+var msgBtn = win.find(".dialog-button").addClass("messager-button");
+msgBtn.find("a:first").addClass("topjui-btn-danger").find(".l-btn-left").addClass("l-btn-icon-left")
+.append("<span class=\"l-btn-icon fa fa-check-circle\">&nbsp;</span>");
+msgBtn.find("a:eq(1)").addClass("topjui-btn-normal").find(".l-btn-left").addClass("l-btn-icon-left")
+.append("<span class=\"l-btn-icon fa fa-remove\">&nbsp;</span>");
 return dlg;
 };
 function _2bf(dlg,_2c6){
@@ -4078,7 +4082,7 @@ var dlg=_2c4(opts);
 return dlg;
 },confirm:function(_2c9,msg,fn){
 var opts=typeof _2c9=="object"?_2c9:{title:_2c9,msg:msg,fn:fn};
-opts=$.extend({},$.messager.defaults,{content:"<div class=\"messager-icon messager-question\"></div>"+"<div>"+opts.msg+"</div>"+"<div style=\"clear:both;\"/>"},opts);
+opts=$.extend({},$.messager.defaults,{content:"<div class=\"messager-icon " + topJUI.language.message.icon.question + "\"></div>"+"<div>"+opts.msg+"</div>"+"<div style=\"clear:both;\"/>"},opts);
 if(!opts.buttons){
 opts.buttons=[{text:opts.ok,onClick:function(){
 _2bf(dlg,true);
@@ -19267,10 +19271,10 @@ $.fn.serializeObject = function () {
                 confirmDelete: "你确定要删除所选的数据吗？"
             },
             icon: {
-                error: "error",
-                question: "question",
-                info: "info",
-                warning: "fa fa-info-circle fa-3x"
+                error: "fa fa-remove fa-3x",
+                question: "fa fa-question-circle fa-3x",
+                info: "fa fa-info-circle fa-3x",
+                warning: "fa fa-warning fa-3x"
             }
         }
     },
