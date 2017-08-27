@@ -724,7 +724,7 @@
 
                 $('#startUpload').linkbutton({
                     iconCls: 'fa fa-play-circle',
-                    btnCls: 'topjui-btn-normal',
+                    btnCls: 'topjui-btn',
                     height: 36,
                     onClick: function () {
                         uploadToServer(uploader, parentRow);
