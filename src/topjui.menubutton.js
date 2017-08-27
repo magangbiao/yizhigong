@@ -11,6 +11,7 @@
         }
 
         var options = $.extend(defaults, options);
+        options = bindMenuClickEvent($(this), options);
 
         $(this).menubutton(options);
     }

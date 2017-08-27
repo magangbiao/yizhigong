@@ -17898,7 +17898,6 @@ function bindMenuClickEvent($element, options) {
     // 打开dialog事件
     if (options.clickEvent == "openDialog") {
         defaults = {
-            iconCls: 'fa fa-plus',
             parentGridUnselectedMsg: '请先选中一条主表数据！',
             dialog: {
                 title: '数据详情',
@@ -17908,7 +17907,7 @@ function bindMenuClickEvent($element, options) {
         }
         options.dialog.width = options.dialog.width ? options.dialog.width : 700;
         options.dialog.height = options.dialog.height ? options.dialog.height : 'auto';
-        options = $.extend(defaults, options);
+        //options = $.extend({}, options, defaults);
 
         if (typeof options.dialog == "object") {
             //generateDialogDoc(options);
@@ -18038,7 +18037,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-th'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          addParentTab(options);
@@ -18047,7 +18046,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-link'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          openWindow(options);
@@ -18056,7 +18055,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-plus'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         $element.on("click", function () {
             if (options.type == "addRow")
@@ -18070,7 +18069,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-cog'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          //doAjaxHandler(options);
@@ -18079,7 +18078,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-cog'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          requestHandler(options);
@@ -18088,7 +18087,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-trash'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /* $element.on("click", function () {
          deleteHandler(options);
@@ -18097,7 +18096,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-filter'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          filterHandler(options);
@@ -18106,7 +18105,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-search'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          searchHandler(options);
@@ -18115,7 +18114,7 @@ function bindMenuClickEvent($element, options) {
         defaults = {
             iconCls: 'fa fa-file'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          exportHandler(options);
@@ -18125,7 +18124,7 @@ function bindMenuClickEvent($element, options) {
             iconCls: 'fa fa-file',
             href: '/system/excel/excelImport'
         }
-        options = $.extend(defaults, options);
+        options = $.extend(options, defaults);
 
         /*$element.on("click", function () {
          importHandler(options);
@@ -21204,6 +21203,7 @@ Array.prototype.remove = function (val) {
         }
 
         var options = $.extend(defaults, options);
+        options = bindMenuClickEvent($(this), options);
 
         $(this).menubutton(options);
     }
