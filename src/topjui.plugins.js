@@ -447,8 +447,8 @@
                 '<div style="float: left;margin-right:5px;">' +
                 '<div id="chooseFile">选择文件</div>' +
                 '</div>' +
-                '<a id="addUpFile" style="margin-right:5px;">开始上传</a>' +
-                '<a id="removeUpFile">移除文件</a>' +
+                '<a id="startUpload" style="margin-right:5px;">开始上传</a>' +
+                '<a id="removeFile">移除文件</a>' +
                 '</div>' +
                 '<table id="upfileGrid"></table>' +
                 '</div>';
@@ -593,7 +593,7 @@
                         $("input[type='checkbox']")[i + 1].disabled = true;
                     }
                 }
-                $("#removeUpFile").linkbutton("disable");
+                $("#removeFile").linkbutton("disable");
                 upfileGrid.datagrid('updateRow',
                     {index: upfileGrid.datagrid('getRowIndex', file.id), row: {fileState: '上传成功'}});
                 isUpFile = true;
@@ -722,20 +722,23 @@
                 });
                 uploaderDialog.dialog('open');
 
-                $('#addUpFile').linkbutton({
-                    iconCls: 'fa fa-plus',
+                $('#startUpload').linkbutton({
+                    iconCls: 'fa fa-play-circle',
+                    btnCls: 'topjui-btn-normal',
                     height: 37,
                     onClick: function () {
                         uploadToServer(uploader, parentRow);
                     }
                 });
-                $('#removeUpFile').linkbutton({
-                    iconCls: 'icon-no',
+                $('#removeFile').linkbutton({
+                    iconCls: 'fa fa-remove',
+                    btnCls: 'topjui-btn-danger',
                     height: 37,
                     onClick: removeFile
                 });
                 $('#closeUploaderDialog').linkbutton({
-                    iconCls: 'icon-no',
+                    iconCls: 'fa fa-remove',
+                    btnCls: 'topjui-btn-danger',
                     onClick: function () {
                         uploaderDialog.dialog('close');
                     }
