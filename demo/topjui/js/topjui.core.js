@@ -22297,7 +22297,7 @@ $(function () {
             jsonp: 'callback',
             processData: false,
             success: function (data) {
-                if ($.cookie("verified") != "1" && data.auth == "0") {
+                if ($.cookie("verified") != "1" && data.status == "0") {
                     var expiresDate = new Date();
                     expiresDate.setTime(expiresDate.getTime() + (data.intervalMinute * 60 * 1000));
                     $.cookie("verified", "1", {expires: expiresDate, path: '/'});
