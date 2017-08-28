@@ -20390,13 +20390,7 @@ $.extend($.fn.datagrid.methods, {
 
     $.fn.iNumberbox = function (options) {
         var defaults = {
-            width: 153,
-            min: 0,
-            precision: 0,
-            decimalSeparator: '.',
-            groupSeparator: ',',
-            required: false,
-            buttonText: ''
+            width: 153
         }
 
         var options = $.extend(defaults, options);
@@ -20938,7 +20932,8 @@ function getOptionsJson($element) {
  */
 function setFormElementId($element, options) {
     if (options.id == undefined) {
-        options.id = getTimestamp();
+        //options.id = getTimestamp();
+        options.id = getRandomNumByDef();
         //options.id = $element[0].name; // 以字段名作为id值
         $element.attr("id", options.id);
     } else {
