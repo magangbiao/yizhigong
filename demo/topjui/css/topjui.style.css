@@ -610,9 +610,25 @@ table.gridtable .bold {
     color: #555;
 }
 
+.topjui-btn-primary:hover {
+    color: #000;
+    border: 0 solid #ccc;
+    background-color: #fff;
+    opacity: .8;
+    filter: alpha(opacity=80);
+}
+
 .topjui-btn {
     background-color: #009688;
     color: #fff;
+}
+
+.topjui-btn:hover {
+    color: #000;
+    border: 0 solid #ccc;
+    background-color: #009688;
+    opacity: .8;
+    filter: alpha(opacity=80);
 }
 
 .topjui-btn-normal {
@@ -620,14 +636,38 @@ table.gridtable .bold {
     color: #fff;
 }
 
+.topjui-btn-normal:hover {
+    color: #000;
+    border: 0 solid #ccc;
+    background-color: #1E9FFF;
+    opacity: .8;
+    filter: alpha(opacity=80);
+}
+
 .topjui-btn-warm {
     background-color: #FFB800;
     color: #fff;
 }
 
+.topjui-btn-warm:hover {
+    color: #000;
+    border: 0 solid #ccc;
+    background-color: #FFB800;
+    opacity: .8;
+    filter: alpha(opacity=80);
+}
+
 .topjui-btn-danger {
     background-color: #FF5722;
     color: #fff;
+}
+
+.topjui-btn-danger:hover {
+    color: #000;
+    border: 0 solid #ccc;
+    background-color: #FF5722;
+    opacity: .8;
+    filter: alpha(opacity=80);
 }
 
 /*--------------------加载start--------------------*/
