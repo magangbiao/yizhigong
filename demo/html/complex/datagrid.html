@@ -143,17 +143,19 @@
            title:'这是新的Tab窗口',
            href:contextPath + '/html/menu/openTab_index.html'
        }">打开Tab窗口</a>
-    <a href="javascript:void(0)" class="topjui-btn-warm"
+    <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'openWindow',
+       data-options="clickEvent:'openWindow',btnCls:'topjui-btn-warm',
        href:'http://www.topjui.com?uuid={uuid}'">打开新窗口</a>
-    <a href="javascript:void(0)" class="topjui-btn"
+    <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'request',
+       btnCls:'topjui-btn',
        url:contextPath + '/json/response/success.json'">执行普通请求</a>
-    <a href="javascript:void(0)" class="topjui-btn-danger"
+    <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="menu:'#exportSubMenu',
+       btnCls:'topjui-btn-danger',
        hasDownArrow:true,
        iconCls:'fa fa-list'">更多</a>
     <div id="exportSubMenu" style="width:150px;">

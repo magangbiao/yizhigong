@@ -19270,10 +19270,10 @@ $.fn.serializeObject = function () {
                 confirmDelete: "你确定要删除所选的数据吗？"
             },
             icon: {
-                error: "fa fa-remove fa-3x",
-                question: "fa fa-question-circle fa-3x",
-                info: "fa fa-info-circle fa-3x",
-                warning: "fa fa-warning fa-3x"
+                error: "messager-error",
+                question: "messager-question",
+                info: "messager-info",
+                warning: "messager-warning"
             }
         }
     },
@@ -19310,16 +19310,16 @@ topJUI = $.extend(true, defaultConfig, topJUI);
 var defaultHeight = 34;
 $.fn.switchbutton.defaults.height = defaultHeight;
 $.fn.textbox.defaults.height = defaultHeight;
-$.fn.passwordbox.defaults = defaultHeight;
+$.fn.passwordbox.defaults.height = defaultHeight;
 $.fn.combo.defaults.height = defaultHeight;
 $.fn.combobox.defaults.height = defaultHeight;
 $.fn.combotree.defaults.height = defaultHeight;
 $.fn.combogrid.defaults.height = defaultHeight;
 $.fn.combotreegrid.defaults.height = defaultHeight;
-$.fn.numberbox.defaults = defaultHeight;
-$.fn.datebox.defaults = defaultHeight;
-$.fn.datetimebox.defaults = defaultHeight;
-$.fn.spinner.defaults = defaultHeight;
+$.fn.numberbox.defaults.height = defaultHeight;
+$.fn.datebox.defaults.height = defaultHeight;
+$.fn.datetimebox.defaults.height = defaultHeight;
+$.fn.spinner.defaults.height = defaultHeight;
 $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
     $.fn.iDatagrid = function (options) {
         var defaults = {
@@ -20390,7 +20390,13 @@ $.extend($.fn.datagrid.methods, {
 
     $.fn.iNumberbox = function (options) {
         var defaults = {
-            width: 153
+            width: 153,
+            min: 0,
+            precision: 0,
+            decimalSeparator: '.',
+            groupSeparator: ',',
+            required: false,
+            buttonText: ''
         }
 
         var options = $.extend(defaults, options);
