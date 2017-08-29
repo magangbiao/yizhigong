@@ -19501,7 +19501,7 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
                             var panelOptions = $element.panel('options');
                             var newHref = replaceUrlParamValueByBrace(panelOptions.dynamicHref, row);
                             //$element.panel('refresh', newHref);
-                            var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:99.6%;"></iframe>';
+                            var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                             $element.panel({
                                 content: iframe
                             });
@@ -22407,7 +22407,7 @@ $(function () {
 
                 var panelOptions = $element.panel('options');
                 if (panelOptions.href != undefined) {
-                    var iframe = '<iframe src="' + panelOptions.href + '" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+                    var iframe = '<iframe src="' + panelOptions.href + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                     $element.panel({
                         content: iframe
                     });
@@ -22460,7 +22460,7 @@ $(function () {
                             if (selectedRow) {
                                 var newHref = replaceUrlParamValueByBrace(panelOptions.dynamicHref, selectedRow);
                                 //$element.panel('refresh', newHref);
-                                var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+                                var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                                 $gridOrPanelObj.panel({
                                     content: iframe
                                 });
@@ -22827,7 +22827,7 @@ $(function () {
                             var panelOptions = $element.panel('options');
                             var newHref = replaceUrlParamValueByBrace(panelOptions.dynamicHref, row);
                             //$element.panel('refresh', newHref);
-                            var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+                            var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                             $element.panel({
                                 content: iframe
                             });

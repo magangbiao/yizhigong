@@ -18,7 +18,7 @@
 
                 var panelOptions = $element.panel('options');
                 if (panelOptions.href != undefined) {
-                    var iframe = '<iframe src="' + panelOptions.href + '" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+                    var iframe = '<iframe src="' + panelOptions.href + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                     $element.panel({
                         content: iframe
                     });
@@ -71,7 +71,7 @@
                             if (selectedRow) {
                                 var newHref = replaceUrlParamValueByBrace(panelOptions.dynamicHref, selectedRow);
                                 //$element.panel('refresh', newHref);
-                                var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+                                var iframe = '<iframe src="' + newHref + '" scrolling="auto" frameborder="0" style="width:100%;height:99.5%;"></iframe>';
                                 $gridOrPanelObj.panel({
                                     content: iframe
                                 });
