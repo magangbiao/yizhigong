@@ -691,7 +691,7 @@ table.gridtable .bold {
     margin-left: -83px;
     width: 166px;
     height: 166px;
-    background: url("http://www.rdkj168.com/erp/static/image/loading-img.png") no-repeat center center;
+    background: url("../image/loading-img.png") no-repeat center center;
 }
 
 .loading-round {
