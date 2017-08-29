@@ -88,3 +88,7 @@ if ($.fn.datagrid && $.fn.datagrid.defaults && $.fn.datagrid.defaults.operators.
 if ($.fn.combogrid) {
     $.fn.combogrid.defaults.loadMsg = "正在加载中，请稍待...";
 }
+
+if ($.fn.combotreegrid) {
+    $.fn.combotreegrid.defaults.loadMsg = "正在加载中，请稍待...";
+}
