@@ -4,7 +4,7 @@ if ($.fn.pagination) {
     $.fn.pagination.defaults.displayMsg = '显示{from}到{to},共{total}记录';
 }
 if ($.fn.datagrid) {
-    //$.fn.datagrid.defaults.loadMsg = '正在加载，请稍待。。。';
+    //$.fn.datagrid.defaults.loadMsg = '正在加载中，请稍待...';
     $.fn.datagrid.defaults.loadMsg = '';
 }
 if ($.fn.treegrid && $.fn.datagrid) {
@@ -83,4 +83,8 @@ if ($.fn.datagrid && $.fn.datagrid.defaults && $.fn.datagrid.defaults.operators.
     $.fn.datagrid.defaults.operators.lessorequal.text = "<=小于等于";
     $.fn.datagrid.defaults.operators.greater.text = ">大于";
     $.fn.datagrid.defaults.operators.greaterorequal.text = ">=大于等于";
+}
+
+if ($.fn.combogrid) {
+    $.fn.combogrid.defaults.loadMsg = "正在加载中，请稍待...";
 }
