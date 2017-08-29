@@ -16,7 +16,7 @@
     <!-- TopJUI框架配置 -->
     <script type="text/javascript" src="../../static/public/js/topjui.config.js"></script>
     <!-- TopJUI框架核心-->
-    <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
+    <script type="text/javascript" src="../../topjui/js/topjui.core.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
 </head>
@@ -91,7 +91,6 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           height:350,
            href:contextPath + '/html/complex/add.html',
            buttonsGroup:[
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}

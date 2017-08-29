@@ -73,9 +73,6 @@ openDialog = function (target) {
     var grid = opts.grid;
     var parentGrid = opts.parentGrid;
 
-    opts.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
-    opts.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
-
     if (typeof parentGrid == "object") {
         openDialogAndloadDataByParentGrid(opts);
     } else if (dialog.url) {
@@ -223,7 +220,10 @@ function bindMenuClickEvent($element, options) {
             }
         }
         options.dialog.width = options.dialog.width ? options.dialog.width : 700;
-        options.dialog.height = options.dialog.height ? options.dialog.height : 'auto';
+        options.dialog.height = options.dialog.height ? options.dialog.height : '450';
+        //options.dialog.leftMargin = ($(document.body).width() * 0.5) - (options.dialog.width * 0.5);
+        //options.dialog.topMargin = ($(document.body).height() * 0.5) - (options.dialog.height * 0.5);
+        
         //options = $.extend({}, options, defaults);
 
         if (typeof options.dialog == "object") {
@@ -384,18 +384,18 @@ function bindMenuClickEvent($element, options) {
         });
     } else if (options.clickEvent == "doAjax") {
         /*defaults = {
-            iconCls: 'fa fa-cog'
-        }
-        options = $.extend(options, defaults);*/
+         iconCls: 'fa fa-cog'
+         }
+         options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          //doAjaxHandler(options);
          });*/
     } else if (options.clickEvent == "request") {
         /*defaults = {
-            iconCls: 'fa fa-cog'
-        }
-        options = $.extend(options, defaults);*/
+         iconCls: 'fa fa-cog'
+         }
+         options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          requestHandler(options);

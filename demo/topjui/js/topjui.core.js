@@ -17756,9 +17756,6 @@ openDialog = function (target) {
     var grid = opts.grid;
     var parentGrid = opts.parentGrid;
 
-    opts.dialog.leftMargin = ($(document.body).width() * 0.5) - (dialog.width * 0.5);
-    opts.dialog.topMargin = ($(document.body).height() * 0.5) - (dialog.height * 0.5);
-
     if (typeof parentGrid == "object") {
         openDialogAndloadDataByParentGrid(opts);
     } else if (dialog.url) {
@@ -17906,7 +17903,10 @@ function bindMenuClickEvent($element, options) {
             }
         }
         options.dialog.width = options.dialog.width ? options.dialog.width : 700;
-        options.dialog.height = options.dialog.height ? options.dialog.height : 'auto';
+        options.dialog.height = options.dialog.height ? options.dialog.height : '450';
+        //options.dialog.leftMargin = ($(document.body).width() * 0.5) - (options.dialog.width * 0.5);
+        //options.dialog.topMargin = ($(document.body).height() * 0.5) - (options.dialog.height * 0.5);
+        
         //options = $.extend({}, options, defaults);
 
         if (typeof options.dialog == "object") {
@@ -18067,18 +18067,18 @@ function bindMenuClickEvent($element, options) {
         });
     } else if (options.clickEvent == "doAjax") {
         /*defaults = {
-            iconCls: 'fa fa-cog'
-        }
-        options = $.extend(options, defaults);*/
+         iconCls: 'fa fa-cog'
+         }
+         options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          //doAjaxHandler(options);
          });*/
     } else if (options.clickEvent == "request") {
         /*defaults = {
-            iconCls: 'fa fa-cog'
-        }
-        options = $.extend(options, defaults);*/
+         iconCls: 'fa fa-cog'
+         }
+         options = $.extend(options, defaults);*/
 
         /*$element.on("click", function () {
          requestHandler(options);
@@ -19786,7 +19786,7 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
         var defaults = {
             currentDialogId: this.selector,
             width: 700,
-            height: 'auto',//宽高限制650*450,900*500
+            height: 450,//宽高限制700*450,950*500
             title: '新增/编辑',
             modal: true,
             closed: true,
@@ -19880,47 +19880,49 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
 
     $.extend($.fn.dialog.methods, {
         createDialog: function (jq, opts) {
-            //var opts = $.data(jq, "dialog").options;
-            //模态窗口随机id
-            if (opts.dialog.id == undefined) opts.dialog.id = getRandomNumByDef();
-            var divOrForm = opts.dialog.form == false ? "div" : "form";
-            var dialogDom = '<' + divOrForm + ' id="' + opts.dialog.id + '"></' + divOrForm + '>';
+            if ($("#" + opts.dialog.id).length == 0) {
+                //var opts = $.data(jq, "dialog").options;
+                //模态窗口随机id
+                if (opts.dialog.id == undefined) opts.dialog.id = getRandomNumByDef();
+                var divOrForm = opts.dialog.form == false ? "div" : "form";
+                var dialogDom = '<' + divOrForm + ' id="' + opts.dialog.id + '"></' + divOrForm + '>';
 
-            // 判断是否存在linkbutton按钮组
-            var buttonsDom = "", btnIdArr = [];
-            if (typeof opts.dialog.buttonsGroup == "object") {
-                var btnArr = opts.dialog.buttonsGroup;
-                $.each(btnArr, function (i, btn) {
-                    //默认以ajaxForm方式提交
-                    if (!btn.handler) {
-                        btn.handler = 'ajaxForm';
-                    }
-                    //按钮随机id
-                    if (btn.id == undefined) btnIdArr.push(getRandomNumByDef());
-                    buttonsDom += '<a id="' + btnIdArr[i] + '" href="#" data-options="menubuttonId:\'' + opts.id + '\',dialogId:\'' + opts.dialog.id + '\'">' + btn.text + '</a>';
+                // 判断是否存在linkbutton按钮组
+                var buttonsDom = "", btnIdArr = [];
+                if (typeof opts.dialog.buttonsGroup == "object") {
+                    var btnArr = opts.dialog.buttonsGroup;
+                    $.each(btnArr, function (i, btn) {
+                        //默认以ajaxForm方式提交
+                        if (!btn.handler) {
+                            btn.handler = 'ajaxForm';
+                        }
+                        //按钮随机id
+                        if (btn.id == undefined) btnIdArr.push(getRandomNumByDef());
+                        buttonsDom += '<a id="' + btnIdArr[i] + '" href="#" data-options="menubuttonId:\'' + opts.id + '\',dialogId:\'' + opts.dialog.id + '\'">' + btn.text + '</a>';
+                    });
+                }
+                getTabWindow().$('body').append(
+                    dialogDom +
+                    '<div id="' + opts.dialog.id + '-buttons" style="display:none">' +
+                    buttonsDom +
+                    '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + opts.dialog.id + '\').dialog(\'close\')">关闭</a>' +
+                    '</div>'
+                );
+                //渲染自定义按钮
+                if (typeof opts.dialog.buttonsGroup == "object") {
+                    var btnOptsArr = opts.dialog.buttonsGroup;
+                    $.each(btnOptsArr, function (i, btnOpts) {
+                        $("#" + btnIdArr[i]).iLinkbutton(btnOpts);
+                    });
+                }
+                //关闭按钮
+                $(".closeDialog").iLinkbutton({
+                    iconCls: 'fa fa-close',
+                    btnCls: 'topjui-btn-danger'
                 });
+                //模态对话框
+                //$("#" + opts.dialog.id).iDialog(opts);
             }
-            getTabWindow().$('body').append(
-                dialogDom +
-                '<div id="' + opts.dialog.id + '-buttons" style="display:none">' +
-                buttonsDom +
-                '<a href="#" class="closeDialog" onclick="javascript:$(\'#' + opts.dialog.id + '\').dialog(\'close\')">关闭</a>' +
-                '</div>'
-            );
-            //渲染自定义按钮
-            if (typeof opts.dialog.buttonsGroup == "object") {
-                var btnOptsArr = opts.dialog.buttonsGroup;
-                $.each(btnOptsArr, function (i, btnOpts) {
-                    $("#" + btnIdArr[i]).iLinkbutton(btnOpts);
-                });
-            }
-            //关闭按钮
-            $(".closeDialog").iLinkbutton({
-                iconCls: 'fa fa-close',
-                btnCls: 'topjui-btn-danger'
-            });
-            //模态对话框
-            $("#" + opts.dialog.id).iDialog(opts);
         }
     });
 
