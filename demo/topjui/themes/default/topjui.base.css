@@ -1152,7 +1152,6 @@
 .tabs li.tabs-selected a.tabs-inner {
     font-weight: bold;
     outline: none;
-    border-top-width: 3px;
 }
 
 .tabs li.tabs-selected a:hover.tabs-inner {

@@ -241,8 +241,8 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 
 /* 被选中的tabs顶部边框颜色及遮盖下边框线 */
 .tabs li.tabs-selected a.tabs-inner {
-    border-top-color: #3498DB;
     height: 36px !important;
+    border-top-width: 3px;
 }
 
 /* tabs关闭按钮高度 */
