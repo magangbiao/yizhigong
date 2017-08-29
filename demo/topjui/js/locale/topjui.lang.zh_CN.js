@@ -4,7 +4,6 @@ if ($.fn.pagination) {
     $.fn.pagination.defaults.displayMsg = '显示{from}到{to},共{total}记录';
 }
 if ($.fn.datagrid) {
-    //$.fn.datagrid.defaults.loadMsg = '正在加载中，请稍待...';
     $.fn.datagrid.defaults.loadMsg = '';
 }
 if ($.fn.treegrid && $.fn.datagrid) {
@@ -66,6 +65,7 @@ if ($.fn.datetimespinner) {
     $.fn.datetimespinner.defaults.selections = [[0, 4], [5, 7], [8, 10], [11, 13], [14, 16], [17, 19]]
 }
 
+//自定义汉化信息
 if ($.fn.panel) {
     $.fn.dialog.defaults.loadingMessage = "";
 }
