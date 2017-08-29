@@ -20753,10 +20753,10 @@ function loadMask() {
     var html = '<div id="Loading" class="loading-wrap">';
     html += '<div class="loading-content">';
     html += '<div class="loading-round">';
-    html += '<img src="' + topJUI.config.path + '/image/loading-bg.png" alt="">';
+    //html += '<img src="' + topJUI.config.path + '/image/loading-bg.png" alt="">';
     html += '</div>';
     html += '<div class="loading-dot">';
-    html += '<img src="' + topJUI.config.path + '/image/loading-dot.png" alt="">';
+    //html += '<img src="' + topJUI.config.path + '/image/loading-dot.png" alt="">';
     html += '</div>';
     html += '</div>';
     html += '</div>';
