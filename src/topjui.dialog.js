@@ -146,7 +146,7 @@
         }
     });
 
-    generateDialogDoc = function (options) {
+    var generateDialogDoc = function (options) {
 
         var defaults = {
             iconCls: 'fa fa-plus',

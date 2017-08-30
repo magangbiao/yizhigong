@@ -9,6 +9,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
+                    "plugins/jquery.base64.js",
                     "plugins/jquery.easyui.min.js",
                     "plugins/datagrid-filter.js",
                     "plugins/jquery.edatagrid.js",
@@ -28,8 +29,7 @@ module.exports = function (grunt) {
                     "src/topjui.toolbar.js",
                     "src/topjui.tree.js",
                     "src/topjui.treegrid.js",
-                    "src/topjui.window.js",
-                    "plugins/jquery.base64.js"
+                    "src/topjui.window.js"
                 ],
                 dest: 'demo/topjui/js/topjui.core.js'
                 //dest: 'E:/wwwroot/Java/ewsdEMIS/application/src/main/webapp/static/topjui/js/topjui.core.js'

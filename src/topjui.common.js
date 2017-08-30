@@ -63,7 +63,7 @@ function addTab(params) {
     }
 }
 
-openDialog = function (target) {
+var openDialog = function (target) {
     //var opts = $(this).menubutton('options');
     //var opts = target.dataset.options;
     var opts = $.data(target, "menubutton").options;
@@ -113,7 +113,7 @@ openDialog = function (target) {
     }
 }
 
-addParentTab = function (target) {
+var addParentTab = function (target) {
     var options = $.data(target, "menubutton").options;
     var src, title;
     if (typeof options.grid == "object") {
@@ -166,7 +166,7 @@ addParentTab = function (target) {
  * 打开新窗口
  * @param options
  */
-openWindow = function (target) {
+var openWindow = function (target) {
     var options = $.data(target, "menubutton").options;
     var href;
     if (typeof options.grid == "object") {

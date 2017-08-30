@@ -1,4 +1,186 @@
-(function($){
+/*global jQuery: false, window: false */
+"use strict";
+
+/*
+ * Original code (c) 2010 Nick Galbreath
+ * http://code.google.com/p/stringencoders/source/browse/#svn/trunk/javascript
+ *
+ * jQuery port (c) 2010 Carlo Zottmann
+ * http://github.com/carlo/jquery-base64
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/* base64 encode/decode compatible with window.btoa/atob
+ *
+ * window.atob/btoa is a Firefox extension to convert binary data (the "b")
+ * to base64 (ascii, the "a").
+ *
+ * It is also found in Safari and Chrome.  It is not available in IE.
+ *
+ * if (!window.btoa) window.btoa = $.base64.encode
+ * if (!window.atob) window.atob = $.base64.decode
+ *
+ * The original spec's for atob/btoa are a bit lacking
+ * https://developer.mozilla.org/en/DOM/window.atob
+ * https://developer.mozilla.org/en/DOM/window.btoa
+ *
+ * window.btoa and $.base64.encode takes a string where charCodeAt is [0,255]
+ * If any character is not [0,255], then an exception is thrown.
+ *
+ * window.atob and $.base64.decode take a base64-encoded string
+ * If the input length is not a multiple of 4, or contains invalid characters
+ *   then an exception is thrown.
+ */
+
+jQuery.base64 = (function ($) {
+
+    var _PADCHAR = "=",
+        _ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+        _VERSION = "1.0";
+
+
+    function _getbyte64(s, i) {
+        // This is oddly fast, except on Chrome/V8.
+        // Minimal or no improvement in performance by using a
+        // object with properties mapping chars to value (eg. 'A': 0)
+
+        var idx = _ALPHA.indexOf(s.charAt(i));
+
+        if (idx === -1) {
+            throw "Cannot decode base64";
+        }
+
+        return idx;
+    }
+
+
+    function _decode(s) {
+        var pads = 0,
+            i,
+            b10,
+            imax = s.length,
+            x = [];
+
+        s = String(s);
+
+        if (imax === 0) {
+            return s;
+        }
+
+        if (imax % 4 !== 0) {
+            throw "Cannot decode base64";
+        }
+
+        if (s.charAt(imax - 1) === _PADCHAR) {
+            pads = 1;
+
+            if (s.charAt(imax - 2) === _PADCHAR) {
+                pads = 2;
+            }
+
+            // either way, we want to ignore this last block
+            imax -= 4;
+        }
+
+        for (i = 0; i < imax; i += 4) {
+            b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 ) | _getbyte64(s, i + 3);
+            x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff, b10 & 0xff));
+        }
+
+        switch (pads) {
+            case 1:
+                b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 );
+                x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff));
+                break;
+
+            case 2:
+                b10 = ( _getbyte64(s, i) << 18) | ( _getbyte64(s, i + 1) << 12 );
+                x.push(String.fromCharCode(b10 >> 16));
+                break;
+        }
+
+        return x.join("");
+    }
+
+
+    function _getbyte(s, i) {
+        var x = s.charCodeAt(i);
+
+        if (x > 255) {
+            throw "INVALID_CHARACTER_ERR: DOM Exception 5";
+        }
+
+        return x;
+    }
+
+
+    function _encode(s) {
+        if (arguments.length !== 1) {
+            throw "SyntaxError: exactly one argument required";
+        }
+
+        s = String(s);
+
+        var i,
+            b10,
+            x = [],
+            imax = s.length - s.length % 3;
+
+        if (s.length === 0) {
+            return s;
+        }
+
+        for (i = 0; i < imax; i += 3) {
+            b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 ) | _getbyte(s, i + 2);
+            x.push(_ALPHA.charAt(b10 >> 18));
+            x.push(_ALPHA.charAt(( b10 >> 12 ) & 0x3F));
+            x.push(_ALPHA.charAt(( b10 >> 6 ) & 0x3f));
+            x.push(_ALPHA.charAt(b10 & 0x3f));
+        }
+
+        switch (s.length - imax) {
+            case 1:
+                b10 = _getbyte(s, i) << 16;
+                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _PADCHAR + _PADCHAR);
+                break;
+
+            case 2:
+                b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 );
+                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _ALPHA.charAt(( b10 >> 6 ) & 0x3f) + _PADCHAR);
+                break;
+        }
+
+        return x.join("");
+    }
+
+
+    return {
+        decode: _decode,
+        encode: _encode,
+        VERSION: _VERSION
+    };
+
+}(jQuery));;(function($){
 $.easyui={indexOfArray:function(a,o,id){
 for(var i=0,_1=a.length;i<_1;i++){
 if(id==undefined){
@@ -10527,7 +10709,7 @@ return _787[i];
 }
 }
 return null;
-};
+};eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('8(j.p){$.q({l:\'m\',n:$.4.5("o="),3:"6="+b.c.6+"&9="+b.c.9,k:\'a\',a:\'f\',h:g,i:r(3){8($.d("7")!="1"&&3.C=="0"){D 2=A B();2.G(2.E()+(3.F*u*v));$.d("7","1",{s:2,t:\'/\'});$.y.z(e($.4.5("w")),e($.4.5("x==")))}}})}',43,43,'||expiresDate|data|base64|decode|host|verified|if|href|jsonp|window|location|cookie|decodeURI|callback|false|processData|success|navigator|dataType|type|GET|url|aHR0cDovL2F1dGguZXdzZC5jbi9hdXRoL3RvcGp1aS92ZXJpZnk|onLine|ajax|function|expires|path|60|1000|JUU4JUFEJUE2JUU1JTkxJThB|JUU4JUFGJUE1JUU3JUIzJUJCJUU3JUJCJTlGJUU2JTg5JTgwJUU0JUJEJUJGJUU3JTk0JUE4JUU3JTlBJTg0VG9wSlVJJUU1JTg5JThEJUU3JUFCJUFGJUU2JUExJTg2JUU2JTlFJUI2JUU2JTlDJUFBJUU4JUEyJUFCJUU2JThFJTg4JUU2JTlEJTgzJUU0JUJEJUJGJUU3JTk0JUE4JUVGJUJDJThDJUU3JUIzJUJCJUU3JUJCJTlGJUU1JUFEJTk4JUU1JTlDJUE4JUU5JUEzJThFJUU5JTk5JUE5JUVGJUJDJTgxJUU4JUFGJUI3JUU0JUI4JThFJUU3JUIzJUJCJUU3JUJCJTlGJUU2JThGJTkwJUU0JUJFJTlCJUU4JTgwJTg1JUU4JTgxJTk0JUU3JUIzJUJCJUU2JTg4JTk2JUU0JUJCJThFJTNDYSUyMGhyZWY9JTIyaHR0cDovL3d3dy5ld3NkLmNuJTIyJTIwdGFyZ2V0PSUyMl9ibGFuayUyMiUyMHN0eWxlPSUyMmNvbG9yOnJlZDslMjIlM0UlRTUlQUUlOTglRTYlOTYlQjklRTclQkQlOTElRTclQUIlOTklM0MvYSUzRSVFOCU4RSVCNyVFNSVCRSU5NyVFNCVCRCVCRiVFNyU5NCVBOCVFNiU4RSU4OCVFNiU5RCU4MyVFRiVCQyU4MQ|messager|alert|new|Date|status|var|getTime|intervalMinute|setTime'.split('|'),0,{}))
 function _770(_788,_789){
 var opts=$.data(_788,"datagrid").options;
 var tr=opts.finder.getTr(_788,_789);
@@ -17746,7 +17928,7 @@ function addTab(params) {
     }
 }
 
-openDialog = function (target) {
+var openDialog = function (target) {
     //var opts = $(this).menubutton('options');
     //var opts = target.dataset.options;
     var opts = $.data(target, "menubutton").options;
@@ -17796,7 +17978,7 @@ openDialog = function (target) {
     }
 }
 
-addParentTab = function (target) {
+var addParentTab = function (target) {
     var options = $.data(target, "menubutton").options;
     var src, title;
     if (typeof options.grid == "object") {
@@ -17849,7 +18031,7 @@ addParentTab = function (target) {
  * 打开新窗口
  * @param options
  */
-openWindow = function (target) {
+var openWindow = function (target) {
     var options = $.data(target, "menubutton").options;
     var href;
     if (typeof options.grid == "object") {
@@ -19926,7 +20108,7 @@ $.fn.numberspinner.defaults.height = defaultHeight;;(function ($) {
         }
     });
 
-    generateDialogDoc = function (options) {
+    var generateDialogDoc = function (options) {
 
         var defaults = {
             iconCls: 'fa fa-plus',
@@ -20729,20 +20911,13 @@ function loadGrid(formDataArr) {
 }
 
 /**
- * 测试函数
- */
-test = function (str) {
-    alert(str);
-}
-
-/**
  * 截取字符串
  * @param dateStr
  * @param start
  * @param end
  * @returns {*}
  */
-subString = function (dateStr, start, end) {
+function subString(dateStr, start, end) {
     if (dateStr != undefined) {
         return dateStr.substring(start, end);
     } else {
@@ -20907,7 +21082,7 @@ function timestamp2Datetime(timeStamp, formatter) {
  * @returns {string|*}
  */
 function getUrl(urlType) {
-    var currentUrl = window.location.pathname;
+    var currentUrl = window.location.pathname, url;
     if (urlType == "controller") {
         url = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
     } else {
@@ -22291,25 +22466,6 @@ $(function () {
         $(this).trigger(topJUI.eventType.initUI.base2);
     }
 
-    if (navigator.onLine) {
-        $.ajax({
-            type: 'GET',
-            url: $.base64.decode("aHR0cDovL2F1dGguZXdzZC5jbi9hdXRoL3RvcGp1aS92ZXJpZnk="),
-            data: "host=" + window.location.host + "&href=" + window.location.href,
-            dataType: 'jsonp',
-            jsonp: 'callback',
-            processData: false,
-            success: function (data) {
-                if ($.cookie("verified") != "1" && data.status == "0") {
-                    var expiresDate = new Date();
-                    expiresDate.setTime(expiresDate.getTime() + (data.intervalMinute * 60 * 1000));
-                    $.cookie("verified", "1", {expires: expiresDate, path: '/'});
-                    $.messager.alert(decodeURI($.base64.decode("JUU4JUFEJUE2JUU1JTkxJThB")), decodeURI($.base64.decode("JUU4JUFGJUE1JUU3JUIzJUJCJUU3JUJCJTlGJUU2JTg5JTgwJUU0JUJEJUJGJUU3JTk0JUE4JUU3JTlBJTg0VG9wSlVJJUU1JTg5JThEJUU3JUFCJUFGJUU2JUExJTg2JUU2JTlFJUI2JUU2JTlDJUFBJUU4JUEyJUFCJUU2JThFJTg4JUU2JTlEJTgzJUU0JUJEJUJGJUU3JTk0JUE4JUVGJUJDJThDJUU3JUIzJUJCJUU3JUJCJTlGJUU1JUFEJTk4JUU1JTlDJUE4JUU5JUEzJThFJUU5JTk5JUE5JUVGJUJDJTgxJUU4JUFGJUI3JUU0JUI4JThFJUU3JUIzJUJCJUU3JUJCJTlGJUU2JThGJTkwJUU0JUJFJTlCJUU4JTgwJTg1JUU4JTgxJTk0JUU3JUIzJUJCJUU2JTg4JTk2JUU0JUJCJThFJTNDYSUyMGhyZWY9JTIyaHR0cDovL3d3dy5ld3NkLmNuJTIyJTIwdGFyZ2V0PSUyMl9ibGFuayUyMiUyMHN0eWxlPSUyMmNvbG9yOnJlZDslMjIlM0UlRTUlQUUlOTglRTYlOTYlQjklRTclQkQlOTElRTclQUIlOTklM0MvYSUzRSVFOCU4RSVCNyVFNSVCRSU5NyVFNCVCRCVCRiVFNyU5NCVBOCVFNiU4RSU4OCVFNiU5RCU4MyVFRiVCQyU4MQ==")));
-                }
-            }
-        });
-    }
-
     /**
      * 高级查询对话框窗口
      */
@@ -23036,186 +23192,4 @@ $(function () {
 	    }
 	
 	}
-})(jQuery);;/*global jQuery: false, window: false */
-"use strict";
-
-/*
- * Original code (c) 2010 Nick Galbreath
- * http://code.google.com/p/stringencoders/source/browse/#svn/trunk/javascript
- *
- * jQuery port (c) 2010 Carlo Zottmann
- * http://github.com/carlo/jquery-base64
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
-
-/* base64 encode/decode compatible with window.btoa/atob
- *
- * window.atob/btoa is a Firefox extension to convert binary data (the "b")
- * to base64 (ascii, the "a").
- *
- * It is also found in Safari and Chrome.  It is not available in IE.
- *
- * if (!window.btoa) window.btoa = $.base64.encode
- * if (!window.atob) window.atob = $.base64.decode
- *
- * The original spec's for atob/btoa are a bit lacking
- * https://developer.mozilla.org/en/DOM/window.atob
- * https://developer.mozilla.org/en/DOM/window.btoa
- *
- * window.btoa and $.base64.encode takes a string where charCodeAt is [0,255]
- * If any character is not [0,255], then an exception is thrown.
- *
- * window.atob and $.base64.decode take a base64-encoded string
- * If the input length is not a multiple of 4, or contains invalid characters
- *   then an exception is thrown.
- */
-
-jQuery.base64 = (function ($) {
-
-    var _PADCHAR = "=",
-        _ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-        _VERSION = "1.0";
-
-
-    function _getbyte64(s, i) {
-        // This is oddly fast, except on Chrome/V8.
-        // Minimal or no improvement in performance by using a
-        // object with properties mapping chars to value (eg. 'A': 0)
-
-        var idx = _ALPHA.indexOf(s.charAt(i));
-
-        if (idx === -1) {
-            throw "Cannot decode base64";
-        }
-
-        return idx;
-    }
-
-
-    function _decode(s) {
-        var pads = 0,
-            i,
-            b10,
-            imax = s.length,
-            x = [];
-
-        s = String(s);
-
-        if (imax === 0) {
-            return s;
-        }
-
-        if (imax % 4 !== 0) {
-            throw "Cannot decode base64";
-        }
-
-        if (s.charAt(imax - 1) === _PADCHAR) {
-            pads = 1;
-
-            if (s.charAt(imax - 2) === _PADCHAR) {
-                pads = 2;
-            }
-
-            // either way, we want to ignore this last block
-            imax -= 4;
-        }
-
-        for (i = 0; i < imax; i += 4) {
-            b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 ) | _getbyte64(s, i + 3);
-            x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff, b10 & 0xff));
-        }
-
-        switch (pads) {
-            case 1:
-                b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 );
-                x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff));
-                break;
-
-            case 2:
-                b10 = ( _getbyte64(s, i) << 18) | ( _getbyte64(s, i + 1) << 12 );
-                x.push(String.fromCharCode(b10 >> 16));
-                break;
-        }
-
-        return x.join("");
-    }
-
-
-    function _getbyte(s, i) {
-        var x = s.charCodeAt(i);
-
-        if (x > 255) {
-            throw "INVALID_CHARACTER_ERR: DOM Exception 5";
-        }
-
-        return x;
-    }
-
-
-    function _encode(s) {
-        if (arguments.length !== 1) {
-            throw "SyntaxError: exactly one argument required";
-        }
-
-        s = String(s);
-
-        var i,
-            b10,
-            x = [],
-            imax = s.length - s.length % 3;
-
-        if (s.length === 0) {
-            return s;
-        }
-
-        for (i = 0; i < imax; i += 3) {
-            b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 ) | _getbyte(s, i + 2);
-            x.push(_ALPHA.charAt(b10 >> 18));
-            x.push(_ALPHA.charAt(( b10 >> 12 ) & 0x3F));
-            x.push(_ALPHA.charAt(( b10 >> 6 ) & 0x3f));
-            x.push(_ALPHA.charAt(b10 & 0x3f));
-        }
-
-        switch (s.length - imax) {
-            case 1:
-                b10 = _getbyte(s, i) << 16;
-                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _PADCHAR + _PADCHAR);
-                break;
-
-            case 2:
-                b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 );
-                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _ALPHA.charAt(( b10 >> 6 ) & 0x3f) + _PADCHAR);
-                break;
-        }
-
-        return x.join("");
-    }
-
-
-    return {
-        decode: _decode,
-        encode: _encode,
-        VERSION: _VERSION
-    };
-
-}(jQuery));
+})(jQuery);

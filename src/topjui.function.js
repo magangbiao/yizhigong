@@ -52,20 +52,13 @@ function loadGrid(formDataArr) {
 }
 
 /**
- * 测试函数
- */
-test = function (str) {
-    alert(str);
-}
-
-/**
  * 截取字符串
  * @param dateStr
  * @param start
  * @param end
  * @returns {*}
  */
-subString = function (dateStr, start, end) {
+function subString(dateStr, start, end) {
     if (dateStr != undefined) {
         return dateStr.substring(start, end);
     } else {
@@ -230,7 +223,7 @@ function timestamp2Datetime(timeStamp, formatter) {
  * @returns {string|*}
  */
 function getUrl(urlType) {
-    var currentUrl = window.location.pathname;
+    var currentUrl = window.location.pathname, url;
     if (urlType == "controller") {
         url = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
     } else {
