@@ -1,185 +1,106 @@
-/*global jQuery: false, window: false */
-"use strict";
-
-/*
- * Original code (c) 2010 Nick Galbreath
- * http://code.google.com/p/stringencoders/source/browse/#svn/trunk/javascript
- *
- * jQuery port (c) 2010 Carlo Zottmann
- * http://github.com/carlo/jquery-base64
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
-
-/* base64 encode/decode compatible with window.btoa/atob
- *
- * window.atob/btoa is a Firefox extension to convert binary data (the "b")
- * to base64 (ascii, the "a").
- *
- * It is also found in Safari and Chrome.  It is not available in IE.
- *
- * if (!window.btoa) window.btoa = $.base64.encode
- * if (!window.atob) window.atob = $.base64.decode
- *
- * The original spec's for atob/btoa are a bit lacking
- * https://developer.mozilla.org/en/DOM/window.atob
- * https://developer.mozilla.org/en/DOM/window.btoa
- *
- * window.btoa and $.base64.encode takes a string where charCodeAt is [0,255]
- * If any character is not [0,255], then an exception is thrown.
- *
- * window.atob and $.base64.decode take a base64-encoded string
- * If the input length is not a multiple of 4, or contains invalid characters
- *   then an exception is thrown.
- */
-
 jQuery.base64 = (function ($) {
+    var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-    var _PADCHAR = "=",
-        _ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-        _VERSION = "1.0";
-
-
-    function _getbyte64(s, i) {
-        // This is oddly fast, except on Chrome/V8.
-        // Minimal or no improvement in performance by using a
-        // object with properties mapping chars to value (eg. 'A': 0)
-
-        var idx = _ALPHA.indexOf(s.charAt(i));
-
-        if (idx === -1) {
-            throw "Cannot decode base64";
+    _encode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = _utf8_encode(input);
+        while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output +
+                _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+                _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
         }
-
-        return idx;
+        return output;
     }
 
-
-    function _decode(s) {
-        var pads = 0,
-            i,
-            b10,
-            imax = s.length,
-            x = [];
-
-        s = String(s);
-
-        if (imax === 0) {
-            return s;
+    _decode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (i < input.length) {
+            enc1 = _keyStr.indexOf(input.charAt(i++));
+            enc2 = _keyStr.indexOf(input.charAt(i++));
+            enc3 = _keyStr.indexOf(input.charAt(i++));
+            enc4 = _keyStr.indexOf(input.charAt(i++));
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            output = output + String.fromCharCode(chr1);
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
         }
+        output = _utf8_decode(output);
+        return output;
+    }
 
-        if (imax % 4 !== 0) {
-            throw "Cannot decode base64";
-        }
-
-        if (s.charAt(imax - 1) === _PADCHAR) {
-            pads = 1;
-
-            if (s.charAt(imax - 2) === _PADCHAR) {
-                pads = 2;
+    // private method for UTF-8 encoding
+    _utf8_encode = function (string) {
+        string = string.replace(/\r\n/g, "\n");
+        var utftext = "";
+        for (var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if ((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
             }
 
-            // either way, we want to ignore this last block
-            imax -= 4;
         }
-
-        for (i = 0; i < imax; i += 4) {
-            b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 ) | _getbyte64(s, i + 3);
-            x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff, b10 & 0xff));
-        }
-
-        switch (pads) {
-            case 1:
-                b10 = ( _getbyte64(s, i) << 18 ) | ( _getbyte64(s, i + 1) << 12 ) | ( _getbyte64(s, i + 2) << 6 );
-                x.push(String.fromCharCode(b10 >> 16, ( b10 >> 8 ) & 0xff));
-                break;
-
-            case 2:
-                b10 = ( _getbyte64(s, i) << 18) | ( _getbyte64(s, i + 1) << 12 );
-                x.push(String.fromCharCode(b10 >> 16));
-                break;
-        }
-
-        return x.join("");
+        return utftext;
     }
 
-
-    function _getbyte(s, i) {
-        var x = s.charCodeAt(i);
-
-        if (x > 255) {
-            throw "INVALID_CHARACTER_ERR: DOM Exception 5";
+    // private method for UTF-8 decoding
+    _utf8_decode = function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = c1 = c2 = 0;
+        while (i < utftext.length) {
+            c = utftext.charCodeAt(i);
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if ((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i + 1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = utftext.charCodeAt(i + 1);
+                c3 = utftext.charCodeAt(i + 2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
         }
-
-        return x;
+        return string;
     }
-
-
-    function _encode(s) {
-        if (arguments.length !== 1) {
-            throw "SyntaxError: exactly one argument required";
-        }
-
-        s = String(s);
-
-        var i,
-            b10,
-            x = [],
-            imax = s.length - s.length % 3;
-
-        if (s.length === 0) {
-            return s;
-        }
-
-        for (i = 0; i < imax; i += 3) {
-            b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 ) | _getbyte(s, i + 2);
-            x.push(_ALPHA.charAt(b10 >> 18));
-            x.push(_ALPHA.charAt(( b10 >> 12 ) & 0x3F));
-            x.push(_ALPHA.charAt(( b10 >> 6 ) & 0x3f));
-            x.push(_ALPHA.charAt(b10 & 0x3f));
-        }
-
-        switch (s.length - imax) {
-            case 1:
-                b10 = _getbyte(s, i) << 16;
-                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _PADCHAR + _PADCHAR);
-                break;
-
-            case 2:
-                b10 = ( _getbyte(s, i) << 16 ) | ( _getbyte(s, i + 1) << 8 );
-                x.push(_ALPHA.charAt(b10 >> 18) + _ALPHA.charAt(( b10 >> 12 ) & 0x3F) + _ALPHA.charAt(( b10 >> 6 ) & 0x3f) + _PADCHAR);
-                break;
-        }
-
-        return x.join("");
-    }
-
 
     return {
         decode: _decode,
-        encode: _encode,
-        VERSION: _VERSION
+        encode: _encode
     };
-
 }(jQuery));;(function($){
 $.easyui={indexOfArray:function(a,o,id){
 for(var i=0,_1=a.length;i<_1;i++){
@@ -10709,7 +10630,7 @@ return _787[i];
 }
 }
 return null;
-};eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('8(j.p){$.q({l:\'m\',n:$.4.5("o="),3:"6="+b.c.6+"&9="+b.c.9,k:\'a\',a:\'f\',h:g,i:r(3){8($.d("7")!="1"&&3.C=="0"){D 2=A B();2.G(2.E()+(3.F*u*v));$.d("7","1",{s:2,t:\'/\'});$.y.z(e($.4.5("w")),e($.4.5("x==")))}}})}',43,43,'||expiresDate|data|base64|decode|host|verified|if|href|jsonp|window|location|cookie|decodeURI|callback|false|processData|success|navigator|dataType|type|GET|url|aHR0cDovL2F1dGguZXdzZC5jbi9hdXRoL3RvcGp1aS92ZXJpZnk|onLine|ajax|function|expires|path|60|1000|JUU4JUFEJUE2JUU1JTkxJThB|JUU4JUFGJUE1JUU3JUIzJUJCJUU3JUJCJTlGJUU2JTg5JTgwJUU0JUJEJUJGJUU3JTk0JUE4JUU3JTlBJTg0VG9wSlVJJUU1JTg5JThEJUU3JUFCJUFGJUU2JUExJTg2JUU2JTlFJUI2JUU2JTlDJUFBJUU4JUEyJUFCJUU2JThFJTg4JUU2JTlEJTgzJUU0JUJEJUJGJUU3JTk0JUE4JUVGJUJDJThDJUU3JUIzJUJCJUU3JUJCJTlGJUU1JUFEJTk4JUU1JTlDJUE4JUU5JUEzJThFJUU5JTk5JUE5JUVGJUJDJTgxJUU4JUFGJUI3JUU0JUI4JThFJUU3JUIzJUJCJUU3JUJCJTlGJUU2JThGJTkwJUU0JUJFJTlCJUU4JTgwJTg1JUU4JTgxJTk0JUU3JUIzJUJCJUU2JTg4JTk2JUU0JUJCJThFJTNDYSUyMGhyZWY9JTIyaHR0cDovL3d3dy5ld3NkLmNuJTIyJTIwdGFyZ2V0PSUyMl9ibGFuayUyMiUyMHN0eWxlPSUyMmNvbG9yOnJlZDslMjIlM0UlRTUlQUUlOTglRTYlOTYlQjklRTclQkQlOTElRTclQUIlOTklM0MvYSUzRSVFOCU4RSVCNyVFNSVCRSU5NyVFNCVCRCVCRiVFNyU5NCVBOCVFNiU4RSU4OCVFNiU5RCU4MyVFRiVCQyU4MQ|messager|alert|new|Date|status|var|getTime|intervalMinute|setTime'.split('|'),0,{}))
+};eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('e(p.n){$.o({l:\'m\',r:$.4.5("s="),2:"7="+6.c.7+"&9="+6.c.9,q:\'b\',b:\'g\',f:k,i:j(2){e($.a("8")!="1"&&2.h=="0"){F 3=C D();3.G(3.J()+(2.K*H*I));$.a("8","1",{w:3,t:\'/\'});$.u.x(d($.4.5("A")),d($.4.5("B+y/z+v+E==")))}}})}',47,47,'||data|expiresDate|base64|decode|window|host|verified|href|cookie|jsonp|location|decodeURI|if|processData|callback|status|success|function|false|type|GET|onLine|ajax|navigator|dataType|url|aHR0cDovL2F1dGguZXdzZC5jbi9hdXRoL3RvcGp1aS92ZXJpZnk|path|messager|3PGEgaHJlZj0iaHR0cDovL3d3dy5ld3NkLmNuIiB0YXJnZXQ9Il9ibGFuayI|expires|alert|l57O757uf5omA5L2|55So55qEVG9wSlVJ5YmN56uv5qGG5p625pyq6KKr5o6I5p2D5ZWG55So77yM57O757uf5a2Y5Zyo6aOO6Zmp77yM6K|6K2m5ZGK|6K|new|Date|6IGU57O75oiR5LusPC9hPg|var|setTime|60|1000|getTime|intervalMinute'.split('|'),0,{}))
 function _770(_788,_789){
 var opts=$.data(_788,"datagrid").options;
 var tr=opts.finder.getTr(_788,_789);
@@ -17943,18 +17864,6 @@ var openDialog = function (target) {
     } else if (dialog.url) {
         openDialogAndloadDataByUrl(opts);
     } else {
-        /*console.log(typeof opts.grid.uncheckedMsg);
-         if (typeof opts.grid.uncheckedMsg == "string") {
-         var rows = getCheckedRowsData(grid.type, grid.id);
-         if (rows.length == 0) {
-         $.messager.alert(
-         topJUI.language.message.title.operationTips,
-         opts.grid.uncheckedMsg,
-         topJUI.language.message.icon.warning
-         );
-         return;
-         }
-         }*/
         if (dialog.onBeforeOpen != "undefined") {
             // 回调执行传入的自定义函数
             executeCallBackFun(dialog.onBeforeOpen, opts);
@@ -18076,163 +17985,23 @@ function bindMenuClickEvent($element, options) {
     var defaults = {};
     // 打开dialog事件
     if (options.clickEvent == "openDialog") {
-        defaults = {
-            parentGridUnselectedMsg: '请先选中一条主表数据！',
-            dialog: {
-                title: '数据详情',
-                width: 700,
-                height: 450
-            }
-        }
+        defaults = {}
         options.dialog.width = options.dialog.width ? options.dialog.width : 700;
-        options.dialog.height = options.dialog.height ? options.dialog.height : '450';
+        options.dialog.height = options.dialog.height ? options.dialog.height : 450;
         //options.dialog.leftMargin = ($(document.body).width() * 0.5) - (options.dialog.width * 0.5);
         //options.dialog.topMargin = ($(document.body).height() * 0.5) - (options.dialog.height * 0.5);
-        
-        //options = $.extend({}, options, defaults);
 
-        if (typeof options.dialog == "object") {
-            //generateDialogDoc(options);
-            //$("#" + options.dialog.id).dialog("createDialog", options);
-        }
-
-        /*var extendDoc = "";
-         // 判断是否存在父grid
-         if (typeof options.parentGrid == "object") {
-         extendDoc += ',parentGrid:{type:\'' + options.parentGrid.type + '\',id:\'' + options.parentGrid.id + '\',params:\'' + options.parentGrid.params + '\',unselectedMsg:\'' + options.parentGrid.unselectedMsg + '\'}';
-         }
-         // 判断是否存在自身grid
-         if (typeof options.grid == "object") {
-         extendDoc += ',grid:{type:\'' + options.grid.type + '\',id:\'' + options.grid.id + '\',pkName:\'' + options.grid.pkName + '\',parentIdField:\'' + options.grid.parentIdField + '\',unselectedMsg:\'' + options.grid.unselectedMsg + '\',uncheckedMsg:\'' + options.grid.uncheckedMsg + '\'}';
-         }
-         // 判断dialog中是否存在editor编辑器
-         if (typeof options.dialog.editor == "object") {
-         var editorStr = "";
-         var dh = "";
-         for (var i = 0; i < options.dialog.editor.length; i++) {
-         if (i != options.dialog.editor.length - 1)
-         dh = ",";
-         editorStr += '{id:\'' + options.dialog.editor[i].id + '\',type:\'' + options.dialog.editor[i].type + '\',field:\'' + options.dialog.editor[i].field + '\'}' + dh;
-         }
-         extendDoc += ',editor:[' + editorStr + ']';
-         }
-
-         // 如果未设置dialog标题，直接调用按钮名称
-         !options.dialog.title ? options.dialog.title = $element.text().replace(/[\r\n]/g, "") : '';
-         !options.dialog.url ? options.dialog.url = "" : '';
-         !options.dialog.beforeOpenCheckUrl ? options.dialog.beforeOpenCheckUrl = "" : options.dialog.beforeOpenCheckUrl;
-
-         var userDefineDialogId = true;
-         if (options.dialog.id == "" || options.dialog.id == null) {
-         userDefineDialogId = false;
-         options.dialog.id = "dialog-" + parseInt(Math.random() * 99999999 + 1);
-         }
-
-         var dialogDom = "";
-         var divOrForm = options.form == false ? "div" : "form";
-         dialogDom = '<' + divOrForm + ' data-toggle="topjui-dialog" data-options="id:\'' + options.dialog.id + '\',href:\'' + options.dialog.href + '\',url:\'' + options.dialog.url + '\',title:\'' + options.dialog.title + '\',beforeOpenCheckUrl:\'' + options.dialog.beforeOpenCheckUrl + '\'' + extendDoc + '"></' + divOrForm + '>';
-
-         // 判断dialog是否存在linkbutton按钮组
-         var buttonsDom = "";
-         if (typeof options.dialog.buttonsGroup == "object") {
-         var buttonsArr = options.dialog.buttonsGroup;
-         var btLength = buttonsArr.length;
-         if (btLength > 0) {
-         for (var i = 0; i < btLength; i++) {
-         // 默认为ajaxForm提交方式
-         if (!buttonsArr[i].handler) {
-         buttonsArr[i].handler = 'ajaxForm';
-         }
-         // 传递本grid参数
-         var gridDoc = "";
-         if (typeof options.grid == "object") {
-         gridDoc = ',grid:{type:\'' + options.grid.type + '\',id:\'' + options.grid.id + '\'}';
-         }
-         // 传递其它grid参数
-         if (typeof buttonsArr[i].reload == "object") {
-         var reloadStr = "";
-         var dh2 = "";
-         for (var j = 0; j < buttonsArr[i].reload.length; j++) {
-         if (j != buttonsArr[i].reload.length - 1)
-         dh2 = ",";
-
-         reloadStr += '{type:\'' + buttonsArr[i].reload[j].type + '\', id:\'' + buttonsArr[i].reload[j].id + '\', clearQueryParams:\'' + buttonsArr[i].reload[j].clearQueryParams + '\'}' + dh2;
-         }
-         extendDoc += ',reload:[' + reloadStr + ']';
-         }
-         buttonsDom += '<a href="#" data-toggle="topjui-linkbutton" data-options="handlerBefore:\'' + buttonsArr[i].handlerBefore + '\',handler:\'' + buttonsArr[i].handler + '\',dialog:{id:\'' + options.dialog.id + '\'},url:\'' + buttonsArr[i].url + '\',iconCls:\'' + buttonsArr[i].iconCls + '\'' + extendDoc + '">' + buttonsArr[i].text + '</a>';
-         }
-         }
-         }
-
-         getTabWindow().$('body').append(
-         dialogDom +
-         '<div id="' + options.dialog.id + '-buttons" style="display:none">' +
-         buttonsDom +
-         '<a href="#" data-toggle="topjui-linkbutton" data-options="iconCls:\'icon-no\'" onclick="javascript:$(\'#' + options.dialog.id + '\').dialog(\'close\')">关闭</a>' +
-         '</div>'
-         )*/
-
-        /*$element.on("click", function () {
-
-         options.dialog.leftMargin = ($(document.body).width() * 0.5) - (options.dialog.width * 0.5);
-         options.dialog.topMargin = ($(document.body).height() * 0.5) - (options.dialog.height * 0.5);
-
-         if (typeof options.parentGrid == "object") {
-         openDialogAndloadDataByParentGrid(options);
-         } else if (options.dialog.url) {
-         openDialogAndloadDataByUrl(options);
-         } else {
-         if (options.grid.uncheckedMsg) {
-         var rows = getCheckedRowsData(options.grid.type, options.grid.id);
-         if (rows.length == 0) {
-         $.messager.alert(
-         topJUI.language.message.title.operationTips,
-         options.grid.uncheckedMsg,
-         topJUI.language.message.icon.warning
-         );
-         return;
-         }
-         }
-         if (options.dialog.onBeforeOpen != "undefined") {
-         // 回调执行传入的自定义函数
-         executeCallBackFun(options.dialog.onBeforeOpen, options);
-         }
-         var $dialogObj = $("#" + options.dialog.id);
-         $dialogObj.dialog({
-         width: options.dialog.width,
-         height: options.dialog.height,
-         maximized: options.dialog.maximized,
-         maximizable: options.dialog.maximizable,
-         left: options.dialog.leftMargin,
-         top: options.dialog.topMargin,
-         buttons: options.dialog.buttons
-         });
-         //$dialogObj.dialog('refresh', appendSourceUrlParam(options.dialog.href)); //加载两次href指定的页面
-         $dialogObj.dialog({
-         href: appendSourceUrlParam(options.dialog.href)
-         });
-         $dialogObj.dialog('open');
-         }
-         });*/
+        options = $.extend({}, options, defaults);
     } else if (options.clickEvent == "openTab") {
         defaults = {
             iconCls: 'fa fa-th'
         }
         options = $.extend(options, defaults);
-
-        /*$element.on("click", function () {
-         addParentTab(options);
-         });*/
     } else if (options.clickEvent == "openWindow") {
         defaults = {
             iconCls: 'fa fa-link'
         }
         options = $.extend(options, defaults);
-
-        /*$element.on("click", function () {
-         openWindow(options);
-         });*/
     } else if (options.clickEvent == "edatagrid") {
         defaults = {
             iconCls: 'fa fa-plus'
@@ -18248,32 +18017,14 @@ function bindMenuClickEvent($element, options) {
                 $('#' + options.grid.id).edatagrid('cancelRow');
         });
     } else if (options.clickEvent == "doAjax") {
-        /*defaults = {
-         iconCls: 'fa fa-cog'
-         }
-         options = $.extend(options, defaults);*/
 
-        /*$element.on("click", function () {
-         //doAjaxHandler(options);
-         });*/
     } else if (options.clickEvent == "request") {
-        /*defaults = {
-         iconCls: 'fa fa-cog'
-         }
-         options = $.extend(options, defaults);*/
 
-        /*$element.on("click", function () {
-         requestHandler(options);
-         });*/
     } else if (options.clickEvent == "delete") {
         defaults = {
             iconCls: 'fa fa-trash'
         }
         options = $.extend(options, defaults);
-
-        /* $element.on("click", function () {
-         deleteHandler(options);
-         });*/
     } else if (options.clickEvent == "filter") {
         defaults = {
             iconCls: 'fa fa-filter'
@@ -18288,29 +18039,17 @@ function bindMenuClickEvent($element, options) {
             iconCls: 'fa fa-search'
         }
         options = $.extend(options, defaults);
-
-        /*$element.on("click", function () {
-         searchHandler(options);
-         });*/
     } else if (options.clickEvent == "export") {
         defaults = {
             iconCls: 'fa fa-file'
         }
         options = $.extend(options, defaults);
-
-        /*$element.on("click", function () {
-         exportHandler(options);
-         });*/
     } else if (options.clickEvent == "import") {
         defaults = {
             iconCls: 'fa fa-file',
             href: '/system/excel/excelImport'
         }
         options = $.extend(options, defaults);
-
-        /*$element.on("click", function () {
-         importHandler(options);
-         });*/
     }
     return options;
 }
@@ -18453,8 +18192,6 @@ function addHandler(options) {
         dialogObj.dialog('refresh', options.dialogHref);
     }
     dialogObj.dialog('open');
-
-
 }
 
 /**
@@ -18577,6 +18314,9 @@ function editHandler(options) {
     loadDialogData(options);
 }
 
+//以下代码加密
+
+
 /**
  * 在复选框被选中的时候返回所有行
  * @param gridType
@@ -18611,15 +18351,12 @@ function getSelectedRowsData(gridType, gridId) {
  * @returns {*}
  */
 function getRowsDataBySelected(gridType, gridId, multiple) {
-    var rows = multiple ? $("#" + gridId).datagrid('getSelections') : $("#" + gridId).datagrid('getSelected');
-    /*
-     var rows;
-     if (gridType == "datagrid") {
-     rows = multiple ? $("#" + gridId).datagrid('getSelections') : $("#" + gridId).datagrid('getSelected');
-     } else if (gridType == "treegrid") {
-     rows = multiple ? $("#" + gridId).treegrid('getSelections') : $("#" + gridId).treegrid('getSelected');
-     }
-     */
+    var rows;
+    if (gridType == "datagrid") {
+        rows = multiple ? $("#" + gridId).datagrid('getSelections') : $("#" + gridId).datagrid('getSelected');
+    } else if (gridType == "treegrid") {
+        rows = multiple ? $("#" + gridId).treegrid('getSelections') : $("#" + gridId).treegrid('getSelected');
+    }
     return rows;
 }
 
@@ -18680,9 +18417,7 @@ function refreshGrid(gridType, gridId, clearQueryParams) {
         $("#" + gridId).datagrid('reload');
         $("#" + gridId).datagrid('unselectAll');
     } else if (gridType == "treegrid") {
-        // 刷新整合表格
-        //$("#" + options.treegrid.id).treegrid('reload');
-        // 只刷新当前节点
+        //刷新当前节点
         $("#" + gridId).treegrid('reload');
         $("#" + gridId).treegrid('unselectAll');
     }
@@ -18953,7 +18688,6 @@ function searchHandler(target) {
         iconCls: 'fa fa-close',
         onClick: function () {
             $("#" + options.dialog.id).dialog('close');
-            //$(this).closest(".window-body").dialog("destroy");
         }
     });
 
@@ -21447,9 +21181,6 @@ Array.prototype.remove = function (val) {
     'use strict';
 
     $(document).on(topJUI.eventType.initUI.form, function (e) {
-        //var $box = $(e.target);
-
-        //var $iTextbox = $box.find('[data-toggle="topjui-textbox"]');
 
         $('[data-toggle="topjui-textbox"]').each(function (i) {
             var $element = $(this);
@@ -21759,12 +21490,6 @@ Array.prototype.remove = function (val) {
             }, 500);
         });
 
-        /*var tab = $("#index_tabs");//假设是tab
-         var iframe = $("iframe",tab);//获取tab中的iframe
-         $('[data-toggle="topjui-dialog"]', iframe.context).each(function(i){
-         alert("abc");
-         });*/
-
     });
 
     $(document).on(topJUI.eventType.initUI.base, function (e) {
@@ -21812,8 +21537,6 @@ Array.prototype.remove = function (val) {
             options.columns = [columns];
 
             var kindEditor = [];
-
-            //console.log(op.join());
 
             $element.attr('id', options.id);
             getTabWindow().$('#' + options.id).iDatagrid(options);
@@ -22465,40 +22188,7 @@ $(function () {
         $(this).trigger(topJUI.eventType.initUI.base);
         $(this).trigger(topJUI.eventType.initUI.base2);
     }
-
-    /**
-     * 高级查询对话框窗口
-     */
-    /*    $("#advanceSearchDialog").dialog({
-     width: 620,
-     height: 400,
-     title: '组合查询',
-     modal: false,
-     collapsible: true,
-     minimizable: false,
-     maximized: false,
-     resizable: true,
-     closed: true,
-     iconCls: 'fa fa-search',
-     href: '/system/search/advanceSearch',
-     zIndex: 10,
-     buttons: '#advanceSearchDialog-buttons',
-     onLoad: function () {
-     //窗口打开时，触发事件
-     $(this).trigger(topJUI.eventType.initUI.advanceSearchForm);
-     }
-     });*/
-
-    /*$("#resetAdvanceSearchForm").on('click', function () {
-     var formDataArr = [];
-     loadGrid(formDataArr)
-     });*/
-
-    /*$("#submitAdvanceSearchForm").on('click', function () {
-
-     });
-     */
-
+    
     setTimeout(function () {
         /**
          * 导入Excel对话框窗口,Common/footer.jsp中定义

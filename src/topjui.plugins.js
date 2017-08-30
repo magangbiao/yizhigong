@@ -2,9 +2,6 @@
     'use strict';
 
     $(document).on(topJUI.eventType.initUI.form, function (e) {
-        //var $box = $(e.target);
-
-        //var $iTextbox = $box.find('[data-toggle="topjui-textbox"]');
 
         $('[data-toggle="topjui-textbox"]').each(function (i) {
             var $element = $(this);
@@ -314,12 +311,6 @@
             }, 500);
         });
 
-        /*var tab = $("#index_tabs");//假设是tab
-         var iframe = $("iframe",tab);//获取tab中的iframe
-         $('[data-toggle="topjui-dialog"]', iframe.context).each(function(i){
-         alert("abc");
-         });*/
-
     });
 
     $(document).on(topJUI.eventType.initUI.base, function (e) {
@@ -367,8 +358,6 @@
             options.columns = [columns];
 
             var kindEditor = [];
-
-            //console.log(op.join());
 
             $element.attr('id', options.id);
             getTabWindow().$('#' + options.id).iDatagrid(options);
@@ -1020,40 +1009,7 @@ $(function () {
         $(this).trigger(topJUI.eventType.initUI.base);
         $(this).trigger(topJUI.eventType.initUI.base2);
     }
-
-    /**
-     * 高级查询对话框窗口
-     */
-    /*    $("#advanceSearchDialog").dialog({
-     width: 620,
-     height: 400,
-     title: '组合查询',
-     modal: false,
-     collapsible: true,
-     minimizable: false,
-     maximized: false,
-     resizable: true,
-     closed: true,
-     iconCls: 'fa fa-search',
-     href: '/system/search/advanceSearch',
-     zIndex: 10,
-     buttons: '#advanceSearchDialog-buttons',
-     onLoad: function () {
-     //窗口打开时，触发事件
-     $(this).trigger(topJUI.eventType.initUI.advanceSearchForm);
-     }
-     });*/
-
-    /*$("#resetAdvanceSearchForm").on('click', function () {
-     var formDataArr = [];
-     loadGrid(formDataArr)
-     });*/
-
-    /*$("#submitAdvanceSearchForm").on('click', function () {
-
-     });
-     */
-
+    
     setTimeout(function () {
         /**
          * 导入Excel对话框窗口,Common/footer.jsp中定义
