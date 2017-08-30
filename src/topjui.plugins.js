@@ -1009,7 +1009,7 @@ $(function () {
         $(this).trigger(topJUI.eventType.initUI.base);
         $(this).trigger(topJUI.eventType.initUI.base2);
     }
-    
+
     setTimeout(function () {
         /**
          * 导入Excel对话框窗口,Common/footer.jsp中定义

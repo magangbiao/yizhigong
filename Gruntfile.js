@@ -9,7 +9,6 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    "plugins/jquery.base64.js",
                     "plugins/jquery.easyui.min.js",
                     "plugins/datagrid-filter.js",
                     "plugins/jquery.edatagrid.js",
