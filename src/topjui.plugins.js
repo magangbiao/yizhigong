@@ -3,6 +3,10 @@
 
     $(document).on(topJUI.eventType.initUI.form, function (e) {
 
+        //var $box = $(e.target);
+
+        //var $iTextbox = $box.find('[data-toggle="topjui-textbox"]');
+
         $('[data-toggle="topjui-textbox"]').each(function (i) {
             var $element = $(this);
             var options = getOptionsJson($element);
@@ -14,14 +18,6 @@
 
             options = setFormElementId($element, options);
             $element.iTextbox(options);
-        });
-
-        $('[data-toggle="topjui-switchbutton"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            options = setFormElementId($element, options);
-            $element.iSwitchbutton(options);
         });
 
         $('[data-toggle="topjui-filebox"]').each(function (i) {
@@ -64,28 +60,12 @@
             $element.iCombobox(options);
         });
 
-        $('[data-toggle="topjui-combogrid"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            options = setFormElementId($element, options);
-            $element.iCombogrid(options);
-        });
-
         $('[data-toggle="topjui-combotree"]').each(function (i) {
             var $element = $(this);
             var options = getOptionsJson($element);
 
             options = setFormElementId($element, options);
             $element.iCombotree(options);
-        });
-
-        $('[data-toggle="topjui-combotreegrid"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            options = setFormElementId($element, options);
-            $element.iCombotreegrid(options);
         });
 
         $('[data-toggle="topjui-textarea"]').each(function (i) {
@@ -107,33 +87,33 @@
             var options = getOptionsJson($element);
 
             options = setFormElementId($element, options);
-            $element.iAutoComplete(options);
+            $element.iAutoComplete2(options);
         });
 
         $('[data-toggle="topjui-ueditor"]').each(function (i) {
-            var defaults = {
-                height: 300
-            };
-
             var $element = $(this);
             var options = getOptionsJson($element);
-            options = $.extend(defaults, options);
+
             options = setFormElementId($element, options);
 
             UE.delEditor(options.id);
             <!-- 实例化编辑器 -->
             var toolbars = [['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat',
                 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist',
-                'insertunorderedlist', 'lineheight', '|',
-                'horizontal', 'spechars', 'map', 'paragraph', 'fontfamily', 'fontsize', 'insertcode', '|',
-                'indent', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
-                'link', 'unlink', '|', 'emotion', 'attachment', 'simpleupload', 'insertimage', '|', 'preview']];
+                'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'simpleupload', 'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', 'insertcode', '|',
+                'horizontal', 'spechars', 'wordimage', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol',
+                'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
+                'preview', 'drafts']];
             var simpleToolbars = [["fullscreen", "source", "undo", "redo", "bold", "italic", "underline", "fontborder", "strikethrough", "superscript", "subscript", "insertunorderedlist", "insertorderedlist", "justifyleft", "justifycenter", "justifyright", "justifyjustify", "removeformat", "simpleupload", "snapscreen", "emotion", "attachment", "link", "unlink", "indent", "lineheight", "autotypeset"]];
-            UE.getEditor(options.id, {
+            var ue = UE.getEditor(options.id, {
                 toolbars: options.mode == "simple" ? simpleToolbars : toolbars,
                 initialFrameWidth: 700,
-                initialFrameHeight: options.height,
                 autoHeightEnabled: true,
                 autoFloatEnabled: true,
                 readonly: options.readonly ? true : false
@@ -148,51 +128,50 @@
             var defaults = {
                 width: 450,
                 buttonText: '选择图片',
-                uploadType: 'image',
-                buttonIcon: 'icon-picture_add'
+                uploadType: 'image'
             }
             var options = $.extend(defaults, options);
 
-            var uploaderId = options.id + "Uploader";
-            $('body').append('<script type="text/plain" id="' + uploaderId + '"></script>');
-
-            //http://www.cnblogs.com/stupage/p/3145353.html
-            //重新实例化一个编辑器，上传独立使用
-            var ueUpload = UE.getEditor(uploaderId, {
-                toolbars: [["insertimage", "attachment"]]
-            });
-            ueUpload.ready(function () {
-                //设置编辑器不可用
-                ueUpload.setDisabled();
-                //隐藏编辑器，因为不会用到这个编辑器实例，所以要隐藏
-                ueUpload.hide();
-                var listener = "afterConfirmUploadedFile", pathAttr = "url";
-                if (options.uploadType == "image") {
-                    listener = "afterConfirmUploadedImage";
-                    pathAttr = "src";
-                }
-                //侦听上传
-                ueUpload.addListener(listener, function (t, arg) {
-                    //将地址赋值给相应的input
-                    $("#" + options.id).textbox("setText", arg[0][pathAttr]);
-                    $("#" + options.id).textbox("setValue", arg[0][pathAttr]);
-                    //图片预览
-                    if (pathAttr == "src")
-                        $("#" + options.previewImageId).attr(pathAttr, arg[0][pathAttr]);
+            var ueUpload;
+            setTimeout(function () {
+                //UE.delEditor(options.id);
+                //http://www.cnblogs.com/stupage/p/3145353.html
+                //重新实例化一个编辑器，上传独立使用，防止在上面的editor编辑器中显示上传的图片或者文件
+                ueUpload = UE.getEditor(options.id, {
+                    toolbars: [["insertimage", "attachment"]]
                 });
-
-                options.onClickButton = function () {
+                ueUpload.ready(function () {
+                    //设置编辑器不可用
+                    ueUpload.setDisabled();
+                    //隐藏编辑器，因为不会用到这个编辑器实例，所以要隐藏
+                    ueUpload.hide();
+                    var listener = "afterConfirmUploadedFile", pathAttr = "url";
                     if (options.uploadType == "image") {
-                        var imageUploadDialog = ueUpload.getDialog("insertimage");
-                        imageUploadDialog.open();
-                    } else {
-                        var fileUploadDialog = ueUpload.getDialog("attachment");
-                        fileUploadDialog.open();
+                        listener = "afterConfirmUploadedImage";
+                        pathAttr = "src";
                     }
-                };
-                $element.iTextbox(options);
-            });
+                    //侦听上传
+                    ueUpload.addListener(listener, function (t, arg) {
+                        //将地址赋值给相应的input
+                        $("#" + options.id).textbox("setText", arg[0][pathAttr]);
+                        $("#" + options.id).textbox("setValue", arg[0][pathAttr]);
+                        //图片预览
+                        if (pathAttr == "src")
+                            $("#" + options.previewImageId).attr(pathAttr, arg[0][pathAttr]);
+                    });
+                });
+            }, 1000);
 
+            options.onClickButton = function () {
+                if (options.uploadType == "image") {
+                    var imageUploadDialog = ueUpload.getDialog("insertimage");
+                    imageUploadDialog.open();
+                } else {
+                    var fileUploadDialog = ueUpload.getDialog("attachment");
+                    fileUploadDialog.open();
+                }
+            };
+            $element.iTextbox(options);
         });
 
         $('[data-toggle="topjui-kindeditor"]').each(function (i) {
@@ -311,488 +290,271 @@
             }, 500);
         });
 
+        /*var tab = $("#index_tabs");//假设是tab
+         var iframe = $("iframe",tab);//获取tab中的iframe
+         $('[data-toggle="topjui-dialog"]', iframe.context).each(function(i){
+         alert("abc");
+         });*/
+
     });
 
     $(document).on(topJUI.eventType.initUI.base, function (e) {
-        //setTimeout(function () {
-        // 父框架获取子框架元素
-        // var test = $("iframe").contents().find("#test").val();
+        setTimeout(function () {
+            // 父框架获取子框架元素
+            // var test = $("iframe").contents().find("#test").val();
+            getTabWindow().$('[data-toggle="topjui-datagrid2"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
 
-        getTabWindow().$('[data-toggle="topjui-treegrid"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            var op = [];
-            $element.find("th").each(function (i) {
-                op.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-            });
-            options.columns = [op];
-
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iTreegrid(options);
-        });
-
-        getTabWindow().$('[data-toggle="topjui-datagrid"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            var frozenColumns = $element.find("thead:first")[0];
-            //console.log(frozenColumns.getAttribute("frozen"));
-            if ($(frozenColumns).attr("frozen")) {
-                var frozenColumns = [];
-                $element.find("thead:first th").each(function (i) {
-                    frozenColumns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-                options.frozenColumns = [frozenColumns];
-
-                var columns = [];
-                $element.find("thead:eq(1) th").each(function (i) {
-                    columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-            } else {
-                var columns = [];
-                $element.find("thead th").each(function (i) {
-                    columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-            }
-            options.columns = [columns];
-
-            var kindEditor = [];
-
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iDatagrid(options);
-        });
-
-        getTabWindow().$('[data-toggle="topjui-edatagrid"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            var frozenColumns = $element.find("thead:first")[0];
-            //console.log(frozenColumns.getAttribute("frozen"));
-            if ($(frozenColumns).attr("frozen")) {
-                var frozenColumns = [];
-                $element.find("thead:first th").each(function (i) {
-                    frozenColumns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-                options.frozenColumns = [frozenColumns];
-
-                var columns = [];
-                $element.find("thead:eq(1) th").each(function (i) {
-                    columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-            } else {
-                var columns = [];
-                $element.find("thead th").each(function (i) {
-                    columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
-                });
-            }
-            options.columns = [columns];
-
-            var kindEditor = [];
-
-            //console.log(op.join());
-
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iEdatagrid(options);
-        });
-
-        getTabWindow().$('[data-toggle="topjui-tabs"]').each(function () {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iTabs(options);
-        });
-
-        getTabWindow().$('[data-toggle="topjui-menubutton"]').each(function () {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            options.id = getRandomNumByDef();
-            $(this).attr("id", options.id);
-
-            options = bindMenuClickEvent($element, options);
-
-            $(this).iMenubutton(options);
-        });
-
-        getTabWindow().$('[data-toggle="topjui-uploader"]').each(function () {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            // 生成菜单按钮
-            $(this).iMenubutton(options);
-
-            var uploader;
-            var upfileGrid;
-            var state = 'pending';
-            var initfilesize = 0;
-            var md5value = "";
-            var isUpFile = false;//判断是否有文件上传成功，来提示dialog进行下部操作
-            var parentRow;
-
-            var dialogDom = '<div id="uploaderDialog">' +
-                '<div id="upfileGrid-toolbar" data-options="border:false">' +
-                '<div style="float: left;margin-right:5px;">' +
-                '<div id="chooseFile">选择文件</div>' +
-                '</div>' +
-                '<a id="startUpload" style="margin-right:5px;">开始上传</a>' +
-                '<a id="removeFile">移除文件</a>' +
-                '</div>' +
-                '<table id="upfileGrid"></table>' +
-                '</div>';
-
-            getTabWindow().$('body').append(
-                dialogDom +
-                '<div id="uploaderDialog-buttons" style="display:none">' +
-                '<a href="#" id="closeUploaderDialog">关闭</a>' +
-                '</div>'
-            );
-
-            upfileGrid = $("#upfileGrid").datagrid({
-                fit: true,
-                fitColumns: true,
-                rownumbers: true,
-                nowrap: true,
-                animate: false,
-                border: false,
-                singleSelect: false,
-                idField: 'fileId',
-                pagination: false,
-                toolbar: '#upfileGrid-toolbar',
-                columns: [[
-                    {field: 'ck', checkbox: true},
-                    {field: 'fileId', title: 'fileId', hidden: true},
-                    {field: 'fileName', title: '文件名称', width: 100},
-                    {field: 'fileSize', title: '文件大小', width: 30},
-                    {field: 'validateMd5', title: '文件验证', width: 20},
-                    {
-                        field: 'progress',
-                        title: '上传进度',
-                        width: 180,
-                        fixed: true,
-                        formatter: function (value, rec) {
-                            var htmlstr = '<div class="easyui-progressbar progressbar" style="width: 170px; height: 20px;" value="' + value + '" text="' + value + '%">' +
-                                '<div class="progressbar-text" style="width: 170px; height: 20px; line-height: 20px;">' + value + '%</div>' +
-                                '<div class="progressbar-value" style="width: ' + value + '%; height: 20px; line-height: 20px;">' +
-                                '<div class="progressbar-text" style="width: 170px; height: 20px; line-height: 20px;">' + value + '%</div>' +
-                                '</div>' +
-                                '</div>';
-                            return htmlstr;
-                        }
-                    },
-                    {field: 'fileState', title: '上传状态', width: 20},
-                ]]
-            });
-
-            // 在文件开始发送前做些异步操作。做md5验证
-            // WebUploader会等待此异步操作完成后，开始发送文件。
-            WebUploader.Uploader.register({
-                "before-send-file": "beforeSendFile"
-            }, {
-                beforeSendFile: function (file) {
-                    var task = new $.Deferred();
-                    (new WebUploader.Uploader()).md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
-                        upfileGrid.datagrid('updateRow',
-                            {
-                                index: upfileGrid.datagrid('getRowIndex', file.id),
-                                row: {validateMd5: (percentage * 100) + "%"}
-                            });
-                    }).then(function (val) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/system/attachment/md5Validate",
-                            data: {
-                                type: "md5Check", md5: val
-                            },
-                            cache: false,
-                            timeout: 3000,
-                            dataType: "json"
-                        }).then(function (data, textStatus, jqXHR) {
-                            if (data.isHave) {   //若存在，这返回失败给WebUploader，表明该文件不需要上传
-                                task.reject();
-                                uploader.skipFile(file);
-                                upfileGrid.datagrid('updateRow',
-                                    {
-                                        index: upfileGrid.datagrid('getRowIndex', file.id),
-                                        row: {fileState: "秒传", progress: 100}
-                                    });
-                            } else {
-                                $.extend(uploader.options.formData, {md5: val});
-                                task.resolve();
-                            }
-                        }, function (jqXHR, textStatus, errorThrown) {    //任何形式的验证失败，都触发重新上传
-                            task.resolve();
-                        });
+                var frozenColumns = $element.find("thead:first")[0];
+                //console.log(frozenColumns.getAttribute("frozen"));
+                if ($(frozenColumns).attr("frozen")) {
+                    var frozenColumns = [];
+                    $element.find("thead:first th").each(function (i) {
+                        frozenColumns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
                     });
-                    return $.when(task);
-                }
-            });
+                    options.frozenColumns = [frozenColumns];
 
-            uploader = WebUploader.create({
-                // 不压缩image
-                resize: false,
-                // swf文件路径
-                swf: '/static/webuploader/js/Uploader.swf',
-                // 默认文件接收服务端。
-                server: '/system/attachment/upload',
-                // 选择文件的按钮。可选。
-                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                pick: '#chooseFile',
-                fileSingleSizeLimit: 100 * 1024 * 1024,//单个文件大小
-                accept: [{
-                    title: 'file',
-                    extensions: 'doc,docx,pdf,xls,xlsx,ppt,pptx,gif,jpg,jpeg,bmp,png,rar,zip',
-                    mimeTypes: '.doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx,.gif,.jpg,.jpeg,.bmp,.png,.rar,.zip'
-                }]
-            });
-
-            // 当有文件添加进来的时候
-            uploader.on('fileQueued', function (file) {
-                var fileSize = bytesToSize(file.size);
-                var row = {
-                    fileId: file.id,
-                    fileName: file.name,
-                    fileSize: fileSize,
-                    validateMd5: '0%',
-                    progress: 0,
-                    fileState: "等待上传"
-                };
-                upfileGrid.datagrid('insertRow', {
-                    index: 0,
-                    row: row
-                });
-            });
-
-            // 文件上传过程中创建进度条实时显示。
-            uploader.on('uploadProgress', function (file, percentage) {
-                upfileGrid.datagrid('updateRow',
-                    {
-                        index: upfileGrid.datagrid('getRowIndex', file.id),
-                        row: {progress: (percentage * 100).toFixed(2)}
+                    var columns = [];
+                    $element.find("thead:eq(1) th").each(function (i) {
+                        columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
                     });
-            });
-
-            //文件上传成功
-            uploader.on('uploadSuccess', function (file) {
-                var rows = upfileGrid.datagrid("getRows");
-                //上传成功设置checkbox不可用
-                for (var i = 0; i < rows.length; i++) {
-                    if (rows[i].fileId == file.id) {
-                        $("input[type='checkbox']")[i + 1].disabled = true;
-                    }
-                }
-                $("#removeFile").linkbutton("disable");
-                upfileGrid.datagrid('updateRow',
-                    {index: upfileGrid.datagrid('getRowIndex', file.id), row: {fileState: '上传成功'}});
-                isUpFile = true;
-            });
-            //文件上传失败
-            uploader.on('uploadError', function (file) {
-                upfileGrid.datagrid('updateRow',
-                    {index: upfileGrid.datagrid('getRowIndex', file.id), row: {fileState: '上传失败'}});
-            });
-
-            uploader.on('uploadComplete', function (file) {
-
-            });
-
-            uploader.on('uploadFinished', function () {//成功后
-                $("#attachmentDg").datagrid('reload');
-            });
-
-            uploader.on('error', function (handler) {
-                if (handler == 'F_EXCEED_SIZE') {
-                    tim.parentAlert('error', '上传的单个文件不能大于' + initfilesize + '。<br>操作无法进行,如有需求请联系管理员', 'error');
-                } else if (handler == 'Q_TYPE_DENIED') {
-                    tim.parentAlert('error', '不允许上传此类文件!。<br>操作无法进行,如有需求请联系管理员', 'error');
-                }
-            });
-
-            /*从队列中移除文件*/
-            var removeFile = function () {
-                var fileRows = upfileGrid.datagrid("getSelections");
-                var copyRows = [];
-                for (var j = 0; j < fileRows.length; j++) {
-                    copyRows.push(fileRows[j]);
-                }
-                for (var i = 0; i < copyRows.length; i++) {
-                    var index = upfileGrid.datagrid('getRowIndex', copyRows[i]);
-                    uploader.removeFile(copyRows[i].fileId, true);
-                    upfileGrid.datagrid('deleteRow', index);
-                }
-                upfileGrid.datagrid('clearSelections');
-            }
-
-            var uploadToServer = function (uploader, parentRow) {
-                if (uploader.getFiles().length <= 0) {
-                    $.messager.alert('提示', '没有上传的文件!', 'error');
-                    return;
-                }
-                if (state === 'uploading') {
-                    uploader.stop();
-                }
-                else {
-                    uploader.option('formData', {
-                        puuid: parentRow.uuid
+                } else {
+                    var columns = [];
+                    $element.find("thead th").each(function (i) {
+                        columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
                     });
-                    uploader.upload();
                 }
-            }
+                options.columns = [columns];
 
-            //初始化上传参数
-            var initUpLoad = function (args) {
-                var opts = {};
-                if (args) {
-                    if (args.url != null && args.url != "") {
-                        opts.server = args.url;
-                    }
-                    if (args.size != null && args.size != "") {
-                        initfilesize = args.size;
-                        opts.fileSingleSizeLimit = args.size;
-                    }
-                    if (args.args != null && args.args != "") {
-                        opts.formData = args.args;
-                    }
-                    if (opts) {
-                        $.extend(uploader.options, opts);
-                    }
-                }
-            }
+                var kindEditor = [];
 
-            var getSuccess = function () {
-                return isUpFile;
-            }
+                //console.log(op.join());
 
-            $element.on("click", function () {
-
-                if (typeof options.parentGrid == "object") {
-                    //判断父表数据是否被选中
-                    parentRow = getSelectedRowData(options.parentGrid.type, options.parentGrid.id);
-                    if (!parentRow) {
-                        $.messager.alert(
-                            topJUI.language.message.title.operationTips,
-                            options.parentGrid.unselectedMsg || topJUI.language.message.msg.selectParentGrid,
-                            topJUI.language.message.icon.warning
-                        );
-                        return;
-                    }
-                }
-
-                var fileRows = upfileGrid.datagrid("getRows");
-                if (fileRows.length > 0) {
-                    upfileGrid.datagrid("selectAll");
-                    removeFile();
-                }
-
-                var uploaderDialog = $("#uploaderDialog");
-
-                var defaults = {
-                    iconCls: 'fa fa-plus',
-                    parentGridUnselectedMsg: '请先选中一条主表数据！',
-                    dialog: {
-                        title: '附件上传',
-                        width: 900,
-                        height: 500,
-                        maximized: false,
-                        maximizable: true,
-                        buttons: '#uploaderDialog-buttons'
-                    }
-                };
-                options = $.extend(defaults, options);
-
-                uploaderDialog.dialog({
-                    title: options.dialog.title,
-                    width: options.dialog.width,
-                    height: options.dialog.height,
-                    maximized: options.dialog.maximized,
-                    maximizable: options.dialog.maximizable,
-                    buttons: options.dialog.buttons
-                });
-                uploaderDialog.dialog('open');
-
-                $('#startUpload').linkbutton({
-                    iconCls: 'fa fa-play-circle',
-                    btnCls: 'topjui-btn',
-                    height: 36,
-                    onClick: function () {
-                        uploadToServer(uploader, parentRow);
-                    }
-                });
-                $('#removeFile').linkbutton({
-                    iconCls: 'fa fa-remove',
-                    btnCls: 'topjui-btn-danger',
-                    height: 36,
-                    onClick: removeFile
-                });
-                $('#closeUploaderDialog').linkbutton({
-                    iconCls: 'fa fa-remove',
-                    btnCls: 'topjui-btn-danger',
-                    onClick: function () {
-                        uploaderDialog.dialog('close');
-                    }
-                });
-            });
-
-        });
-
-        getTabWindow().$('[data-toggle="topjui-submenubutton"]').each(function () {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-            bindMenuClickEvent($element, options);
-            $(this).iSubMenubutton(options);
-        });
-        //}, 1);
-
-        //setTimeout(function () {
-        getTabWindow().$('[data-toggle="topjui-dialog"]').each(function () {
-            var $element = $(this);
-            var options = getOptionsJson($element);
-
-            var href = $element.attr('href');
-            if (href != undefined) {
-                options.href = href;
-                getTabWindow().$('body').append('<div id="' + options.id + '"></div>');
-                getTabWindow().$('#' + options.id).iDialog(options);
-
-                $element.on("click", function () {
-                    getTabWindow().$('#' + options.id).dialog('open');
-                    return false; //阻止链接跳转
-                });
-
-            } else {
                 $element.attr('id', options.id);
-                //getTabWindow().$('#' + options.id).iDialog(options);
-            }
-        });
+                getTabWindow().$('#' + options.id).iDatagrid2(options);
+            });
 
-        getTabWindow().$('[data-toggle="topjui-linkbutton"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
+            getTabWindow().$('[data-toggle="topjui-edatagrid"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
 
-            $element.iLinkbutton(options);
-        });
-        //}, 10);
+                var frozenColumns = $element.find("thead:first")[0];
+                //console.log(frozenColumns.getAttribute("frozen"));
+                if ($(frozenColumns).attr("frozen")) {
+                    var frozenColumns = [];
+                    $element.find("thead:first th").each(function (i) {
+                        frozenColumns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
+                    });
+                    options.frozenColumns = [frozenColumns];
+
+                    var columns = [];
+                    $element.find("thead:eq(1) th").each(function (i) {
+                        columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
+                    });
+                } else {
+                    var columns = [];
+                    $element.find("thead th").each(function (i) {
+                        columns.push(strToJson("{" + this.getAttribute("data-options") + "}"));
+                    });
+                }
+                options.columns = [columns];
+
+                var kindEditor = [];
+
+                //console.log(op.join());
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iEdatagrid(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-treegrid"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                var op = [];
+                $element.find("th").each(function (i) {
+                    op.push(strToJson("{" + this.getAttribute("data-options") + "}"));
+                });
+                options.columns = [op];
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iTreegrid(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-tabs"]').each(function () {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iTabs(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-menubutton"]').each(function () {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+                options = bindMenuClickEvent($element, options);
+
+                $(this).iMenubutton(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-submenubutton"]').each(function () {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+                bindMenuClickEvent($element, options);
+            });
+        }, 1);
+
+        setTimeout(function () {
+            getTabWindow().$('[data-toggle="topjui-dialog2"]').each(function () {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                var href = $element.attr('href');
+                if (href != undefined) {
+                    options.href = href;
+                    getTabWindow().$('body').append('<div id="' + options.id + '"></div>');
+                    getTabWindow().$('#' + options.id).iDialog2(options);
+
+                    $element.on("click", function () {
+                        getTabWindow().$('#' + options.id).dialog2('open');
+                        return false; //阻止链接跳转
+                    });
+
+                } else {
+                    $element.attr('id', options.id);
+                    getTabWindow().$('#' + options.id).iDialog2(options);
+                }
+            });
+
+            getTabWindow().$('[data-toggle="topjui-linkbutton"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                $element.iLinkbutton(options);
+
+                if (options.handler == "ajaxForm" || options.handler == "multiAjaxForm") {
+                    $element.on("click", function () {
+
+                        if (options.handlerBefore != "undefined") {
+                            // 回调执行传入的自定义函数
+                            executeCallBackFun(options.handlerBefore);
+                        }
+
+                        var defaults = {
+                            gridId: 'datagrid',
+                            dialogId: 'editDialog'
+                        }
+                        options = $.extend(defaults, options);
+                        // 判断数据是否通过验证
+                        if (getTabWindow().$("#" + options.dialog.id).form('validate')) {
+                            // 序列化表单数据
+                            options.ajaxData = getTabWindow().$("#" + options.dialog.id).serialize();
+                            if (options.combotreeFields != undefined) {
+                                var combotreeParams = '';
+                                $.each(options.combotreeFields, function (k, v) {
+                                    combotreeParams += '&' + v.replace(options.postfix, "") + '=' + getTabWindow().$("#" + options.dialogId + ' input[textboxname="' + v + '"]').combotree('getValues').join(',') + ', ';
+                                });
+                                options.ajaxData += combotreeParams;
+                            }
+                            // 提交更新多条数据
+                            if (options.handler == "multiAjaxForm") {
+                                var rows = getCheckedRowsData(options.grid.type, options.grid.id);
+                                if (rows.length == 0) {
+                                    $.messager.alert(
+                                        topJUI.language.message.title.operationTips,
+                                        topJUI.language.message.msg.checkSelfGrid,
+                                        topJUI.language.message.icon.warning
+                                    );
+                                    return;
+                                }
+                                var pkName = 'uuid';
+                                if (options.grid.pkName)
+                                    pkName = options.grid.pkName;
+                                options.ajaxData += '&' + pkName + '=' + getMultiRowsFieldValue(rows, pkName) + '&' + pkName + 's=' + getMultiRowsFieldValue(rows, pkName);
+                            }
+                            // 执行ajax动作
+                            getTabWindow().doAjax(options);
+                            // 关闭dialog
+                            getTabWindow().$("#" + options.dialog.id).dialog("close");
+                            // 重新加载本grid数据
+                            if (typeof options.grid == "object") {
+                                if (options.grid.type == "datagrid") {
+                                    getTabWindow().$("#" + options.grid.id).datagrid("reload");
+                                } else if (options.grid.type == "treegrid") {
+                                    var row = getSelectedRowData(options.grid.type, options.grid.id);
+                                    getTabWindow().$("#" + options.grid.id).treegrid("reload", row[options.grid.parentIdField]);
+                                }
+                            }
+                            // 重新加载指定的Grid数据
+                            refreshGrids(options.reload);
+                        } else {
+                            showMessage({statusCode: 300, title: '温馨提示', message: '显示红色的字段为必填字段'});
+                        }
+                    });
+                }
+            });
+        }, 1000);
     });
 
     $(document).on(topJUI.eventType.initUI.base2, function (e) {
-        //setTimeout(function () {
-        getTabWindow().$('[data-toggle="topjui-menu"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
+        setTimeout(function () {
+            getTabWindow().$('[data-toggle="topjui-datagrid"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
 
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iMenu(options);
-        });
+                var op = [];
+                getTabWindow().$("th").each(function (i) {
+                    op.push(strToJson("{" + this.getAttribute("data-options") + "}"));
+                });
+                options.columns = [op];
 
-        getTabWindow().$('[data-toggle="topjui-tree"]').each(function (i) {
-            var $element = $(this);
-            var options = getOptionsJson($element);
+                var kindEditor = [];
 
-            $element.attr('id', options.id);
-            getTabWindow().$('#' + options.id).iTree(options);
-        });
-        //}, 15);
+
+                //console.log(op.join());
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iDatagrid(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-menu"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iMenu(options);
+            });
+
+            getTabWindow().$('[data-toggle="topjui-dialog"]').each(function () {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                var href = $element.attr('href');
+                if (href != undefined) {
+                    options.href = href;
+                    getTabWindow().$('body').append('<div id="' + options.id + '"></div>');
+                    getTabWindow().$('#' + options.id).iDialog(options);
+
+                    $element.on("click", function () {
+                        getTabWindow().$('#' + options.id).dialog('open');
+                        return false; //阻止链接跳转
+                    });
+
+                } else {
+                    $element.attr('id', options.id);
+                    getTabWindow().$('#' + options.id).iDialog(options);
+                }
+            });
+
+            getTabWindow().$('[data-toggle="topjui-tree"]').each(function (i) {
+                var $element = $(this);
+                var options = getOptionsJson($element);
+
+                $element.attr('id', options.id);
+                getTabWindow().$('#' + options.id).iTree(options);
+            });
+        }, 1500);
     });
 
     $(document).on(topJUI.eventType.initUI.echarts, function (e) {
@@ -902,8 +664,7 @@
             textField: 'text',
             valueField: 'value',
             data: fieldArr,
-            editable: false,
-            width: 140
+            editable: false
         });
 
         $(".op:last").combobox({
@@ -920,36 +681,12 @@
                 {"text": "以...开头", "value": "beginwith"},
                 {"text": "以...结尾", "value": "endwith"}
             ],
-            width: 120,
-            panelHeight: 220,
+            width: 100,
+            panelHeight: 198,
             editable: false
         });
 
         $(".value:last").textbox({});
-
-        $(".lb:last").combobox({
-            textField: 'text',
-            valueField: 'value',
-            data: [
-                {"text": "无", "value": "", "selected": true},
-                {"text": "(", "value": "("}
-            ],
-            width: 45,
-            panelHeight: 70,
-            editable: false
-        });
-
-        $(".rb:last").combobox({
-            textField: 'text',
-            valueField: 'value',
-            data: [
-                {"text": "无", "value": "", "selected": true},
-                {"text": ")", "value": ")"}
-            ],
-            width: 45,
-            panelHeight: 70,
-            editable: false
-        });
 
         $(".join:last").combobox({
             textField: 'text',
@@ -959,22 +696,22 @@
                 {"text": "或者", "value": "or"}
             ],
             width: 70,
-            panelHeight: 70,
+            panelHeight: 44,
             editable: false
         });
 
         $("#addCondition").menubutton({
-            iconCls: 'fa fa-plus',
+            iconCls: 'icon-add',
             hasDownArrow: false
         });
 
         $(".deleteCondition:last").menubutton({
-            iconCls: 'fa fa-minus',
+            iconCls: 'icon-delete',
             hasDownArrow: false
         });
 
         $(".deleteCondition:last").on('click', function () {
-            var index = $(".deleteCondition").index(this) + 2;
+            var index = $(".deleteCondition").index(this) + 1;
             getTabWindow().$("#advanceSearchTable tr:eq(" + index + ")").remove();
         });
     });
@@ -1004,11 +741,74 @@
 }(jQuery);
 
 $(function () {
-    // 页面加载完成后触发基础表格及弹窗事件，主页面除外
-    if (!topJUI.config.mainPage) {
+
+    // 页面加载完成后触发基础表格及弹窗事件
+    var url = getUrl();
+    if (url != "/system/index/index") {
         $(this).trigger(topJUI.eventType.initUI.base);
         $(this).trigger(topJUI.eventType.initUI.base2);
+    } else {
+        /*setTimeout(function () {
+         $(this).trigger(topJUI.eventType.initUI.base);
+         $(this).trigger(topJUI.eventType.initUI.base2);
+         }, 1000);*/
     }
+
+
+    /**
+     * 高级查询对话框窗口
+     */
+    $("#advanceSearchDialog").dialog({
+        width: 600,
+        height: 200,
+        title: '高级查询',
+        modal: false,
+        collapsible: true,
+        minimizable: false,
+        maximized: false,
+        resizable: true,
+        closed: true,
+        iconCls: 'icon-find',
+        href: '/system/search/advanceSearch',
+        zIndex: 10,
+        buttons: '#advanceSearchDialog-buttons',
+        onLoad: function () {
+            //窗口打开时，触发事件
+            $(this).trigger(topJUI.eventType.initUI.advanceSearchForm);
+        }
+    });
+
+    $("#submitAdvanceSearchForm").on('click', function () {
+        var formDataArr = [];
+        var formData = $("#advanceSearchDialog").serializeArray();
+        var num = formData.length / 4;
+        for (var i = 0; i < num; i++) {
+            var field = formData[i * 4].name;
+            var fieldValue = formData[i * 4].value;
+            var op = formData[i * 4 + 1].name;
+            var opValue = formData[i * 4 + 1].value;
+            var value = formData[i * 4 + 2].name;
+            var valValue = formData[i * 4 + 2].value;
+            var join = formData[i * 4 + 3].name;
+            var joinValue = formData[i * 4 + 3].value;
+
+            formDataArr.push({field: fieldValue, op: opValue, value: valValue, join: joinValue});
+        }
+
+        // console.log(JSON.stringify(formDataArr));
+
+        if ($.cookie("gridType") == "datagrid") {
+            $("#" + $.cookie("gridId")).datagrid('load', {
+                filterRules: JSON.stringify(formDataArr)
+            });
+        } else if ($.cookie("gridType") == "treegrid") {
+            $("#" + $.cookie("gridId")).treegrid('load', {
+                filterRules: JSON.stringify(formDataArr)
+            });
+        }
+
+    });
+
 
     setTimeout(function () {
         /**
