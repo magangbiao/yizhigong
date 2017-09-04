@@ -15,45 +15,32 @@
                    data-options="required:true,
                    prompt:'必填',
                    width:450,
-                   url:'/system/organization/getListByCodeSetIdAndLevelId?codeSetId=A&levelId=1',
-                   expandUrl:'/system/organization/getListByPid?pid={id}',
-                   getFatherIdsUrl:'/system/organization/getFatherIds?id={id}',
+                   url:'http://demo.ewsd.cn/system/organization/getListByCodeSetIdAndLevelId?codeSetId=A&levelId=1',
+                   expandUrl:'http://demo.ewsd.cn/system/organization/getListByPid?pid={id}',
+                   getFatherIdsUrl:'http://demo.ewsd.cn/system/organization/getFatherIds?id={id}',
                    params:'orgName:text'">
-        </td>
-    </tr>
-    <tr>
-        <td class="label">用户组</td>
-        <td colspan="3">
-            <input type="text" name="userGroup"
-                   data-toggle="topjui-combotree"
-                   data-options="required:true,
-                   prompt:'必填',
-                   multiple:true,
-				   url:'/system/authGroup/getListByPid?pid=1',
-				   expandUrl:'/system/authGroup/getListByPid?pid={id}',
-				   expandAll:true,
-				   width:450">
         </td>
     </tr>
     <tr>
         <td colspan="4">
             <div class="divider">
-                <span>有查找带回功能的树形下拉框</span>
+                <span>查找带回（带回其它数据）</span>
             </div>
         </td>
     </tr>
     <tr>
-        <td class="label">所属区域</td>
+        <td class="label">地址</td>
         <td colspan="3">
             <input type="text" name="zone"
                    data-toggle="topjui-combotree"
                    data-options="required:true,
                    prompt:'必填',
 				   width:450,
-                   codeSetId:'AGA',levelId:'3',panelHeight:'250',
-				   expandUrl:'/system/codeItem/getListByPid?pid={id}',
-                   getFatherIdsUrl:'/system/codeItem/getFatherIds?id={id}',
-                   backfill:{url:'/system/user/getZoneFillbackData?id={id}'}">
+				   panelHeight:'250',
+				   url:'http://demo.ewsd.cn/system/codeItem/getListByCodeSetIdAndLevelId?codeSetId=AGA&levelId=3',
+				   expandUrl:'http://demo.ewsd.cn/system/codeItem/getListByPid?pid={id}',
+                   getFatherIdsUrl:'http://demo.ewsd.cn/system/codeItem/getFatherIds?id={id}',
+                   backfill:{url:'http://demo.ewsd.cn/system/user/getZoneFillbackData?id={id}'}">
         </td>
     </tr>
     <tr>

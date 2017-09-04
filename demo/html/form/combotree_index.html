@@ -73,12 +73,13 @@
 <!-- 表格工具栏开始 -->
 <div id="productDg-toolbar"
      data-options="grid:{
-           type:'datagrid',
-           id:'productDg'
-       }" style="display:none">
+         type:'datagrid',
+         id:'productDg'
+     }" style="display:none">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="clickEvent:'openDialog',
+       iconCls:'fa fa-tree',
        btnCls:'topjui-btn-normal',
        dialog:{
            id:'userAddDialog',
@@ -87,7 +88,17 @@
            buttonsGroup:[
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm'}
            ]
-       }">树形下拉演示</a>
+       }">树形下拉框演示</a>
+    <a href="javascript:void(0)"
+       data-toggle="topjui-menubutton"
+       data-options="clickEvent:'openTab',
+       iconCls:'fa fa-th',
+       btnCls:'topjui-btn-normal',
+       tab:{
+           id:'manual',
+           title:'树形下拉框开发文档',
+           href:'http://www.topjui.com/document/form/combotree.html?source=menu'
+       }">开发文档</a>
 </div>
 
 </body>

@@ -13,12 +13,18 @@ if ($.messager) {
     $.messager.defaults.ok = '确定';
     $.messager.defaults.cancel = '取消';
 }
-$.map(['validatebox', 'textbox', 'passwordbox', 'filebox', 'searchbox',
-    'combo', 'combobox', 'combogrid', 'combotree',
-    'datebox', 'datetimebox', 'numberbox',
-    'spinner', 'numberspinner', 'timespinner', 'datetimespinner'], function (plugin) {
+$.map(['iValidatebox', 'iTextbox', 'iPasswordbox', 'iFilebox', 'iSearchbox',
+    'iCombo', 'iCombobox', 'iCombogrid', 'iCombotree',
+    'iDatebox', 'iDatetimebox', 'iTagbox', 'iNumberbox',
+    'iSpinner', 'iNumberspinner', 'iTimespinner', 'iDatetimespinner'], function (plugin) {
+    var _plugin = plugin.toLowerCase().substr(1);
+    if ($.fn[_plugin]) {
+        $.fn[_plugin].defaults.missingMessage = '必填';
+        $.fn[_plugin].defaults.height = 34;
+    }
     if ($.fn[plugin]) {
         $.fn[plugin].defaults.missingMessage = '必填';
+        $.fn[plugin].defaults.height = 34;
     }
 });
 if ($.fn.validatebox) {
@@ -92,3 +98,5 @@ if ($.fn.combogrid) {
 if ($.fn.combotreegrid) {
     $.fn.combotreegrid.defaults.loadMsg = "正在加载中，请稍待...";
 }
+
+/* TopJUI默认属性 */

@@ -1,5 +1,13 @@
 [
   {
+    "id": 221,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "自动完成",
+    "url": "./html/extend/autocomplete_index.html"
+  },
+  {
     "id": 1343,
     "pid": 1331,
     "state": "open",
