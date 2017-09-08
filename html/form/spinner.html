@@ -1,0 +1,33 @@
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认微调</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">用户名</td>
+        <td>
+            <input type="text" name="number1" id="number1">
+        </td>
+        <td class="label">姓名</td>
+        <td>
+            <input type="text" name="number2" id="number2">
+        </td>
+    </tr>
+</table>
+
+<script>
+    $(function () {
+        $('#number1').iSpinner({
+            required: true,
+            increment: 10
+        });
+
+        $('#number2').iSpinner({
+            required: true,
+            increment: 10
+        });
+    });
+</script>
