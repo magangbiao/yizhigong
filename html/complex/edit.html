@@ -8,6 +8,27 @@
             </td>
         </tr>
         <tr>
+            <td class="label">是否上架</td>
+            <td>
+                <div class="easyui-radio">
+                    <input type="radio" id="radio1" name="name" label="是" checked="checked"
+                           data-options="required:true,width:45">
+                    <input type="radio" id="radio2" name="name" label="否"
+                           data-options="required:true,width:45">
+                </div>
+            </td>
+            <td class="label">特征</td>
+            <td>
+                <div class="easyui-checkbox">
+                    <input type="checkbox" id="checkbox1" name="name2" label="便宜" checked="checked"
+                           data-options="width:45">
+                    <input type="checkbox" id="checkbox2" name="name2" label="性优"
+                           data-options="width:45">
+
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td class="label">商品编号</td>
             <td>
                 <input type="text" name="code"
@@ -59,3 +80,9 @@
         </tr>
     </table>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#checkbox').checkbox();
+    });
+</script>

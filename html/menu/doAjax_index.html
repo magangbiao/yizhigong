@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
+    <!-- 报错信息监控/生产环境可去掉 -->
+    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -45,13 +47,13 @@
        }">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'doAjax',
+       data-options="method:'doAjax',
        btnCls:'topjui-btn-normal',
        comfirmMsg:'这个是选中一条记录实现单条数据的Ajax提交操作，提交url中指定的参数值',
        url:contextPath + '/json/response/success.json?uuid={uuid}&code={code}'">执行Ajax请求（提交选中的单条数据）</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'doAjax',
+       data-options="method:'doAjax',
        btnCls:'topjui-btn-normal',
        comfirmMsg:'这个是勾选复选框实现多条数据的Ajax提交操作，提交grid.param中指定的参数值',
        grid: {uncheckedMsg:'请先勾选要提交的数据',param:'uuid:uuid,code:code'},

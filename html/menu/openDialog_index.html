@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
+    <!-- 报错信息监控/生产环境可去掉 -->
+    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -45,7 +47,7 @@
        }">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'openDialog',
+       data-options="method:'openDialog',
        btnCls:'topjui-btn-normal',
        dialog:{
            id:'addDialog',

@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
+    <!-- 报错信息监控/生产环境可去掉 -->
+    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -52,19 +54,19 @@
            id:'productDg'
        }" style="width:150px;">
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}'">导出 PDF 报表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'export',
+             data-options="method:'export',
              url: contextPath + '/json/response/export.html'">导出EXCEL列表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}'">导出EXCEL报表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}'">导出WORD报表
         </div>
     </div>
@@ -151,7 +153,7 @@
         });
 
         $("#add").iMenubutton({
-            clickEvent: 'openDialog',
+            method: 'openDialog',
             iconCls: 'fa fa-plus',
             dialog: {
                 id: 'userAddDialog',
@@ -170,7 +172,7 @@
         });
 
         $("#edit").iMenubutton({
-            clickEvent: 'openDialog',
+            method: 'openDialog',
             iconCls: 'fa fa-pencil',
             btnCls: 'topjui-btn',
             grid: productDg,
@@ -191,7 +193,7 @@
         });
 
         $("#delete").iMenubutton({
-            clickEvent: 'doAjax',
+            method: 'doAjax',
             iconCls: 'fa fa-trash',
             btnCls: 'topjui-btn-normal',
             comfirmMsg: '这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
@@ -205,25 +207,25 @@
         });
 
         $("#filter").iMenubutton({
-            clickEvent: 'filter',
+            method: 'filter',
             btnCls: 'topjui-btn-warm',
             grid: productDg
         });
 
         $("#search").iMenubutton({
-            clickEvent: 'search',
+            method: 'search',
             btnCls: 'topjui-btn-danger',
             grid: productDg
         });
 
         $("#export").iMenubutton({
-            clickEvent: 'export',
+            method: 'export',
             btnCls: 'topjui-btn',
             url: contextPath + '/json/response/export.html'
         });
 
         $("#openTab").iMenubutton({
-            clickEvent: 'openTab',
+            method: 'openTab',
             btnCls: 'topjui-btn-normal',
             tab: {
                 title: '这是新的Tab窗口',
@@ -233,14 +235,14 @@
         });
 
         $("#openWindow").iMenubutton({
-            clickEvent: 'openWindow',
+            method: 'openWindow',
             btnCls: 'topjui-btn-warm',
             href: 'http://www.topjui.com?uuid={uuid}',
             grid: productDg
         });
 
         $('#request').iMenubutton({
-            clickEvent: 'request',
+            method: 'request',
             btnCls: 'topjui-btn',
             url: contextPath + '/json/response/success.json'
         });
@@ -251,7 +253,7 @@
         });
 
         $('#queryBtn').iMenubutton({
-            clickEvent: 'query',
+            method: 'query',
             iconCls: 'fa fa-search',
             btnCls: 'topjui-btn-danger',
             form: {id: 'queryForm'},

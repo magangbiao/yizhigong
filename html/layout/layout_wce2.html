@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
+    <!-- 报错信息监控/生产环境可去掉 -->
+    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -26,7 +28,7 @@
     <div data-options="region:'west',title:'',split:true,border:false,width:'20%',iconCls:'fa fa-sitemap',headerCls:'border_right',bodyCls:'border_right'">
         <!-- treegrid表格 -->
         <table data-toggle="topjui-treegrid"
-               data-options="id:'orgnizationDatagrid',
+               data-options="id:'orgnizationTg',
 			   idField:'id',
 			   treeField:'text',
 			   url:remoteHost+'/system/organization/getListByCodeSetIdAndLevelId?codeSetId=A&levelId=1',
@@ -52,23 +54,35 @@
                 <!-- datagrid表格 -->
                 <table data-toggle="topjui-datagrid"
                        data-options="id:'userDg',
-                        idField:'uuid',treeField:'taskType',
+                        idField:'uuid',
+                        treeField:'taskType',
                         pagination:true,
                         striped:true,
                         fitColumns:true,
                         rownumbers: true,
                         url:remoteHost+'/system/user/getPageSetData',
                         parentGrid:{
-                        type:'treegrid',
-                        id:'codeItemDatagrid',
-                        param:'unitId:id'
+                            type:'treegrid',
+                            id:'orgnizationTg',
+                            param:'unitId:id'
                         },
-			            childTab: {
-                        tabs:[
-                            {id:'eastTabs',param:'uuid'},
-                            {id:'southTabs',param:'puuid:uuid'}
-                        ]
-			            }">
+                        childTabs: [
+                            {
+                                id:'southTabs',
+                                tabs:[
+                                    {type:'datagrid',id:'southTabs0',param:'puuid:uuid'},
+                                    {type:'datagrid',id:'southTabs1',param:'puuid:uuid'},
+                                    {type:'datagrid',id:'southTabs2',param:'puuid:uuid'}
+                                ]
+                            },
+                            {
+                                id:'eastTabs',
+                                tabs:[
+                                    {type:'panel',id:'eastTabs0',param:'puuid:uuid'},
+                                    {type:'panel',id:'eastTabs1',param:'puuid:uuid'}
+                                ]
+                            }
+                        ]">
                     <thead>
                     <tr>
                         <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
@@ -97,23 +111,20 @@
             </div>
             <div data-options="region:'south',fit:false,split:true,border:false"
                  style="height:40%">
-                <div data-toggle="topjui-tabs" data-options="id:'southTabs',fit:true,border:false,
-				 tabs:[
-				 	{type:'datagrid',id:'southTabs0'},
-				 	{type:'datagrid',id:'southTabs1'},
-				 	{type:'datagrid',id:'southTabs2'}
-				 ]">
+                <div data-toggle="topjui-tabs"
+                     data-options="id:'southTabs',
+                     fit:true,
+                     border:false,
+                     parentGrid:{
+                         type:'datagrid',
+                         id:'userDg'
+                     }">
                     <div title="子页面一" data-options="iconCls:'fa fa-th'">
                         <!-- datagrid表格 -->
                         <table data-toggle="topjui-datagrid"
                                data-options="id:'southTabs0',
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData',
-						       parentGrid:{
-							    type:'datagrid',
-								id:'userDg',
-								param:'puuid:uuid'
-							}">
+						       url:remoteHost+'/system/user/getPageSetData'">
                             <thead>
                             <tr>
                                 <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
@@ -145,12 +156,7 @@
                         <table data-toggle="topjui-datagrid"
                                data-options="id:'southTabs1',
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData',
-						       parentGrid:{
-							    type:'datagrid',
-								id:'userDg',
-								param:'puuid:uuid'
-							}">
+						       url:remoteHost+'/system/user/getPageSetData'">
                             <thead>
                             <tr>
                                 <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
@@ -182,12 +188,7 @@
                         <table data-toggle="topjui-datagrid"
                                data-options="id:'southTabs2',
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData',
-						       parentGrid:{
-							    type:'datagrid',
-								id:'userDg',
-								param:'puuid:uuid'
-							}">
+						       url:remoteHost+'/system/user/getPageSetData'">
                             <thead>
                             <tr>
                                 <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
@@ -219,27 +220,21 @@
         </div>
     </div>
     <div data-options="region:'east',iconCls:'icon-chart_pie',title:'',split:true,border:false,width:'40%'">
-        <div data-toggle="topjui-tabs" data-options="id:'eastTabs',fit:true,border:true,bodyCls:'border_right_none',
-				 tabs:[
-				 	{type:'panel',id:'detail1Panel'},
-				 	{type:'panel',id:'detail2Panel'}
-				 ]">
+        <div data-toggle="topjui-tabs"
+             data-options="id:'eastTabs',
+             fit:true,
+             border:true,
+             bodyCls:'border_right_none',
+             parentGrid:{
+                 type:'datagrid',
+                 id:'userDg'
+             }">
             <div title="详细信息1"
-                 data-options="id:'detail1Panel',iconCls:'fa fa-table',
-					 dynamicHref:'http://www.topjui.com?uuid={uuid}',
-							parentGrid:{
-								type:'datagrid',
-								id:'userDg',
-								param:'uuid'
-							}"></div>
+                 data-options="id:'eastTabs0',iconCls:'fa fa-table',
+					 dynamicHref:'http://www.topjui.com?uuid1={uuid}'"></div>
             <div title="详细信息2"
-                 data-options="id:'detail2Panel',iconCls:'fa fa-table',
-					 dynamicHref:'http://www.topjui.com?uuid={uuid}',
-							parentGrid:{
-								type:'datagrid',
-								id:'userDg',
-								param:'uuid'
-							}"></div>
+                 data-options="id:'eastTabs1',iconCls:'fa fa-table',
+					 dynamicHref:'http://www.topjui.com?uuid2={uuid}'"></div>
         </div>
     </div>
 </div>
@@ -252,7 +247,7 @@
        }">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'openDialog',
+       data-options="method:'openDialog',
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
@@ -263,7 +258,7 @@
        }">新增</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent: 'openDialog',
+       data-options="method: 'openDialog',
             iconCls: 'fa fa-pencil',
             btnCls: 'topjui-btn',
             grid: {
@@ -286,16 +281,16 @@
             }">编辑</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'doAjax',btnCls:'topjui-btn-normal',
+       data-options="method:'doAjax',btnCls:'topjui-btn-normal',
        iconCls:'fa fa-trash',
        url:contextPath + '/json/response/success.json',
        grid: {uncheckedMsg:'请先勾选要删除的数据',param:'uuid:uuid,code:code'}">删除</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'filter',btnCls:'topjui-btn-warm'">过滤</a>
+       data-options="method:'filter',btnCls:'topjui-btn-warm'">过滤</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'search',btnCls:'topjui-btn-danger'">查询</a>
+       data-options="method:'search',btnCls:'topjui-btn-danger'">查询</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="menu:'#exportSubMenu',
@@ -304,7 +299,7 @@
        iconCls:'fa fa-list'">更多</a>
     <div id="exportSubMenu" class="topjui-toolbar" style="width:150px;">
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
@@ -312,7 +307,7 @@
              }">导出 PDF 报表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'export',
+             data-options="method:'export',
              url: contextPath + '/json/response/export.html',
              grid:{
                  type:'datagrid',
@@ -320,7 +315,7 @@
              }">导出EXCEL列表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
@@ -328,7 +323,7 @@
              }">导出EXCEL报表
         </div>
         <div data-toggle="topjui-menubutton"
-             data-options="clickEvent:'request',
+             data-options="method:'request',
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',

@@ -19,6 +19,8 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
+    <!-- 报错信息监控/生产环境可去掉 -->
+    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -50,35 +52,35 @@
        }" class="topjui-toolbar">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'edatagrid',
+       data-options="method:'edatagrid',
        iconCls:'fa fa-plus',
        btnCls:'topjui-btn',
        type:'addRow'">新增</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'edatagrid',
+       data-options="method:'edatagrid',
        iconCls:'fa fa-save',
        btnCls:'topjui-btn-normal',
        type:'saveRow'">保存</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'edatagrid',
+       data-options="method:'edatagrid',
        iconCls:'fa fa-remove',
        btnCls:'topjui-btn-warm',
        type:'cancelRow'">取消</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'doAjax',
+       data-options="method:'doAjax',
        iconCls:'fa fa-remove',
        btnCls:'topjui-btn-danger',
        url:contextPath + '/json/response/delete.json'">删除</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'filter',
+       data-options="method:'filter',
        btnCls:'topjui-btn-warm'">过滤</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
-       data-options="clickEvent:'search',
+       data-options="method:'search',
        btnCls:'topjui-btn-danger'">查询</a>
 </div>
 </body>
