@@ -19,8 +19,6 @@
     <script type="text/javascript" src="../../topjui/js/topjui.core.min.js"></script>
     <!-- TopJUI中文支持 -->
     <script type="text/javascript" src="../../topjui/js/locale/topjui.lang.zh_CN.js"></script>
-    <!-- 报错信息监控/生产环境可去掉 -->
-    <script src="https://og6593g2z.qnssl.com/fundebug.0.2.0.min.js" apikey="88eaa1402e4dad6cab58d9dd7010779250a4ecbcb2441f7b46e9461a240beaf2"></script>
 </head>
 
 <body>
@@ -161,10 +159,10 @@
 </div>
 
 <!-- 表格工具栏开始 -->
-<div id="userDg-toolbar" class="topjui-toolbar"
+<div id="centerTabs0-toolbar" class="topjui-toolbar"
      data-options="grid:{
            type:'datagrid',
-           id:'userDg'
+           id:'centerTabs0'
        }">
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
@@ -182,10 +180,6 @@
        data-options="method: 'openDialog',
             iconCls: 'fa fa-pencil',
             btnCls: 'topjui-btn',
-            grid: {
-                type: 'datagrid',
-                id: 'userDg'
-            },
             dialog: {
                 height: 350,
                 href: contextPath + '/html/complex/edit.html?uuid={uuid}',
@@ -245,7 +239,7 @@
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
-                 id:'userDg'
+                 id:'centerTabs0'
              }">导出 PDF 报表
         </div>
         <div data-toggle="topjui-menubutton"
@@ -253,7 +247,7 @@
              url: contextPath + '/json/response/export.html',
              grid:{
                  type:'datagrid',
-                 id:'userDg'
+                 id:'centerTabs0'
              }">导出EXCEL列表
         </div>
         <div data-toggle="topjui-menubutton"
@@ -261,7 +255,7 @@
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
-                 id:'userDg'
+                 id:'centerTabs0'
              }">导出EXCEL报表
         </div>
         <div data-toggle="topjui-menubutton"
@@ -269,7 +263,7 @@
              url:contextPath + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
-                 id:'userDg'
+                 id:'centerTabs0'
              }">导出WORD报表
         </div>
     </div>

@@ -21,8 +21,19 @@
 
 /* 静态演示中获取contextPath，动态演示非必须 开始 */
 var contextPath = "";
-var remoteHost = "http://demo.ewsd.cn";
-//var remoteHost = "http://localhost:8080";
+var remoteHost = "http://localhost:8080";
+if (navigator.onLine) {
+    remoteHost = "http://demo.ewsd.cn";
+    // 百度统计代码开始
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9bbb7536a0474a4ad060a6fdc8a678b5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    // 百度统计代码结束
+}
 var firstPathName = window.location.pathname.split("/")[1];
 if (!(firstPathName == "html" || firstPathName == "json" || firstPathName == "topjui")) {
     contextPath = "/" + firstPathName;
