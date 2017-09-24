@@ -6,7 +6,7 @@
 .label-success{background-color:#00a65a !important;}
 #west .tree-icon{margin-top: 0px;color:#fff;}
 #west .tree-hit{margin-top: 0px;}
-#west .tree-node{padding-left:20px;height: 35px;line-height:30px;border-bottom: dashed 1px #565656;}
+#west .tree-node{padding-left:20px;height: 35px;line-height:30px;border-bottom: dashed 0px #565656;}
 #west .tree-title{ padding-left:4px;color:#fff;line-height: 35px;}
 #west .tree-file{overflow:auto;background: url('');vertical-align: middle;}
 #west .tree-folder, .tree-folder-open{background: url('');line-height: 19px;}
@@ -42,8 +42,8 @@ background: url('../../themes/default/images/accordion_arrows2.png') no-repeat 0
 }
  .accordion-header .accordion-collapse {background: url('../../themes/default/images/accordion_arrows3.png') no-repeat 0 0;}
  .accordion-header .accordion-expand {background: url('../../themes/default/images/accordion_arrows3.png') no-repeat -16px 0;}
-.user-image {float: left;margin-top: -6px;margin-right: 10px;width: 30px;height: 30px;border-radius: 50%;}
-.user-name { float: left;display:block;overflow:hidden;padding-top:3px;width:120px;font-family:'Microsoft YaHei',Arial,Verdana;}
+.user-image {float: left;margin-top: 10px;margin-right: 10px;width: 30px;height: 30px;border-radius: 50%;}
+.user-name { float: left;display:block;overflow:hidden;padding-top:0;font-family:'Microsoft YaHei',Arial,Verdana;}
 .user-header{ padding-top:20px; background:#f39c12; color:#fff;text-align:center;font-family:'Microsoft YaHei',Arial,Verdana;}
 .user-header img{width:100px;height:100px;border-radius:50%;}
 
@@ -74,11 +74,11 @@ background: url('../../themes/default/images/accordion_arrows2.png') no-repeat 0
 .bannerbtn{padding:18px 10px 6px 10px;height:25px;color:#fff;text-decoration:none;line-height:36px;}
 .bannerbtn:hover{background:#e08e0b;filter:none;}
 .endbtndiv{padding:8px 10px 8px 0;border-top:1px solid #f0f0f0;background:#f9f9f9;text-align:right;}
-.l-btn-left{margin:2px;}
+.l-btn-left{margin:0;}
 .switchbutton-on{background:#f7a31e;color:#fff;}
 .switchbutton-off{background:#E1E1E1;color:#000;}
 /*顶部菜单*/
-.bannerMenu{padding:8px 12px 10px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
+.bannerMenu{padding:7px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
 .bannerMenu lable{font-size:17px;}
 .bannerMenu span{font-size:13px;font-family:'Microsoft YaHei',Arial,Verdana;letter-spacing:1px}
 #north .topmenu{border-right:1px #e08e0b solid;background:#f39c12;text-align:center}

@@ -24,7 +24,7 @@
 <body>
 
 <!-- layout布局 开始 -->
-<div class="easyui-layout" data-options="fit:true">
+<div data-toggle="topjui-layout" data-options="fit:true">
     <div data-options="region:'west',title:'树形导航',fit:false,split:true,border:false,width:'20%',iconCls:'icon-org',headerCls:'border_right',bodyCls:'border_right'">
         <table data-toggle="topjui-treegrid"
                data-options="id:'channelDg',
@@ -48,7 +48,7 @@
 
     <div data-options="region:'east',iconCls:'icon-chart_pie',title:'',split:true,border:false,width:'40%',bodyCls:'border_left'">
         <div data-toggle="topjui-tabs" data-options="id:'eastTabs',fit:true,border:false,
-				 tabs:[
+				 tab:[
 				 	{type:'panel',id:'detail1Panel'},
 				 	{type:'panel',id:'detail2Panel'}
 				 ]">
@@ -78,7 +78,7 @@
                fitColumns:true,
                url:ctx+'/system/api/getArticlePageSet',
                childTab: {
-                   tabs:[
+                   tab:[
                         {id:'eastTabs',param:'uuid'}
                    ]
                }">

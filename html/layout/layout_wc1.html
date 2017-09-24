@@ -22,7 +22,7 @@
 </head>
 
 <body>
-<div class="easyui-layout" data-options="fit:true">
+<div data-toggle="topjui-layout" data-options="fit:true">
     <div data-options="region:'west',title:'',split:true,border:false,width:'20%',iconCls:'fa fa-sitemap',headerCls:'border_right',bodyCls:'border_right'">
         <!-- treegrid表格 -->
         <table data-toggle="topjui-treegrid"
@@ -93,8 +93,8 @@
             <tr>
                 <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
                 <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
-                <th data-options="field:'userName',title:'姓名',sortable:true,width:100"></th>
-                <th data-options="field:'sex',title:'性别',sortable:true,width:50,
+                <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                <th data-options="field:'sex',title:'性别',sortable:true,
                     formatter:function(value,row,index){
                         if (value == '1') {
                             return '男';
@@ -130,7 +130,7 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/add.html',
+           href:contextPath + '/html/complex/dialog_add.html',
            buttonsGroup:[
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
@@ -145,8 +145,9 @@
                 id: 'userDg'
             },
             dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                width: 950,
+                height: 500,
+                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
                 url: contextPath + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {

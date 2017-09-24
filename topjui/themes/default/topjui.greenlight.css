@@ -30,8 +30,8 @@
 #center .tabs-panels{border-bottom: 0px;}
 #west .panel-header,#west .panel-body{border:0px;}
 
-.user-image {float: left;margin-top: -6px;margin-right: 10px;width: 30px;height: 30px;border-radius: 50%;}
-.user-name { float: left;display:block;overflow:hidden;padding-top:3px;width:120px;font-family:'Microsoft YaHei',Arial,Verdana;}
+.user-image {float: left;margin-top: 10px;margin-right: 10px;width: 30px;height: 30px;border-radius: 50%;}
+.user-name { float: left;display:block;overflow:hidden;padding-top:0;font-family:'Microsoft YaHei',Arial,Verdana;}
 .user-header{ padding-top:20px; background:#00a65a; color:#fff;text-align:center;font-family:'Microsoft YaHei',Arial,Verdana;}
 .user-header img{width:100px;height:100px;border-radius:50%;}
 
@@ -61,11 +61,11 @@
 .bannerbtn{padding:18px 10px 6px 10px;height:25px;color:#fff;text-decoration:none;line-height:36px;}
 .bannerbtn:hover{background:#008d4c;filter:none;}
 .endbtndiv{padding:8px 10px 8px 0;border-top:1px solid #f0f0f0;background:#f9f9f9;text-align:right;}
-.l-btn-left{margin:2px;}
+.l-btn-left{margin:0;}
 .switchbutton-on{background:#03b463;color:#fff;}
 .switchbutton-off{background:#E1E1E1;color:#000;}
 /*顶部菜单*/
-.bannerMenu{padding:7px 12px 7px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
+.bannerMenu{padding:7px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
 .bannerMenu lable{font-size:17px;}
 .bannerMenu span{font-size:13px;font-family:'Microsoft YaHei',Arial,Verdana;letter-spacing:1px}
 #north .topmenu{border-right:1px #008d4c solid;background:#00a65a;text-align:center}

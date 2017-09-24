@@ -23,34 +23,26 @@
 
 <body>
 <!-- layout布局 开始 -->
-<div id="layoutId" class="easyui-layout" data-options="fit:true">
+<div data-toggle="topjui-layout" data-options="fit:true">
     <div data-options="region:'center',title:'',fit:false,split:true,border:false,bodyCls:'border_right_bottom'"
          style="height:60%">
         <!-- datagrid表格 -->
         <table data-toggle="topjui-datagrid"
                data-options="id:'userDg',
-                        idField:'uuid',treeField:'taskType',
+                        idField:'uuid',
+                        treeField:'taskType',
                         pagination:true,
                         striped:true,
                         fitColumns:true,
                         rownumbers: true,
                         url:remoteHost+'/system/user/getPageSetData',
-			            childTabs: [
-                            {
-                                id:'southTabs',
-                                tabs:[
-                                    {type:'datagrid',id:'southTabs0',param:'puuid:uuid,userNameId:userNameId,userName:userName'},
-                                    {type:'datagrid',id:'southTabs1',param:'puuid:uuid,userNameId:userNameId,userName:userName'},
-                                    {type:'datagrid',id:'southTabs2',param:'puuid:uuid,userNameId:userNameId,userName:userName'}
-                                ]
-                            }
-			            ]">
+			            childTabs: [{id:'southTabs'}]">
             <thead>
             <tr>
                 <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
                 <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
-                <th data-options="field:'userName',title:'姓名',sortable:true,width:100"></th>
-                <th data-options="field:'sex',title:'性别',sortable:true,width:50,
+                <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                <th data-options="field:'sex',title:'性别',sortable:true,
                         formatter:function(value,row,index){
                             if (value == '1') {
                                 return '男';
@@ -79,20 +71,22 @@
              border:false,
              parentGrid:{
                  type:'datagrid',
-                 id:'userDg'
+                 id:'userDg',
+                 param:'puuid:uuid,userNameId:userNameId,userName:userName'
              }">
-            <div title="子页面一" data-options="iconCls:'fa fa-th'">
+            <div title="数据表格0" data-options="id:'tab0',iconCls:'fa fa-th'">
                 <!-- datagrid表格 -->
                 <table data-toggle="topjui-datagrid"
-                       data-options="id:'southTabs0',
+                       data-options="id:'southTab0',
+                               initCreate: false,
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData'">
+						       url:remoteHost+'/system/user/getPageSetData?type=0'">
                     <thead>
                     <tr>
                         <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
                         <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
-                        <th data-options="field:'userName',title:'姓名',sortable:true,width:100"></th>
-                        <th data-options="field:'sex',title:'性别',sortable:true,width:50,
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
                                 formatter:function(value,row,index){
                                     if (value == '1') {
                                         return '男';
@@ -113,18 +107,19 @@
                     </thead>
                 </table>
             </div>
-            <div title="子页面二" data-options="iconCls:'fa fa-th'">
+            <div title="数据表格1" data-options="id:'tab1',iconCls:'fa fa-th'">
                 <!-- datagrid表格 -->
                 <table data-toggle="topjui-datagrid"
-                       data-options="id:'southTabs1',
+                       data-options="id:'southTab1',
+                               initCreate: false,
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData'">
+						       url:remoteHost+'/system/user/getPageSetData?type=1'">
                     <thead>
                     <tr>
                         <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
                         <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
-                        <th data-options="field:'userName',title:'姓名',sortable:true,width:100"></th>
-                        <th data-options="field:'sex',title:'性别',sortable:true,width:50,
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
                                 formatter:function(value,row,index){
                                     if (value == '1') {
                                         return '男';
@@ -145,18 +140,19 @@
                     </thead>
                 </table>
             </div>
-            <div title="子页面三" data-options="iconCls:'fa fa-th'">
+            <div title="数据表格2" data-options="id:'tab2',iconCls:'fa fa-th'">
                 <!-- datagrid表格 -->
                 <table data-toggle="topjui-datagrid"
-                       data-options="id:'southTabs2',
+                       data-options="id:'southTab2',
+                               initCreate: false,
                                fitColumns:true,
-						       url:remoteHost+'/system/user/getPageSetData'">
+						       url:remoteHost+'/system/user/getPageSetData?type=2'">
                     <thead>
                     <tr>
                         <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
                         <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
-                        <th data-options="field:'userName',title:'姓名',sortable:true,width:100"></th>
-                        <th data-options="field:'sex',title:'性别',sortable:true,width:50,
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
                                 formatter:function(value,row,index){
                                     if (value == '1') {
                                         return '男';
@@ -177,6 +173,175 @@
                     </thead>
                 </table>
             </div>
+            <div title="数据表格3" data-options="id:'tab3',iconCls:'fa fa-th'">
+                <!-- datagrid表格 -->
+                <table data-toggle="topjui-datagrid"
+                       data-options="id:'southTab3',
+                               initCreate: false,
+                               fitColumns:true,
+						       url:remoteHost+'/system/user/getPageSetData?type=3'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
+                        <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
+                                formatter:function(value,row,index){
+                                    if (value == '1') {
+                                        return '男';
+                                    } else if (value == '2') {
+                                        return '女';
+                                    } else {
+                                        return '';
+                                    }
+                                }"></th>
+                        <th data-options="field:'telephone',title:'电话',sortable:true"></th>
+                        <th data-options="field:'email',title:'电子邮箱',sortable:true"></th>
+                        <th data-options="field:'mobile',title:'手机',sortable:true"></th>
+                        <th data-options="field:'orgName',title:'所属机构',sortable:true"></th>
+                        <th data-options="field:'post',title:'职务',sortable:true"></th>
+                        <th data-options="field:'userGroup',title:'用户组',sortable:true"></th>
+                        <th data-options="field:'zone',title:'所属区域',sortable:true,hidden:true,formatter:function(value,row,index){return row.country+' '+row.province+' '+row.city+' '+row.district}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="数据表格4" data-options="id:'tab4',iconCls:'fa fa-th'">
+                <!-- datagrid表格 -->
+                <table data-toggle="topjui-datagrid"
+                       data-options="id:'southTab4',
+                               initCreate: false,
+                               fitColumns:true,
+						       url:remoteHost+'/system/user/getPageSetData?type=4'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
+                        <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
+                                formatter:function(value,row,index){
+                                    if (value == '1') {
+                                        return '男';
+                                    } else if (value == '2') {
+                                        return '女';
+                                    } else {
+                                        return '';
+                                    }
+                                }"></th>
+                        <th data-options="field:'telephone',title:'电话',sortable:true"></th>
+                        <th data-options="field:'email',title:'电子邮箱',sortable:true"></th>
+                        <th data-options="field:'mobile',title:'手机',sortable:true"></th>
+                        <th data-options="field:'orgName',title:'所属机构',sortable:true"></th>
+                        <th data-options="field:'post',title:'职务',sortable:true"></th>
+                        <th data-options="field:'userGroup',title:'用户组',sortable:true"></th>
+                        <th data-options="field:'zone',title:'所属区域',sortable:true,hidden:true,formatter:function(value,row,index){return row.country+' '+row.province+' '+row.city+' '+row.district}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="数据表格5" data-options="id:'tab5',iconCls:'fa fa-th'">
+                <!-- datagrid表格 -->
+                <table data-toggle="topjui-datagrid"
+                       data-options="id:'southTab5',
+                               initCreate: false,
+                               fitColumns:true,
+						       url:remoteHost+'/system/user/getPageSetData?type=5'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
+                        <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
+                                formatter:function(value,row,index){
+                                    if (value == '1') {
+                                        return '男';
+                                    } else if (value == '2') {
+                                        return '女';
+                                    } else {
+                                        return '';
+                                    }
+                                }"></th>
+                        <th data-options="field:'telephone',title:'电话',sortable:true"></th>
+                        <th data-options="field:'email',title:'电子邮箱',sortable:true"></th>
+                        <th data-options="field:'mobile',title:'手机',sortable:true"></th>
+                        <th data-options="field:'orgName',title:'所属机构',sortable:true"></th>
+                        <th data-options="field:'post',title:'职务',sortable:true"></th>
+                        <th data-options="field:'userGroup',title:'用户组',sortable:true"></th>
+                        <th data-options="field:'zone',title:'所属区域',sortable:true,hidden:true,formatter:function(value,row,index){return row.country+' '+row.province+' '+row.city+' '+row.district}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="数据表格6" data-options="id:'tab6',iconCls:'fa fa-th'">
+                <!-- datagrid表格 -->
+                <table data-toggle="topjui-datagrid"
+                       data-options="id:'southTab6',
+                               initCreate: false,
+                               fitColumns:true,
+						       url:remoteHost+'/system/user/getPageSetData?type=6'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
+                        <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
+                                formatter:function(value,row,index){
+                                    if (value == '1') {
+                                        return '男';
+                                    } else if (value == '2') {
+                                        return '女';
+                                    } else {
+                                        return '';
+                                    }
+                                }"></th>
+                        <th data-options="field:'telephone',title:'电话',sortable:true"></th>
+                        <th data-options="field:'email',title:'电子邮箱',sortable:true"></th>
+                        <th data-options="field:'mobile',title:'手机',sortable:true"></th>
+                        <th data-options="field:'orgName',title:'所属机构',sortable:true"></th>
+                        <th data-options="field:'post',title:'职务',sortable:true"></th>
+                        <th data-options="field:'userGroup',title:'用户组',sortable:true"></th>
+                        <th data-options="field:'zone',title:'所属区域',sortable:true,hidden:true,formatter:function(value,row,index){return row.country+' '+row.province+' '+row.city+' '+row.district}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="数据表格7" data-options="id:'tab7',iconCls:'fa fa-th'">
+                <!-- datagrid表格 -->
+                <table data-toggle="topjui-datagrid"
+                       data-options="id:'southTab7',
+                               initCreate: false,
+                               fitColumns:true,
+						       url:remoteHost+'/system/user/getPageSetData?type=7'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'uuid',title:'UUID',checkbox:true"></th>
+                        <th data-options="field:'userNameId',title:'员工号',sortable:true"></th>
+                        <th data-options="field:'userName',title:'姓名',sortable:true"></th>
+                        <th data-options="field:'sex',title:'性别',sortable:true,
+                                formatter:function(value,row,index){
+                                    if (value == '1') {
+                                        return '男';
+                                    } else if (value == '2') {
+                                        return '女';
+                                    } else {
+                                        return '';
+                                    }
+                                }"></th>
+                        <th data-options="field:'telephone',title:'电话',sortable:true"></th>
+                        <th data-options="field:'email',title:'电子邮箱',sortable:true"></th>
+                        <th data-options="field:'mobile',title:'手机',sortable:true"></th>
+                        <th data-options="field:'orgName',title:'所属机构',sortable:true"></th>
+                        <th data-options="field:'post',title:'职务',sortable:true"></th>
+                        <th data-options="field:'userGroup',title:'用户组',sortable:true"></th>
+                        <th data-options="field:'zone',title:'所属区域',sortable:true,hidden:true,formatter:function(value,row,index){return row.country+' '+row.province+' '+row.city+' '+row.district}"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="Panel面板"
+                 data-options="id:'tab8',
+                         iconCls:'fa fa-th',
+                         href:'http://www.topjui.com?uuid1={uuid}'"></div>
         </div>
     </div>
 </div>
@@ -194,7 +359,7 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/add.html',
+           href:contextPath + '/html/complex/dialog_add.html',
            buttonsGroup:[
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
@@ -209,8 +374,9 @@
                 id: 'userDg'
             },
             dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                width: 950,
+                height: 500,
+                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
                 url: contextPath + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {

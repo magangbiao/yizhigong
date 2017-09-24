@@ -70,9 +70,9 @@
     </div>
     <form id="queryForm" class="search-box">
         <input type="text" name="name" data-toggle="topjui-textbox"
-               data-options="id:'name',height:30,prompt:'产品名称'">
+               data-options="id:'name',prompt:'产品名称'">
         <input type="text" name="code" data-toggle="topjui-textbox"
-               data-options="id:'code',height:30,prompt:'产品型号'">
+               data-options="id:'code',prompt:'产品型号'">
         <a id="queryBtn" href="javascript:void(0)">查询</a>
     </form>
 </div>
@@ -156,7 +156,7 @@
             dialog: {
                 id: 'userAddDialog',
                 height: 350,
-                href: contextPath + '/html/complex/add.html',
+                href: contextPath + '/html/complex/dialog_add.html',
                 buttonsGroup: [
                     {
                         text: '保存',
@@ -175,8 +175,9 @@
             btnCls: 'topjui-btn',
             grid: productDg,
             dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                width: 950,
+                height: 500,
+                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
                 url: contextPath + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {
@@ -194,7 +195,7 @@
             method: 'doAjax',
             iconCls: 'fa fa-trash',
             btnCls: 'topjui-btn-normal',
-            comfirmMsg: '这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
+            confirmMsg: '这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
             grid: {
                 type: 'datagrid',
                 id: 'productDg',
@@ -227,7 +228,7 @@
             btnCls: 'topjui-btn-normal',
             tab: {
                 title: '这是新的Tab窗口',
-                href: contextPath + '/html/menu/openTab_index.html'
+                href: contextPath + '/html/form/textbox_index.html'
             },
             grid: productDg
         });

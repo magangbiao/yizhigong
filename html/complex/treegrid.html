@@ -52,7 +52,7 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/add.html',
+           href:contextPath + '/html/complex/dialog_add.html',
            buttonsGroup:[
                {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
@@ -67,8 +67,9 @@
                 id: 'menuTg'
             },
             dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                width: 950,
+                height: 500,
+                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
                 url: contextPath + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {

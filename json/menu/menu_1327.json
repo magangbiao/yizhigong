@@ -5,7 +5,7 @@
     "state": "open",
     "iconCls": "",
     "text": "文本框",
-    "url": "./html/form/textbox_index.html"
+    "url": "./html/form/textbox.html"
   },
   {
     "id": 204,
@@ -13,7 +13,23 @@
     "state": "open",
     "iconCls": "",
     "text": "密码框",
-    "url": "./html/form/passwordbox_index.html"
+    "url": "./html/form/passwordbox.html"
+  },
+  {
+    "id": 2031,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "单选框",
+    "url": "./html/form/radio.html"
+  },
+  {
+    "id": 2041,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "多选框",
+    "url": "./html/form/checkbox.html"
   },
   {
     "id": 206,
@@ -21,7 +37,7 @@
     "state": "open",
     "iconCls": "",
     "text": "下拉列表框",
-    "url": "./html/form/combobox_index.html"
+    "url": "./html/form/combobox.html"
   },
   {
     "id": 207,
@@ -29,7 +45,7 @@
     "state": "open",
     "iconCls": "",
     "text": "树形下拉框",
-    "url": "./html/form/combotree_index.html"
+    "url": "./html/form/combotree.html"
   },
   {
     "id": 208,
@@ -37,7 +53,7 @@
     "state": "open",
     "iconCls": "",
     "text": "数据表格下拉框",
-    "url": "./html/form/combogrid_index.html"
+    "url": "./html/form/combogrid.html"
   },
   {
     "id": 209,
@@ -45,7 +61,7 @@
     "state": "open",
     "iconCls": "",
     "text": "树形表格下拉框",
-    "url": "./html/form/combotreegrid_index.html"
+    "url": "./html/form/combotreegrid.html"
   },
   {
     "id": 210,
@@ -53,7 +69,7 @@
     "state": "open",
     "iconCls": "",
     "text": "标签框",
-    "url": "./html/form/tagbox_index.html"
+    "url": "./html/form/tagbox.html"
   },
   {
     "id": 211,
@@ -61,7 +77,7 @@
     "state": "open",
     "iconCls": "",
     "text": "数值输入框",
-    "url": "./html/form/numberbox_index.html"
+    "url": "./html/form/numberbox.html"
   },
   {
     "id": 212,
@@ -69,7 +85,7 @@
     "state": "open",
     "iconCls": "",
     "text": "日期输入框",
-    "url": "./html/form/datebox_index.html"
+    "url": "./html/form/datebox.html"
   },
   {
     "id": 213,
@@ -77,7 +93,7 @@
     "state": "open",
     "iconCls": "",
     "text": "日期时间输入框",
-    "url": "./html/form/datetimebox_index.html"
+    "url": "./html/form/datetimebox.html"
   },
   {
     "id": 214,
@@ -85,7 +101,7 @@
     "state": "open",
     "iconCls": "",
     "text": "日期时间微调框",
-    "url": "./html/form/datetimespinner_index.html"
+    "url": "./html/form/datetimespinner.html"
   },
   {
     "id": 215,
@@ -93,7 +109,7 @@
     "state": "open",
     "iconCls": "",
     "text": "日历",
-    "url": "./html/form/calendar_index.html"
+    "url": "./html/form/calendar.html"
   },
   {
     "id": 216,
@@ -101,7 +117,7 @@
     "state": "open",
     "iconCls": "",
     "text": "微调",
-    "url": "./html/form/spinner_index.html"
+    "url": "./html/form/spinner.html"
   },
   {
     "id": 217,
@@ -109,7 +125,7 @@
     "state": "open",
     "iconCls": "",
     "text": "数字微调",
-    "url": "./html/form/numberspinner_index.html"
+    "url": "./html/form/numberspinner.html"
   },
   {
     "id": 218,
@@ -117,7 +133,7 @@
     "state": "open",
     "iconCls": "",
     "text": "时间微调",
-    "url": "./html/form/timespinner_index.html"
+    "url": "./html/form/timespinner.html"
   },
   {
     "id": 219,
@@ -125,7 +141,7 @@
     "state": "open",
     "iconCls": "",
     "text": "滑动条",
-    "url": "./html/form/slider_index.html"
+    "url": "./html/form/slider.html"
   },
   {
     "id": 220,
@@ -133,6 +149,6 @@
     "state": "open",
     "iconCls": "",
     "text": "文件框",
-    "url": "./html/form/filebox_index.html"
+    "url": "./html/form/filebox.html"
   }
 ]

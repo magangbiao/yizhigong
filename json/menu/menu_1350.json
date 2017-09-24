@@ -1,98 +1,26 @@
 [
   {
-    "id": 1356,
+    "id": 13501,
     "pid": 1350,
-    "state": "open",
+    "state": "closed",
     "iconCls": "",
-    "text": "数据表格（标签实现）",
-    "url": "./html/complex/datagrid.html"
+    "text": "表单演示",
+    "url": ""
   },
   {
-    "id": 13561,
+    "id": 13502,
     "pid": 1350,
-    "state": "open",
+    "state": "closed",
     "iconCls": "",
-    "text": "数据表格（JS实现）",
-    "url": "./html/complex/datagrid2.html"
+    "text": "表格演示",
+    "url": ""
   },
   {
-    "id": 1357,
+    "id": 13503,
     "pid": 1350,
-    "state": "open",
+    "state": "closed",
     "iconCls": "",
-    "text": "树形表格",
-    "url": "./html/complex/treegrid.html"
-  },
-  {
-    "id": 1358,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "可编辑表格",
-    "url": "./html/complex/edatagrid.html"
-  },
-  {
-    "id": 1359,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左右两列布局1",
-    "url": "./html/layout/layout_wc1.html"
-  },
-  {
-    "id": 1359,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左右两列布局2",
-    "url": "./html/layout/layout_wc2.html"
-  },
-  {
-    "id": 1359,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左右两列布局3",
-    "url": "./html/layout/layout_wcs.html"
-  },
-  {
-    "id": 1359,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左右两列布局4",
-    "url": "./html/layout/layout_cse.html"
-  },
-  {
-    "id": 1360,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "上下两行布局1",
-    "url": "./html/layout/layout_nc1.html"
-  },
-  {
-    "id": 1360,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "上下两行布局2",
-    "url": "./html/layout/layout_nc2.html"
-  },
-  {
-    "id": 1361,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左中右三列布局1",
-    "url": "./html/layout/layout_wce1.html"
-  },
-  {
-    "id": 1361,
-    "pid": 1350,
-    "state": "open",
-    "iconCls": "",
-    "text": "左中右三列布局2",
-    "url": "./html/layout/layout_wce2.html"
+    "text": "布局演示",
+    "url": ""
   }
 ]

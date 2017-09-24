@@ -91,9 +91,9 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/add.html',
+           href:contextPath + '/html/complex/dialog_add.html',
            buttonsGroup:[
-               {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
+               {text:'保存',url:contextPath + '/json/response/failure.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
        }">新增</a>
     <a href="javascript:void(0)"
@@ -106,8 +106,9 @@
                 id: 'productDg'
             },
             dialog: {
-                height: 350,
-                href: contextPath + '/html/complex/edit.html?uuid={uuid}',
+                width: 950,
+                height: 500,
+                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
                 url: contextPath + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {
@@ -123,7 +124,7 @@
        data-toggle="topjui-menubutton"
        data-options="method:'doAjax',btnCls:'topjui-btn-normal',
        iconCls:'fa fa-trash',
-       comfirmMsg:'这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
+       confirmMsg:'这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
        grid: {uncheckedMsg:'请先勾选要删除的数据',param:'uuid:uuid,code:code'},
        url:contextPath + '/json/response/success.json'">删除</a>
     <a href="javascript:void(0)"
@@ -142,7 +143,7 @@
        btnCls:'topjui-btn-normal',
        tab:{
            title:'这是新的Tab窗口',
-           href:contextPath + '/html/menu/openTab_index.html'
+           href:contextPath + '/html/complex/panel_add.html'
        }">打开Tab窗口</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
@@ -187,9 +188,9 @@
     </div>
     <form id="queryForm" class="search-box">
         <input type="text" name="name" data-toggle="topjui-textbox"
-               data-options="id:'name',height:30,prompt:'产品名称'">
+               data-options="id:'name',prompt:'产品名称'">
         <input type="text" name="code" data-toggle="topjui-textbox"
-               data-options="id:'code',height:30,prompt:'产品型号'">
+               data-options="id:'code',prompt:'产品型号'">
         <a href="javascript:void(0)"
            data-toggle="topjui-menubutton"
            data-options="method:'query',
