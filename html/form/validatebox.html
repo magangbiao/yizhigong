@@ -22,37 +22,25 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="验证框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认验证框</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">验证框1</td>
-                    <td>
-                        <input type="text" name="validatebox1" data-toggle="topjui-validatebox">
-                    </td>
-                    <td class="label">验证框2</td>
-                    <td>
-                        <input type="text" name="validatebox2" data-toggle="topjui-validatebox"
-                               data-options="required:true,prompt:'电子邮箱验证',validType:'email'">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/validatebox.html?source=menu'"></div>
-    </div>
-</div>
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认验证框</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">验证框1</td>
+        <td>
+            <input type="text" name="validatebox1" data-toggle="topjui-validatebox">
+        </td>
+        <td class="label">验证框2</td>
+        <td>
+            <input type="text" name="validatebox2" data-toggle="topjui-validatebox"
+                   data-options="required:true,prompt:'电子邮箱验证',validType:'email'">
+        </td>
+    </tr>
+</table>
 </body>
 </html>

@@ -22,25 +22,19 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="树形表格下拉框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>使用标签实现</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">组织机构</td>
-                    <td>
-                        <input name="org" data-toggle="topjui-combotreegrid"
-                               data-options="width:450,
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>使用标签实现</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">组织机构</td>
+        <td>
+            <input name="org" data-toggle="topjui-combotreegrid"
+                   data-options="width:450,
                    labelPosition:'top',
                    url:remoteHost+'/system/organization/getListByCodeSetIdAndLevelId?codeSetId=A&levelId=1',
                    expandUrl:remoteHost+'/system/organization/getListByPid?pid={id}',
@@ -51,28 +45,22 @@
                        {field:'leader',title:'负责人'},
                        {field:'levelId',title:'层级',width:100}
                    ]]">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>使用Javascript实现</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">组织机构</td>
-                    <td>
-                        <input type="text" id="org2" name="org2">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/combotreegrid.html?source=menu'"></div>
-    </div>
-</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>使用Javascript实现</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">组织机构</td>
+        <td>
+            <input type="text" id="org2" name="org2">
+        </td>
+    </tr>
+</table>
 
 <script>
     $(function () {

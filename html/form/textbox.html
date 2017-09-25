@@ -22,179 +22,49 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="文本框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th',footer:'#footer'">
-            <form method="post" data-toggle="topjui-form" data-options="id:'formId'">
-                <table class="editTable">
-                    <tr>
-                        <td class="label">普通文本框</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox">
-                        </td>
-                        <td class="label">必填文本框</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="required:true, value:'这是必填的输入框'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">URL地址</td>
-                        <td>
-                            <input type="text" name="userNameId" value="http://www.topjui.com" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:'url'">
-                        </td>
-                        <td class="label">电子邮箱</td>
-                        <td>
-                            <input type="text" name="userName" value="service@ewsd.cn" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:['email','length[0,20]']">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">用户名</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'用户名是必填的信息'">
-                        </td>
-                        <td class="label">姓名</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="prompt:'姓名是必填的信息'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">文章标题</td>
-                        <td colspan="3">
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'这是指定了宽为450px的必填文本输入框',width:450">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">普通文本框</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox">
-                        </td>
-                        <td class="label">必填文本框</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="required:true">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">URL地址</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:'url'">
-                        </td>
-                        <td class="label">电子邮箱</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:['email','length[0,20]']">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">用户名</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'用户名是必填的信息'">
-                        </td>
-                        <td class="label">姓名</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="prompt:'姓名是必填的信息'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">文章标题</td>
-                        <td colspan="3">
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'这是指定了宽为450px的必填文本输入框',width:450">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">普通文本框</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox">
-                        </td>
-                        <td class="label">必填文本框</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="required:true">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">URL地址</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:'url'">
-                        </td>
-                        <td class="label">电子邮箱</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="required:true,validType:['email','length[0,20]']">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">用户名</td>
-                        <td>
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'用户名是必填的信息'">
-                        </td>
-                        <td class="label">姓名</td>
-                        <td>
-                            <input type="text" name="userName" data-toggle="topjui-textbox"
-                                   data-options="prompt:'姓名是必填的信息'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">文章标题</td>
-                        <td colspan="3">
-                            <input type="text" name="userNameId" data-toggle="topjui-textbox"
-                                   data-options="prompt:'这是指定了宽为450px的必填文本输入框',width:450">
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/textbox.html?source=menu'"></div>
-    </div>
-</div>
-
-<div id="footer" style="height: 35px; padding: 5px; text-align: right;">
-    <a href="#"
-       data-toggle="topjui-linkbutton"
-       data-options="id:'submitBtn',
-       iconCls:'fa fa-save',
-       form:{
-           id:'formId',
-           method:'submit',
-           url:'/json/response/success.json',
-           refreshRefererTab:true,
-           refreshCurrentTab:true
-       }">提交表单</a>
-    <a href="#"
-       data-toggle="topjui-linkbutton"
-       data-options="id:'submitBtn',
-       iconCls:'fa fa-exchange',
-       btnCls:'topjui-btn-warm',
-       form:{
-           id:'formId',
-           method:'reset'
-       }">重置表单</a>
-    <a href="#"
-       data-toggle="topjui-linkbutton"
-       data-options="id:'submitBtn',
-       iconCls:'fa fa-trash',
-       btnCls:'topjui-btn-danger',
-       form:{
-           id:'formId',
-           method:'clear'
-       }">清空表单</a>
-</div>
+<table class="editTable">
+    <tr>
+        <td class="label">普通文本框</td>
+        <td>
+            <input type="text" name="userNameId" data-toggle="topjui-textbox">
+        </td>
+        <td class="label">必填文本框</td>
+        <td>
+            <input type="text" name="userName" data-toggle="topjui-textbox"
+                   data-options="required:true, value:'这是必填的输入框'">
+        </td>
+    </tr>
+    <tr>
+        <td class="label">URL地址</td>
+        <td>
+            <input type="text" name="userNameId" value="http://www.topjui.com" data-toggle="topjui-textbox"
+                   data-options="required:true,validType:'url'">
+        </td>
+        <td class="label">电子邮箱</td>
+        <td>
+            <input type="text" name="userName" value="service@ewsd.cn" data-toggle="topjui-textbox"
+                   data-options="required:true,validType:['email','length[0,20]']">
+        </td>
+    </tr>
+    <tr>
+        <td class="label">用户名</td>
+        <td>
+            <input type="text" name="userNameId" data-toggle="topjui-textbox"
+                   data-options="prompt:'用户名是必填的信息'">
+        </td>
+        <td class="label">姓名</td>
+        <td>
+            <input type="text" name="userName" data-toggle="topjui-textbox"
+                   data-options="prompt:'姓名是必填的信息'">
+        </td>
+    </tr>
+    <tr>
+        <td class="label">文章标题</td>
+        <td colspan="3">
+            <input type="text" name="userNameId" data-toggle="topjui-textbox"
+                   data-options="prompt:'这是指定了宽为450px的必填文本输入框',width:450">
+        </td>
+    </tr>
+</table>
 </body>
 </html>

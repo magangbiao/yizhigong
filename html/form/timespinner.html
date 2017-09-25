@@ -22,38 +22,26 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="时间微调演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认时间微调</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">开始时间</td>
-                    <td>
-                        <input type="text" name="age" data-toggle="topjui-timespinner">
-                    </td>
-                    <td class="label">结束时间</td>
-                    <td>
-                        <input type="text" name="gonglin"
-                               data-toggle="topjui-timespinner"
-                               data-options="required:true,prompt:'工龄是必填字段'">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/timespinner.html?source=menu'"></div>
-    </div>
-</div>
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认时间微调</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">开始时间</td>
+        <td>
+            <input type="text" name="age" data-toggle="topjui-timespinner">
+        </td>
+        <td class="label">结束时间</td>
+        <td>
+            <input type="text" name="gonglin"
+                   data-toggle="topjui-timespinner"
+                   data-options="required:true,prompt:'工龄是必填字段'">
+        </td>
+    </tr>
+</table>
 </body>
 </html>

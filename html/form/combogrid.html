@@ -22,26 +22,20 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="数据表格下拉框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认数据表格下拉框</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">用户</td>
-                    <td colspan="3">
-                        <input type="text" name="user"
-                               data-toggle="topjui-combogrid"
-                               data-options="id:'user',
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认数据表格下拉框</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">用户</td>
+        <td colspan="3">
+            <input type="text" name="user"
+                   data-toggle="topjui-combogrid"
+                   data-options="id:'user',
                    width:450,
                    idField: 'userNameId',
                    textField: 'userName',
@@ -51,14 +45,8 @@
                        {field: 'telephone', title: '办公电话'},
                        {field: 'email', title: '电子邮箱',width:100}
                    ]]">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/combogrid.html?source=menu'"></div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

@@ -22,42 +22,30 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="文件框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认文件框</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">文件框1</td>
-                    <td>
-                        <input type="text" name="filebox1"
-                               data-toggle="topjui-filebox"
-                               data-options="buttonIcon:'fa fa-folder'">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">文件框2</td>
-                    <td>
-                        <input type="text" name="filebox2"
-                               data-toggle="topjui-filebox"
-                               data-options="buttonIcon:'fa fa-file'">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/filebox.html?source=menu'"></div>
-    </div>
-</div>
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认文件框</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">文件框1</td>
+        <td>
+            <input type="text" name="filebox1"
+                   data-toggle="topjui-filebox"
+                   data-options="buttonIcon:'fa fa-folder'">
+        </td>
+    </tr>
+    <tr>
+        <td class="label">文件框2</td>
+        <td>
+            <input type="text" name="filebox2"
+                   data-toggle="topjui-filebox"
+                   data-options="buttonIcon:'fa fa-file'">
+        </td>
+    </tr>
+</table>
 </body>
 </html>

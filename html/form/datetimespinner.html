@@ -22,47 +22,35 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="日期时间微调框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认日期时间微调框</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">开始时间</td>
-                    <td>
-                        <input name="birthday"
-                               data-toggle="topjui-datetimespinner"
-                               data-options="required:true,
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认日期时间微调框</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">开始时间</td>
+        <td>
+            <input name="birthday"
+                   data-toggle="topjui-datetimespinner"
+                   data-options="required:true,
                    width:450,
                    showSeconds:false">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">结束时间</td>
-                    <td>
-                        <input name="birthday"
-                               data-toggle="topjui-datetimespinner"
-                               data-options="required:true,
+        </td>
+    </tr>
+    <tr>
+        <td class="label">结束时间</td>
+        <td>
+            <input name="birthday"
+                   data-toggle="topjui-datetimespinner"
+                   data-options="required:true,
                    width:450,
                    showSeconds:true,
                    value:'2017-09-04 12:03:13'">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/datetimespinner.html?source=menu'"></div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

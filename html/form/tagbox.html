@@ -22,26 +22,20 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="标签框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td colspan="4">
-                        <div class="divider">
-                            <span>默认标签框（手动输入请回车）</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">标签框</td>
-                    <td>
-                        <input type="text" name="tagbox2" style="width:450px"
-                               data-toggle="topjui-tagbox"
-                               data-options="required:true,
+<table class="editTable">
+    <tr>
+        <td colspan="4">
+            <div class="divider">
+                <span>默认标签框（手动输入请回车）</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">标签框</td>
+        <td>
+            <input type="text" name="tagbox2" style="width:450px"
+                   data-toggle="topjui-tagbox"
+                   data-options="required:true,
                                hasDownArrow:true,
                                textField:'text',
                                valueField:'id',
@@ -62,14 +56,8 @@
                                    id:5,
                                    text:'樱桃'
                                }]">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div title="开发文档"
-             data-options="id:'tab2',type:'panel',iconCls:'fa fa-th',
-                 iframeHref:'http://www.topjui.com/document/form/tagbox.html?source=menu'"></div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

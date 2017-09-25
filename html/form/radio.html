@@ -22,36 +22,27 @@
 </head>
 
 <body>
-<div data-toggle="topjui-layout" data-options="fit:true">
-    <div data-toggle="topjui-tabs"
-         data-options="id:'tabs',
-             fit:true,
-             border:false">
-        <div title="单选框演示" data-options="id:'tab1',type:'panel',iconCls:'fa fa-th'">
-            <table class="editTable">
-                <tr>
-                    <td class="label">性别</td>
-                    <td>
-                        <div data-toggle="topjui-radio">
-                            <input type="radio" name="sex" label="男" checked="checked"
-                                   data-options="required:true,width:45">
-                            <input type="radio" name="sex" label="女"
-                                   data-options="required:true,width:45">
-                        </div>
-                    </td>
-                    <td class="label">推荐</td>
-                    <td>
-                        <div data-toggle="topjui-radio">
-                            <input type="radio" name="recommend" label="是" checked="checked"
-                                   data-options="required:true,width:45">
-                            <input type="radio" name="recommend" label="否"
-                                   data-options="required:true,width:45">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+<table class="editTable">
+    <tr>
+        <td class="label">性别</td>
+        <td>
+            <div data-toggle="topjui-radio">
+                <input type="radio" name="sex" label="男" checked="checked"
+                       data-options="required:true,width:45">
+                <input type="radio" name="sex" label="女"
+                       data-options="required:true,width:45">
+            </div>
+        </td>
+        <td class="label">推荐</td>
+        <td>
+            <div data-toggle="topjui-radio">
+                <input type="radio" name="recommend" label="是" checked="checked"
+                       data-options="required:true,width:45">
+                <input type="radio" name="recommend" label="否"
+                       data-options="required:true,width:45">
+            </div>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
