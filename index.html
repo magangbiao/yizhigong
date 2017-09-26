@@ -282,29 +282,29 @@
 <script>
     $(function () {
         $('#ulMenu>li').hover(
-                function () {
-                    var m = $(this).data('menu');
-                    if (!m) {
-                        m = $(this).find('ul').clone();
-                        m.appendTo(document.body);
-                        $(this).data('menu', m);
-                        var of = $(this).offset();
-                        m.css({left: of.left, top: of.top + this.offsetHeight});
-                        m.hover(function () {
-                            clearTimeout(m.timer);
-                        }, function () {
-                            m.hide()
-                        });
-                    }
-                    m.show();
-                }, function () {
-                    var m = $(this).data('menu');
-                    if (m) {
-                        m.timer = setTimeout(function () {
-                            m.hide();
-                        }, 100);//延时隐藏，时间自定义，100ms
-                    }
+            function () {
+                var m = $(this).data('menu');
+                if (!m) {
+                    m = $(this).find('ul').clone();
+                    m.appendTo(document.body);
+                    $(this).data('menu', m);
+                    var of = $(this).offset();
+                    m.css({left: of.left, top: of.top + this.offsetHeight});
+                    m.hover(function () {
+                        clearTimeout(m.timer);
+                    }, function () {
+                        m.hide()
+                    });
                 }
+                m.show();
+            }, function () {
+                var m = $(this).data('menu');
+                if (m) {
+                    m.timer = setTimeout(function () {
+                        m.hide();
+                    }, 100);//延时隐藏，时间自定义，100ms
+                }
+            }
         );
     });
 </script>
