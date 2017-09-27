@@ -74,8 +74,8 @@
 .switchbutton-on{background:#03b463;color:#fff;}
 .switchbutton-off{background:#E1E1E1;color:#000;}
 /*顶部菜单*/
-.bannerMenu{padding:7px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
-.bannerMenu lable{font-size:17px;}
+.bannerMenu{padding:5px 12px 0 12px;height:45px;color:#fff;text-decoration:none;font-size:18px;line-height:45px;filter:none;}
+.bannerMenu lable{font-size:24px;}
 .bannerMenu span{font-size:13px;font-family:'Microsoft YaHei',Arial,Verdana;letter-spacing:1px}
 #north .topmenu{border-right:1px #008d4c solid;background:#00a65a;text-align:center}
 #north .topmenu:hover{background:#008d4c;text-align:center}

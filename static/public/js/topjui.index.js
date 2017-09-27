@@ -21,10 +21,13 @@ $(window).load(function () {
 $(function () {
     $(".collapseMenu").on("click", function () {
         var p = $("#index_layout").iLayout("panel", "west")[0].clientWidth;
-        if (p > 0)
+        if (p > 0) {
             $('#index_layout').iLayout('collapse', 'west');
-        else
+            $(this).children('span').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right');
+        } else {
             $('#index_layout').iLayout('expand', 'west');
+            $(this).children('span').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left');
+        }
     });
 
     // 首页tabs选项卡

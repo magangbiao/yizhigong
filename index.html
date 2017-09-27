@@ -282,29 +282,29 @@
 <script>
     $(function () {
         $('#ulMenu>li').hover(
-            function () {
-                var m = $(this).data('menu');
-                if (!m) {
-                    m = $(this).find('ul').clone();
-                    m.appendTo(document.body);
-                    $(this).data('menu', m);
-                    var of = $(this).offset();
-                    m.css({left: of.left, top: of.top + this.offsetHeight});
-                    m.hover(function () {
-                        clearTimeout(m.timer);
-                    }, function () {
-                        m.hide()
-                    });
+                function () {
+                    var m = $(this).data('menu');
+                    if (!m) {
+                        m = $(this).find('ul').clone();
+                        m.appendTo(document.body);
+                        $(this).data('menu', m);
+                        var of = $(this).offset();
+                        m.css({left: of.left, top: of.top + this.offsetHeight});
+                        m.hover(function () {
+                            clearTimeout(m.timer);
+                        }, function () {
+                            m.hide()
+                        });
+                    }
+                    m.show();
+                }, function () {
+                    var m = $(this).data('menu');
+                    if (m) {
+                        m.timer = setTimeout(function () {
+                            m.hide();
+                        }, 100);//延时隐藏，时间自定义，100ms
+                    }
                 }
-                m.show();
-            }, function () {
-                var m = $(this).data('menu');
-                if (m) {
-                    m.timer = setTimeout(function () {
-                        m.hide();
-                    }, 100);//延时隐藏，时间自定义，100ms
-                }
-            }
         );
     });
 </script>
@@ -317,7 +317,7 @@
                     <span class="fa fa-envira" style="font-size:26px; padding-right:8px;"></span>TopJUI前端框架
                 </td>
                 <td class="collapseMenu" style="text-align: center;cursor: pointer;">
-                    <span class="fa fa-list" style="font-size:26px;"></span>
+                    <span class="fa fa-chevron-circle-left" style="font-size: 18px;"></span>
                 </td>
                 <td>
                     <table id="topmenucontent" cellpadding="0" cellspacing="0">
@@ -364,21 +364,24 @@
 
                     <!-- 单一菜单 | end -->
                     <li class="m">
-                        <h3><a title="官方网站" class="l-btn-text fa fa-home fa-lg bannerbtn" href="http://www.topjui.com"
-                               target="_blank"></a></h3>
+                        <h3><a title="官方网站" class="l-btn-text bannerbtn" href="http://www.topjui.com"
+                               target="_blank"><i class="fa fa-home"></i></a></h3>
                     </li>
                     <li class="s">|</li>
 
                     <li class="m">
                         <h3>
-                            <a title="切换主题" id="setThemes" class="l-btn-text fa fa-tree fa-lg bannerbtn"
-                               href="javascript:void(0)"></a>
+                            <a title="切换主题" id="setThemes" class="l-btn-text bannerbtn"
+                               href="javascript:void(0)"><i class="fa fa-tree"></i></a>
                         </h3>
                     </li>
                     <li class="s">|</li>
 
                     <li class="m">
-                        <h3><a class="l-btn-text fa fa-cog fa-lg bannerbtn" href="javascript:void(0)"></a></h3>
+                        <h3>
+                            <a class="l-btn-text bannerbtn"
+                               href="javascript:void(0)"><i class="fa fa-cog"></i></a>
+                        </h3>
                         <ul class="sub">
                             <li><a class="fa fa-info-circle" href="http://www.topjui.com/about.html" target="_blank">
                                 关于系统</a></li>

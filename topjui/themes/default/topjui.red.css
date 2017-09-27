@@ -76,8 +76,8 @@ background: url('../../themes/default/images/accordion_arrows2.png') no-repeat 0
 .switchbutton-on{background:#eb5f4e;color:#fff;}
 .switchbutton-off{background:#E1E1E1;color:#000;}
 /*顶部菜单*/
-.bannerMenu{padding:7px 12px;height:36px;color:#fff;text-decoration:none;font-size:18px;line-height:16px;filter:none;}
-.bannerMenu lable{font-size:17px;}
+.bannerMenu{padding:5px 12px 0 12px;height:45px;color:#fff;text-decoration:none;font-size:18px;line-height:45px;filter:none;}
+.bannerMenu lable{font-size:24px;}
 .bannerMenu span{font-size:13px;font-family:'Microsoft YaHei',Arial,Verdana;letter-spacing:1px}
 #north .topmenu{border-right:1px #d73925 solid;background:#dd4b39;text-align:center}
 #north .topmenu:hover{background:#d73925;text-align:center}
