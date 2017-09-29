@@ -142,9 +142,9 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/dialog_add.html',
+           href:_ctx + '/html/complex/dialog_add.html',
            buttonsGroup:[
-               {text:'保存',url:contextPath + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
+               {text:'保存',url:_ctx + '/json/response/success.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
        }">新增</a>
     <a href="javascript:void(0)"
@@ -159,12 +159,12 @@
             dialog: {
                 width: 950,
                 height: 500,
-                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
-                url: contextPath + '/json/product/detail.json?uuid={uuid}',
+                href: _ctx + '/html/complex/dialog_edit.html?uuid={uuid}',
+                url: _ctx + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {
                         text: '更新',
-                        url: contextPath + '/json/response/success.json',
+                        url: _ctx + '/json/response/success.json',
                         iconCls: 'fa fa-save',
                         handler: 'ajaxForm',
                         btnCls: 'topjui-btn'
@@ -175,7 +175,7 @@
        data-toggle="topjui-menubutton"
        data-options="method:'doAjax',btnCls:'topjui-btn-normal',
        iconCls:'fa fa-trash',
-       url:contextPath + '/json/response/success.json',
+       url:_ctx + '/json/response/success.json',
        grid: {uncheckedMsg:'请先勾选要删除的数据',param:'uuid:uuid,code:code'}">删除</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
@@ -192,7 +192,7 @@
     <div id="exportSubMenu" class="topjui-toolbar" style="width:150px;">
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}',
+             url:_ctx + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
                  id:'userDg'
@@ -200,7 +200,7 @@
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'export',
-             url: contextPath + '/json/response/export.html',
+             url: _ctx + '/json/response/export.html',
              grid:{
                  type:'datagrid',
                  id:'userDg'
@@ -208,7 +208,7 @@
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}',
+             url:_ctx + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
                  id:'userDg'
@@ -216,7 +216,7 @@
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}',
+             url:_ctx + '/json/response/success.json?uuid={uuid}',
              grid:{
                  type:'datagrid',
                  id:'userDg'

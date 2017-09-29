@@ -60,7 +60,7 @@
             <input type="text" name="nativePlace"
                    data-toggle="topjui-combobox"
                    data-options="panelHeight:250,
-                   url:contextPath + '/json/combobox/nativePlace.json'">
+                   url:_ctx + '/json/combobox/nativePlace.json'">
         </td>
         <td class="label">民族（必填）</td>
         <td>
@@ -69,7 +69,7 @@
                    data-options="required:true,
                    prompt:'必填',
                    panelHeight:250,
-                   url:contextPath + '/json/combobox/nation.json'">
+                   url:_ctx + '/json/combobox/nation.json'">
         </td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@
             <input type="text" name="country"
                    data-toggle="topjui-combobox"
                    data-options="panelHeight:250,
-                   url:contextPath + '/json/combobox/country.json',
+                   url:_ctx + '/json/combobox/country.json',
                    valueField: 'id',
                    childCombobox:{
                        id:'province',
@@ -140,7 +140,7 @@
             <input type="text" name="country2"
                    data-toggle="topjui-combobox"
                    data-options="panelHeight:250,
-                   url:contextPath + '/json/combobox/country.json',
+                   url:_ctx + '/json/combobox/country.json',
                    valueField: 'id',
                    childCombobox:{
                        id:'province2'

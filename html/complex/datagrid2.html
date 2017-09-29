@@ -53,19 +53,19 @@
        }" style="width:150px;">
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出 PDF 报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出 PDF 报表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'export',
-             url: contextPath + '/json/response/export.html'">导出EXCEL列表
+             url: _ctx + '/json/response/export.html'">导出EXCEL列表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出EXCEL报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出EXCEL报表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出WORD报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出WORD报表
         </div>
     </div>
     <form id="queryForm" class="search-box">
@@ -156,11 +156,11 @@
             dialog: {
                 id: 'userAddDialog',
                 height: 350,
-                href: contextPath + '/html/complex/dialog_add.html',
+                href: _ctx + '/html/complex/dialog_add.html',
                 buttonsGroup: [
                     {
                         text: '保存',
-                        url: contextPath + '/json/response/success.json',
+                        url: _ctx + '/json/response/success.json',
                         iconCls: 'fa fa-plus',
                         handler: 'ajaxForm',
                         btnCls: 'topjui-btn-normal'
@@ -177,12 +177,12 @@
             dialog: {
                 width: 950,
                 height: 500,
-                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
-                url: contextPath + '/json/product/detail.json?uuid={uuid}',
+                href: _ctx + '/html/complex/dialog_edit.html?uuid={uuid}',
+                url: _ctx + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {
                         text: '更新',
-                        url: contextPath + '/json/response/success.json',
+                        url: _ctx + '/json/response/success.json',
                         iconCls: 'fa fa-save',
                         handler: 'ajaxForm',
                         btnCls: 'topjui-btn'
@@ -202,7 +202,7 @@
                 uncheckedMsg: '请先勾选要删除的数据',
                 param: 'uuid:uuid,code:code'
             },
-            url: contextPath + '/json/response/success.json'
+            url: _ctx + '/json/response/success.json'
         });
 
         $("#filter").iMenubutton({
@@ -220,7 +220,7 @@
         $("#export").iMenubutton({
             method: 'export',
             btnCls: 'topjui-btn',
-            url: contextPath + '/json/response/export.html'
+            url: _ctx + '/json/response/export.html'
         });
 
         $("#openTab").iMenubutton({
@@ -228,7 +228,7 @@
             btnCls: 'topjui-btn-normal',
             tab: {
                 title: '这是新的Tab窗口',
-                href: contextPath + '/html/form/textbox_index.html'
+                href: _ctx + '/html/form/textbox_index.html'
             },
             grid: productDg
         });
@@ -243,7 +243,7 @@
         $('#request').iMenubutton({
             method: 'request',
             btnCls: 'topjui-btn',
-            url: contextPath + '/json/response/success.json'
+            url: _ctx + '/json/response/success.json'
         });
 
         $('#myFun').iMenubutton({

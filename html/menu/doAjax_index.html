@@ -48,14 +48,14 @@
        data-options="method:'doAjax',
        btnCls:'topjui-btn-normal',
        confirmMsg:'这个是选中一条记录实现单条数据的Ajax提交操作，提交url中指定的参数值',
-       url:contextPath + '/json/response/success.json?uuid={uuid}&code={code}'">执行Ajax请求（提交选中的单条数据）</a>
+       url:_ctx + '/json/response/success.json?uuid={uuid}&code={code}'">执行Ajax请求（提交选中的单条数据）</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="method:'doAjax',
        btnCls:'topjui-btn-normal',
        confirmMsg:'这个是勾选复选框实现多条数据的Ajax提交操作，提交grid.param中指定的参数值',
        grid: {uncheckedMsg:'请先勾选要提交的数据',param:'uuid:uuid,code:code'},
-       url:contextPath + '/json/response/success.json'">执行Ajax请求（提交勾选的多条数据）</a>
+       url:_ctx + '/json/response/success.json'">执行Ajax请求（提交勾选的多条数据）</a>
 </div>
 
 </body>

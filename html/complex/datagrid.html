@@ -91,9 +91,9 @@
        iconCls: 'fa fa-plus',
        dialog:{
            id:'userAddDialog',
-           href:contextPath + '/html/complex/dialog_add.html',
+           href:_ctx + '/html/complex/dialog_add.html',
            buttonsGroup:[
-               {text:'保存',url:contextPath + '/json/response/failure.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
+               {text:'保存',url:_ctx + '/json/response/failure.json',iconCls:'fa fa-plus',handler:'ajaxForm',btnCls:'topjui-btn-normal'}
            ]
        }">新增</a>
     <a href="javascript:void(0)"
@@ -108,12 +108,12 @@
             dialog: {
                 width: 950,
                 height: 500,
-                href: contextPath + '/html/complex/dialog_edit.html?uuid={uuid}',
-                url: contextPath + '/json/product/detail.json?uuid={uuid}',
+                href: _ctx + '/html/complex/dialog_edit.html?uuid={uuid}',
+                url: _ctx + '/json/product/detail.json?uuid={uuid}',
                 buttonsGroup: [
                     {
                         text: '更新',
-                        url: contextPath + '/json/response/success.json',
+                        url: _ctx + '/json/response/success.json',
                         iconCls: 'fa fa-save',
                         handler: 'ajaxForm',
                         btnCls: 'topjui-btn'
@@ -126,7 +126,7 @@
        iconCls:'fa fa-trash',
        confirmMsg:'这个是勾选复选框实现多条数据的Ajax删除提交操作，提交grid.param中指定的参数值',
        grid: {uncheckedMsg:'请先勾选要删除的数据',param:'uuid:uuid,code:code'},
-       url:contextPath + '/json/response/success.json'">删除</a>
+       url:_ctx + '/json/response/success.json'">删除</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="method:'filter',btnCls:'topjui-btn-warm'">过滤</a>
@@ -136,14 +136,14 @@
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="method:'export',btnCls:'topjui-btn',
-       url:contextPath + '/json/response/export.html'">导出</a>
+       url:_ctx + '/json/response/export.html'">导出</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="method:'openTab',
        btnCls:'topjui-btn-normal',
        tab:{
            title:'这是新的Tab窗口',
-           href:contextPath + '/html/complex/panel_add.html'
+           href:_ctx + '/html/complex/panel_add.html'
        }">打开Tab窗口</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
@@ -153,7 +153,7 @@
        data-toggle="topjui-menubutton"
        data-options="method:'request',
        btnCls:'topjui-btn',
-       url:contextPath + '/json/response/success.json'">执行普通请求</a>
+       url:_ctx + '/json/response/success.json'">执行普通请求</a>
     <a href="javascript:void(0)"
        data-toggle="topjui-menubutton"
        data-options="btnCls:'topjui-btn-normal',
@@ -171,19 +171,19 @@
        }" style="width:150px;">
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出 PDF 报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出 PDF 报表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'export',
-             url: contextPath + '/json/response/export.html'">导出EXCEL列表
+             url: _ctx + '/json/response/export.html'">导出EXCEL列表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出EXCEL报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出EXCEL报表
         </div>
         <div data-toggle="topjui-menubutton"
              data-options="method:'request',
-             url:contextPath + '/json/response/success.json?uuid={uuid}'">导出WORD报表
+             url:_ctx + '/json/response/success.json?uuid={uuid}'">导出WORD报表
         </div>
     </div>
     <form id="queryForm" class="search-box">
