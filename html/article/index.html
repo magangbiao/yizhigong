@@ -29,8 +29,8 @@
         <table data-toggle="topjui-treegrid"
                data-options="id:'channelDg',
 			   idField:'id',treeField:'text',
-			   url:ctx + '/system/api/getChannelsById?id=1',
-            expandUrl:ctx + '/system/api/getChannelsByPid?pid={id}',
+			   url:'/system/api/getChannelsById?id=1',
+            expandUrl:'/system/api/getChannelsByPid?pid={id}',
             childGrid:{
             param:'id:id',
             grids:[
@@ -54,7 +54,7 @@
 				 ]">
             <div title="第一个tab页（动态加载内容）"
                  data-options="id:'detail1Panel',iconCls:'icon-table',
-					 dynamicHref:ctx + '/system/api/articleDetail?uuid={uuid}',
+					 dynamicHref:'/system/api/articleDetail?uuid={uuid}',
 							parentGrid:{
 								type:'datagrid',
 								id:'articleDg',
@@ -62,7 +62,7 @@
 							}"></div>
             <div title="第二个tab页（动态加载内容）"
                  data-options="id:'detail2Panel',iconCls:'icon-table',
-					 dynamicHref:ctx + '/system/api/articlePrint?uuid={uuid}',
+					 dynamicHref:'/system/api/articlePrint?uuid={uuid}',
 							parentGrid:{
 								type:'datagrid',
 								id:'articleDg',
@@ -76,7 +76,7 @@
         <table data-toggle="topjui-datagrid"
                data-options="id:'articleDg',
                fitColumns:true,
-               url:ctx+'/system/api/getArticlePageSet',
+               url:'/system/api/getArticlePageSet',
                childTab: {
                    tab:[
                         {id:'eastTabs',param:'uuid'}
@@ -97,10 +97,10 @@
 
 <script>
     function openNewWindow(value, row, index) {
-        return '<a href=\"' + ctx + '/system/article/detail?uuid=' + row.uuid + '\" target=\"_blank\">' + value + '</a>'
+        return '<a href=\"' + '/system/article/detail?uuid=' + row.uuid + '\" target=\"_blank\">' + value + '</a>'
     }
     function openNewTab(value, row, index) {
-        return '<a href="javascript:window.parent.addParentTab({href:\'' + ctx + '/system/article/detail?uuid=' + row.uuid + '\',title:\'' + row.title + '\'})\">' + value + '</a>'
+        return '<a href="javascript:window.parent.addParentTab({href:\'' + '/system/article/detail?uuid=' + row.uuid + '\',title:\'' + row.title + '\'})\">' + value + '</a>'
     }
 </script>
 
@@ -129,7 +129,7 @@
 			   {id:'contentAddEditor',field:'content'}
 		   ],
            buttonsGroup:[
-               {text:'保存',url:ctx + '/system/api/saveArticle',iconCls:'fa fa-plus',handler:'ajaxForm'}
+               {text:'保存',url:'/system/api/saveArticle',iconCls:'fa fa-plus',handler:'ajaxForm'}
            ]
        }">新增</a>
     <a href="javascript:void(0)"
@@ -139,7 +139,7 @@
        dialog:{
            id:'articleEditDialog',
            href:contextPath + '/html/article/edit.html?uuid={uuid}',
-           url:ctx+'/system/api/getArticleDetailByUuid?uuid={uuid}',
+           url:'/system/api/getArticleDetailByUuid?uuid={uuid}',
            width:900,
 	  	   height:500,
 	  	   maximizable:false,
@@ -147,7 +147,7 @@
 			   {id:'contentEditEditor',field:'content'}
 		   ],
            buttonsGroup:[
-               {text:'更新',url:ctx + '/system/api/updateArticle',iconCls:'icon-save',handler:'ajaxForm'}
+               {text:'更新',url:'/system/api/updateArticle',iconCls:'icon-save',handler:'ajaxForm'}
            ]
        }">编辑</a>
     <a href="javascript:void(0)"

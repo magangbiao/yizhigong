@@ -11,16 +11,16 @@
                    data-options="width:278,
 				   panelHeight:250,
 				   expandAll:false,
-                   url:ctx+'/system/channel/getChannelsById?id=1',
-                   expandUrl:ctx+'/system/channel/getChannelsByPid?pid={id}',
-                   getFatherIdsUrl:ctx+'/system/channel/getFatherIds?id={id}'">
+                   url:'/system/channel/getChannelsById?id=1',
+                   expandUrl:'/system/channel/getChannelsByPid?pid={id}',
+                   getFatherIdsUrl:'/system/channel/getFatherIds?id={id}'">
         </td>
         <td class="label">发布状态</td>
         <td><input type="text" name="status"
                    data-toggle="topjui-combobox"
                    data-options="valueField:'code',
 				   width:278,
-                   url:ctx+'/system/codeItem/getListByCodeSetIdAndLevelId?codeSetId=ACE&levelId=1'">
+                   url:'/system/codeItem/getListByCodeSetIdAndLevelId?codeSetId=ACE&levelId=1'">
         </td>
     </tr>
     <tr>
@@ -31,7 +31,7 @@
                    data-toggle="topjui-combobox"
                    data-options="valueField:'code',
 				   width:278,
-                   url:ctx+'/system/codeItem/getListByCodeSetIdAndLevelId?codeSetId=ACA&levelId=4'"></td>
+                   url:'/system/codeItem/getListByCodeSetIdAndLevelId?codeSetId=ACA&levelId=4'"></td>
     </tr>
     <tr>
         <td class="label">文章描述</td>

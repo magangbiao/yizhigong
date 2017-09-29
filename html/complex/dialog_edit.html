@@ -9,21 +9,23 @@
             </td>
         </tr>
         <tr>
-            <td class="label">是否上架</td>
+            <td class="label">产品质量</td>
             <td>
-                <div data-toggle="topjui-radio">
-                    <input type="radio" id="radio1" name="sj" value="1" label="是" checked="checked"
+                <div id="radio">
+                    <input type="radio" id="radio1" name="sj" value="1" label="不好" checked="checked"
                            data-options="required:true,width:45">
-                    <input type="radio" id="radio2" name="sj" value="0" label="否"
+                    <input type="radio" id="radio2" name="sj" value="2" label="好"
+                           data-options="required:true,width:45">
+                    <input type="radio" id="radio3" name="sj" value="3" label="很好"
                            data-options="required:true,width:45">
                 </div>
             </td>
             <td class="label">特征</td>
             <td>
                 <div data-toggle="topjui-checkbox">
-                    <input type="checkbox" id="checkbox1" name="tz" value="1" label="物美" checked="checked"
+                    <input type="checkbox" id="checkbox1" name="tz" value="1" label="物美"
                            data-options="width:45">
-                    <input type="checkbox" id="checkbox2" name="tz" value="2" label="价廉" checked="checked"
+                    <input type="checkbox" id="checkbox2" name="tz" value="2" label="价廉"
                            data-options="width:45">
                     <input type="checkbox" id="checkbox3" name="tz" value="3" label="性优"
                            data-options="width:45">
@@ -88,3 +90,12 @@
         </tr>
     </table>
 </div>
+
+<script>
+    $(function () {
+        $('#radio').iRadio({
+
+        });
+        $('#radio').iRadio('check', '2');
+    });
+</script>

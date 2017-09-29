@@ -1,16 +1,3 @@
-var ctx = "";
-var index_layout;
-var index_tabs;
-var layout_west_tree;
-var layout_west_tree_url = '';
-
-var sessionInfo_userId = '${sessionInfo.id}';
-if (sessionInfo_userId) {// 如果没有登录,直接跳转到登录页面
-    layout_west_tree_url = ctx + '/System/Menu/getListByCodeSetIdAndPid?codeSetId=menu&pid=0';
-} else {
-    // window.location.href='${ctx}/system/login/index';
-}
-
 /**
  * 首页加载完后，取消加载中状态
  */
@@ -31,7 +18,7 @@ $(function () {
     });
 
     // 首页tabs选项卡
-    index_tabs = $('#index_tabs').iTabs({
+    var index_tabs = $('#index_tabs').iTabs({
         fit: true,
         tools: [{
             iconCls: 'fa fa-home',
@@ -44,7 +31,7 @@ $(function () {
                 var refresh_tab = $('#index_tabs').iTabs('getSelected');
                 var refresh_iframe = refresh_tab.find('iframe')[0];
                 refresh_iframe.contentWindow.location.href = refresh_iframe.src;
-                //$("#index_tabs").trigger(TOPJUI.eventType.initUI.base);
+                //$('#index_tabs').trigger(TOPJUI.eventType.initUI.base);
 
                 //var index = index_tabs.iTabs('getTabIndex', index_tabs.iTabs('getSelected'));
                 //console.log(index);
@@ -76,24 +63,6 @@ $(function () {
     $("#mm").iMenu({
         onClick: function (item) {
             tabMenuOprate(this, item.name);
-        }
-    });
-
-    // 首页左侧导航树
-    layout_west_tree = $('#layout_west_tree').iTree({
-        url: layout_west_tree_url,
-        parentField: 'pid',
-        lines: true,
-        animate: true,
-        onClick: function (node) {
-            if (node.attributes && node.attributes.url) {
-                var url = '${ctx}' + node.attributes.url;
-                addTab({
-                    url: url,
-                    title: node.text,
-                    iconCls: node.iconCls
-                });
-            }
         }
     });
 
@@ -199,7 +168,7 @@ $(function () {
 
 // Tab菜单操作
 function tabMenuOprate(menu, type) {
-    var allTabs = $("#index_tabs").iTabs('tabs');
+    var allTabs = $('#index_tabs').iTabs('tabs');
     var allTabtitle = [];
     $.each(allTabs, function (i, n) {
         var opt = $(n).iPanel('options');
@@ -207,11 +176,11 @@ function tabMenuOprate(menu, type) {
             allTabtitle.push(opt.title);
     });
     var curTabTitle = $(menu).data("tabTitle");
-    var curTabIndex = $("#index_tabs").iTabs("getTabIndex", $("#index_tabs").iTabs("getTab", curTabTitle));
+    var curTabIndex = $('#index_tabs').iTabs("getTabIndex", $('#index_tabs').iTabs("getTab", curTabTitle));
     switch (type) {
         case "1"://关闭当前
             if (curTabIndex > 0) {
-                $("#index_tabs").iTabs("close", curTabTitle);
+                $('#index_tabs').iTabs("close", curTabTitle);
                 return false;
                 break;
             } else {
@@ -249,7 +218,7 @@ function tabMenuOprate(menu, type) {
             var refresh_tab = $('#index_tabs').iTabs('getSelected');
             var refresh_iframe = refresh_tab.find('iframe')[0];
             refresh_iframe.contentWindow.location.href = refresh_iframe.src;
-            //$("#index_tabs").trigger(TOPJUI.eventType.initUI.base);
+            //$('#index_tabs').trigger(TOPJUI.eventType.initUI.base);
             break;
     }
 
