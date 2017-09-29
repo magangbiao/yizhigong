@@ -164,7 +164,7 @@ $(function () {
                 } else {
                     var formData = $("#pwdDialog").serialize();
                     $.ajax({
-                        url: ctx + '/json/response/success.json',
+                        url: './json/response/success.json',
                         type: 'post',
                         cache: false,
                         data: formData,
@@ -294,7 +294,7 @@ function logout() {
             $.iMessager.progress({
                 text: '正在退出中...'
             });
-            window.location.href = ctx + '/login.html' + location.search;
+            window.location.href = './login.html' + location.search;
         }
     });
 }
@@ -314,7 +314,7 @@ function generateMenu(menuId, systemName) {
             }
         }
 
-        var url = ctx + "json/menu/menu_" + menuId + ".json";
+        var url = "./json/menu/menu_" + menuId + ".json";
         $.get(
             url, {"levelId": "2"}, // 获取第一层目录
             function (data) {
@@ -333,13 +333,13 @@ function generateMenu(menuId, systemName) {
                         iconCls: e.iconCls
                     });
                     $.parser.parse();
-                    $.get(ctx + "json/menu/menu_" + e.id + ".json", function (data) {// 循环创建树的项
+                    $.get("./json/menu/menu_" + e.id + ".json", function (data) {// 循环创建树的项
                         $("#tree" + e.id).tree({
                             data: data,
                             lines: false,
                             animate: true,
                             onBeforeExpand: function (node, param) {
-                                $("#tree" + e.id).tree('options').url = ctx + "json/menu/menu_" + node.id + ".json";
+                                $("#tree" + e.id).tree('options').url = "./json/menu/menu_" + node.id + ".json";
                             },
                             onClick: function (node) {
                                 if (node.url) {
