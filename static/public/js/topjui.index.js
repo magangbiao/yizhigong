@@ -23,7 +23,7 @@ $(function () {
         tools: [{
             iconCls: 'fa fa-home',
             handler: function () {
-                index_tabs.iTabs('select', 0);
+                $('#index_tabs').iTabs('select', 0);
             }
         }, {
             iconCls: 'fa fa-refresh',
@@ -33,17 +33,17 @@ $(function () {
                 refresh_iframe.contentWindow.location.href = refresh_iframe.src;
                 //$('#index_tabs').trigger(TOPJUI.eventType.initUI.base);
 
-                //var index = index_tabs.iTabs('getTabIndex', index_tabs.iTabs('getSelected'));
+                //var index = $('#index_tabs').iTabs('getTabIndex', $('#index_tabs').iTabs('getSelected'));
                 //console.log(index);
-                //index_tabs.iTabs('getTab', index).iPanel('refresh');
+                //$('#index_tabs').iTabs('getTab', index).iPanel('refresh');
             }
         }, {
             iconCls: 'fa fa-close',
             handler: function () {
-                var index = index_tabs.iTabs('getTabIndex', index_tabs.iTabs('getSelected'));
-                var tab = index_tabs.iTabs('getTab', index);
+                var index = $('#index_tabs').iTabs('getTabIndex', $('#index_tabs').iTabs('getSelected'));
+                var tab = $('#index_tabs').iTabs('getTab', index);
                 if (tab.iPanel('options').closable) {
-                    index_tabs.iTabs('close', index);
+                    $('#index_tabs').iTabs('close', index);
                 }
             }
         }],

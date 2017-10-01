@@ -36,7 +36,7 @@
             <td>
                 <input type="text" name="sex"
                        data-toggle="topjui-combobox"
-                       data-options="data:[{id:1,text:'男'},{id:2,text:'女'}]">
+                       data-options="data:[{value:1,text:'男'},{value:2,text:'女'}]">
             </td>
             <td class="label">学历（必填）</td>
             <td>
@@ -61,6 +61,7 @@
                 <input type="text" name="nativePlace"
                        data-toggle="topjui-combobox"
                        data-options="panelHeight:250,
+                       valueField:'id',
                        url:_ctx + '/json/combobox/nativePlace.json'">
             </td>
             <td class="label">民族（必填）</td>
@@ -70,6 +71,7 @@
                        data-options="required:true,
                        prompt:'必填',
                        panelHeight:250,
+                       valueField:'id',
                        url:_ctx + '/json/combobox/nation.json'">
             </td>
         </tr>

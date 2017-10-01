@@ -11,12 +11,12 @@
         <tr>
             <td class="label">产品质量</td>
             <td>
-                <div id="radio">
-                    <input type="radio" id="radio1" name="sj" value="1" label="不好" checked="checked"
+                <div data-toggle="topjui-radio">
+                    <input type="radio" id="radio1" name="sj" label="不好" checked="checked"
                            data-options="required:true,width:45">
-                    <input type="radio" id="radio2" name="sj" value="2" label="好"
+                    <input type="radio" id="radio2" name="sj" label="好"
                            data-options="required:true,width:45">
-                    <input type="radio" id="radio3" name="sj" value="3" label="很好"
+                    <input type="radio" id="radio3" name="sj" label="很好"
                            data-options="required:true,width:45">
                 </div>
             </td>
@@ -59,11 +59,9 @@
             </td>
             <td class="label">规格型号</td>
             <td>
-                <input type="text" name="spec"
+                <input type="text" name="spec" url="/json/dictionary/models.json" valueField="code"
                        data-toggle="topjui-combobox"
-                       data-options="width:278,
-                       valueField:'code',
-                       url:_ctx + '/json/dictionary/models.json'">
+                       data-options="width:278">
             </td>
         </tr>
         <tr>
@@ -90,12 +88,3 @@
         </tr>
     </table>
 </div>
-
-<script>
-    $(function () {
-        $('#radio').iRadio({
-
-        });
-        $('#radio').iRadio('check', '2');
-    });
-</script>
