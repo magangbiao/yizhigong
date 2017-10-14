@@ -45,7 +45,7 @@
     "state": "open",
     "iconCls": "",
     "text": "新增供应商返利单",
-    "url": "./html/form/combotree.html"
+    "url": "./html/supAdd.html"
   },
   {
     "id": 208,
@@ -93,6 +93,6 @@
     "state": "open",
     "iconCls": "",
     "text": "采购返利列表",
-    "url": "./html/form/datebox.html"
+    "url": "./html/rebate.html"
   }
 ]

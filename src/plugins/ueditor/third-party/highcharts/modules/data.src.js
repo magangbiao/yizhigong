@@ -246,10 +246,7 @@
 		}
 	},
 
-	/**
-	 * TODO: 
-	 * - switchRowsAndColumns
-	 */
+
 	parseGoogleSpreadsheet: function () {
 		var self = this,
 			options = this.options,

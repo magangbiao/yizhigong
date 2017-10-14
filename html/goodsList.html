@@ -6,11 +6,14 @@
     <title>门店要货列表</title>
     <link type="text/css" href="../src/plugins/layui/dist/css/layui.css" rel="stylesheet">
     <link rel="stylesheet" href="../src/plugins/iconfont.css">
+    <!--<link rel="stylesheet" href="../src/css/yzg.index.css">-->
     <style>
         .content {
             margin-bottom: 30px;
         }
-
+        .layui-table-fixed{
+            width: 50px;
+        }
         .layui-laydate-main {
             width: 195px !important;
         }
@@ -87,6 +90,7 @@
 
         .date-input input {
             width: 140px;
+            max-width: 140px;
             display: inline-block;
         }
 
@@ -100,7 +104,7 @@
             height: 35px;
             line-height: 35px;
         }
-
+/**/
         .layui-pl15 .layui-btn {
             width: 92px;
             height: 35px;
@@ -193,6 +197,7 @@
 
         .default-info {
             border-bottom: 1px dashed #D0D0D0;
+            width: 1150px;
             margin-left: 10px;
         }
 
@@ -219,6 +224,7 @@
 
         .modal .default-info {
             color: #535353;
+            width: 640px;
             font-size: 12px;
         }
 
@@ -230,17 +236,17 @@
             background-color: #E7EAEC;
         }
 
-        .layui-layer-btn.layui-layer-btn-r {
+        .layui-layer-btn.layui-layer-btn-r, .layui-layer-btn.layui-layer-btn- {
             background-color: #E7EAEC;
             border-top: 1px solid #A7A7A7;
         }
 
-        .layui-layer-btn.layui-layer-btn-r .layui-layer-btn0 {
+        .layui-layer-btn.layui-layer-btn-r .layui-layer-btn0, .layui-layer-btn.layui-layer-btn- .layui-layer-btn0 {
             border-color: #009688;
             background-color: #009688;
         }
 
-        .layui-layer-btn.layui-layer-btn-r .layui-layer-btn1 {
+        .layui-layer-btn.layui-layer-btn-r .layui-layer-btn1, .layui-layer-btn.layui-layer-btn- .layui-layer-btn1 {
             border-color: #9A9A9A;
             background-color: #9A9A9A;
         }
@@ -257,6 +263,9 @@
 
         .layui-layer-btn1 {
             color: #FFF
+        }
+        .layui-table-cell{
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -352,12 +361,15 @@
         <div class="layui-row mt10">
             <div class="layui-col-lg12 layui-pl15">
                 <button id="edit" class="layui-btn layui-btn-primary">修改<span class="layui-badge">12</span></button>
-                <button id="delGoods" type="button" class="layui-btn layui-btn-primary">删除</button>
+                <button id="delGoods" data-type="delGoods" type="button" class="layui-btn layui-btn-primary">删除</button>
                 <button id="Audit" class="layui-btn layui-btn-primary">审核<span class="layui-badge">12</span></button>
                 <button id="retGoods" class="layui-btn layui-btn-primary">一键退回</button>
             </div>
         </div>
-        <table id="layui-table" lay-filter="demoEvent"></table>
+        <div class="list">
+            <table id="list" class="layui-table" lay-filter="list">
+            </table>
+        </div>
     </div>
     <div class="layui-input-block text-right mt10">
         <button class="layui-btn layui-btn-green" lay-submit="" lay-filter="demo1">
@@ -409,10 +421,47 @@
 <div id="Process" class="modal">
     <table id="process-table"></table>
 </div>
+<!--编辑modal-->
+<div id="editModal" class="modal">
+    <form class="layui-form" action="">
+        <div class="form-max-width">
+            <div class="layui-form-item">
 
+                <div class="layui-inline">
+                    <label class="layui-form-label p0 taxt-left">精准检索：</label>
+                    <div class="layui-input-block ml80">
+                        <select name="interest" lay-filter="aihao">
+                            <option value="">品类选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline mr0">
+                    <div class="layui-input-block ml35">
+                        <select name="interest" lay-filter="aihao">
+                            <option value="">品牌选择</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <form action="" class="layui-form">
+        <div class="form-max-width">
+            <div class="layui-form-item">
+                <div class="layui-input-block ml0">
+                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    <button type="button" class="layui-btn layui-btn-small">模糊查询</button>
+                </div>
+            </div>
+            <table id="layui-table-modal"></table>
+        </div>
+    </form>
+</div>
 <script src="../src/plugins/layui/dist/layui.all.js"></script>
 <script>
     layui.use(['laydate', 'layer', 'table'], function () {
+        /*日历组件*/
         var laydate = layui.laydate;
         laydate.render({
             elem: '#date'
@@ -422,149 +471,241 @@
             elem: '#date2'
             , showBottom: false
         });
-
-        var $ = layui.jquery, layer = layui.layer;
-        $('#Audit').on('click', function () {
-            layer.open({
-                type: 1
-                , id: 'modalGoods'
-                , area: ['700px']
-                , title: '审核信息'
-                , shade: 0.1
-                , maxmin: true
-                , anim: 0
-                , btn: ['审核', '一键退回']
-                , btnAlign: 'r'
-                , scrollbar: false
-                , content: $('#GoodsModal')
-            });
-
-        })
-
-        /*删除*/
-        $('#delGoods').on('click', function () {
-//eg1
-            layer.confirm('确定要删除吗？', {
-                btn: ['确定', '取消']
-            }, function (index, layero) {
-                layer.msg('点击了确定按钮');
-            }, function (index) {
-                layer.msg('点击了取消按钮');
-
-            });
-        })
-
-
+        var layer = layui.layer;
         var table = layui.table;
-
-        table.render({
-            elem: '#layui-table'
-            , data: [{
-                "id": "1"
-                , "goodsName": "杜甫"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "116"
-                , "ip": "192.168.0.1"
-                , "logins": "108"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "2"
-                , "goodsName": "李白"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "12"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
+        var $ = layui.$;
+        /*删除*/
+        var table_data = [{
+            "id": "1"
+            , "goodsName": "杜甫"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "116"
+            , "ip": "192.168.0.1"
+            , "logins": "108"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "2"
+            , "goodsName": "李白"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "12"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
 //                ,"LAY_CHECKED": true
-            }, {
-                "id": "3"
-                , "goodsName": "王勃"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "65"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "4"
-                , "goodsName": "贤心"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "666"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "5"
-                , "goodsName": "贤心"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "86"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "6"
-                , "goodsName": "贤心"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "12"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "7"
-                , "goodsName": "贤心"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "16"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "8"
-                , "goodsName": "贤心"
-                , "number": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "106"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }]
+        }, {
+            "id": "3"
+            , "goodsName": "王勃"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "65"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "4"
+            , "goodsName": "贤心"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "666"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "5"
+            , "goodsName": "贤心"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "86"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "6"
+            , "goodsName": "贤心"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "12"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "7"
+            , "goodsName": "贤心"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "16"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }, {
+            "id": "8"
+            , "goodsName": "贤心"
+            , "number": "xianxin@layui.com"
+            , "sex": "男"
+            , "city": "浙江杭州"
+            , "sign": "人生恰似一场修行"
+            , "experience": "106"
+            , "ip": "192.168.0.8"
+            , "logins": "106"
+            , "joinTime": "2016-10-14"
+        }];
 
-            , cols: [[ //标题栏
-                {field: 'id', title: '序号'}
-                , {checkbox: true, LAY_CHECKED: false}
-                , {field: 'goodsName', title: '商品名', width: 100}
-                , {field: 'number', title: '申请数量', width: 100}
-                , {field: 'sign', title: '收货仓', width: 150}
-                , {field: 'sex', title: '申请人', width: 80}
-                , {field: 'joinTime', title: '申请时间', width: 100, sort: true}
-                , {field: 'ip', title: '备注', width: 100}
-                , {field: 'logins', title: '审核状态', width: 100, event: 'setlogins', style: 'color:red;text-decoration: underline;cursor: pointer;'}
-                , {field: 'city', title: '订单状态', width: 100}
-            ]]
+        var table_fields = [[ //设置表头
+            {checkbox: true, fixed: true}
+            , {field: 'id', title: '序号', width:50}
+            , {field: 'goodsName', title: '商品名', width: 100}
+            , {field: 'number', title: '申请数量', width: 100}
+            , {field: 'sign', title: '收货仓', width: 150}
+            , {field: 'sex', title: '申请人', width: 80}
+            , {field: 'joinTime', title: '申请时间', width: 100, sort: true}
+            , {field: 'ip', title: '备注', width: 100}
+            , {
+                field: 'logins',
+                title: '审核状态',
+                width: 100,
+                event: 'setlogins',
+                style: 'color:red;text-decoration: underline;cursor: pointer;'
+            }
+            , {field: 'city', title: '订单状态', width: 100}
+        ]];
+        var layer = parent.layer === undefined ? layui.layer : parent.layer
+                , $ = layui.jquery
+                , table = layui.table;
+//执行渲染
+        table.render({
+            elem: '#list'
+            , id: 'list'
+            , cols: table_fields
+            , loading: false
+            , data: table_data
             , skin: 'row' //表格风格
             , even: true
         });
+//监听表格复选框选择
+        var checkedArr = [];
+        table.on('checkbox(list)', function (obj) {
+            if (obj.type == 'all') return;
+            if (obj.checked) {
+                checkedArr[obj.data.id] = obj.data.LAY_TABLE_INDEX;
+            }
+            else {
+                delete checkedArr[obj.data.id];
+            }
+        });
+//批量删除
+        $("#delGoods").click(function () {
+            var checkStatus = table.checkStatus('list')
+                    , data = checkStatus.data, tmpArr = [], ids = [];
+            if (checkStatus.isAll) {
+                for (var i = 0; i < data.length; i++) {
+                    checkedArr[data[i].id] = i;
+                    ids.push(data[i].id);
+                }
+            }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    tmpArr[data[i].id] = checkedArr[data[i].id];
+                    ids.push(data[i].id);
+                }
+                checkedArr = tmpArr;
+            }
+
+//没有选中任何一行
+            if (checkedArr.length == 0) {
+                layui.layer.msg('请选择要删除行!');
+                return;
+            }
+            layui.layer.confirm('真的删除行么?', function (index) {
+                layui.layer.close(index);
+                /*ajax从数据库删除 */
+                /*
+                 * Todo 添加ajax请求 ：ids.toString();
+                 * */
+                $.each(checkedArr, function (k) {
+                    console.log("tr[data-index=" + checkedArr[k] + "]")
+                    $("tr[data-index=" + checkedArr[k] + "]").remove();
+                    console.log("tr[data-index=" + checkedArr[k] + "]")
+                });
+                layui.layer.msg('删除成功');
+            });
+
+        });
+
+        /*审核*/
+        $('#Audit').on('click', function () {
+            var checkStatus = table.checkStatus('list')
+                    , data = checkStatus.data;
+            if (data.length && data.length == 1) {
+                layer.open({
+                    type: 1
+                    , id: 'modalGoods'
+                    , area: ['700px']
+                    , title: '审核信息'
+                    , shade: 0.1
+                    , maxmin: true
+                    , anim: 0
+                    , btn: ['审核', '一键退回']
+                    , btnAlign: 'r'
+                    , scrollbar: false
+                    , content: $('#GoodsModal')
+                });
+            } else if (data.length > 1) {
+                layer.msg('只能审核一条内容！');
+            } else {
+                layer.msg('请先选择审核的商品！');
+            }
+        })
+        /*修改*/
+        $('#edit').on('click', function () {
+            var checkStatus = table.checkStatus('list')
+                    , data = checkStatus.data;
+            if (data.length == 1) {
+                layer.open({
+                    type: 1
+                    , area: ['700px', '500px']
+                    , title: '新增商品'
+                    , shade: 0.1
+                    , maxmin: true
+                    , anim: 0
+                    , btn: ['<i class="layui-icon">&#xe654;</i> 确认', '<i class="layui-icon">&#x1006;</i> 关闭']
+                    , btnAlign: 'r'
+                    , scrollbar: false
+                    , content: $('#editModal')
+                });
+                table.render({
+                    elem: '#layui-table-modal'
+                    , data: data
+                    , cols: [[
+                        {field: 'id', title: 'ID', width: 30}
+                        , {checkbox: true, LAY_CHECKED: false}
+                        , {field: 'goodsName', title: '商品名', width: 300}
+                    ]]
+                    , skin: 'row'
+                    , even: true
+                });
+            } else if (data.length > 1) {
+                layer.msg('只能修改一条内容！');
+            } else {
+                layer.msg('请选择修改的内容！');
+            }
+        })
+        /*表格*/
         table.render({
             elem: '#modal-order'
             , data: [{
@@ -577,14 +718,12 @@
                 , "goodsName": "李白"
                 , "number": "100"
             }]
-
-            , cols: [[ //标题栏
+            , cols: [[
                 {field: 'id', title: '序号', width: 80, text: 'center'}
                 , {field: 'goodsName', title: '商品名', width: 265, text: 'center'}
                 , {field: 'number', title: '申请数量', width: 265, text: 'center'}
-
             ]]
-            , skin: 'row' //表格风格
+            , skin: 'row'
             , even: true
         });
         table.render({
@@ -600,20 +739,19 @@
                 , "number": "100"
                 , "sex": "123"
             }]
-            , cols: [[ //标题栏
+            , cols: [[
                 {field: 'id', title: '序号', width: 80, text: 'center'}
                 , {field: 'goodsName', title: '商品名', width: 170, text: 'center'}
                 , {field: 'number', title: '当前库存', width: 170, text: 'center'}
                 , {field: 'sex', title: '近15天销售', width: 170, text: 'center'}
             ]]
-            , skin: 'row' //表格风格
+            , skin: 'row'
             , even: true
         });
-
-        table.on('tool(demoEvent)', function (obj) {
+        /*审核状态*/
+        table.on('tool(list)', function (obj) {
             var data = obj.data;
             if (obj.event === 'setlogins') {
-                console.log(data);
                 table.render({
                     elem: '#process-table'
                     , data: [{

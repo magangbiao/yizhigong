@@ -3324,8 +3324,7 @@ SVGRenderer.prototype = {
 										tspan.style.fontSize :
 										textStyles.fontSize
 								).h,
-								// Safari 6.0.2 - too optimized for its own good (#1539)
-								// TODO: revisit this with future versions of Safari
+
 								isWebKit && tspan.offsetHeight
 							);
 						}
@@ -9332,7 +9331,7 @@ Pointer.prototype = {
 
 		
 		// Set geometry for clipping, selection and transformation
-		if (!inverted) { // TODO: implement clipping for inverted charts
+		if (!inverted) {
 			clip[xy] = clipXY - plotLeftTop;
 			clip[wh] = selectionWH;
 		}

@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新增采购单</title>
+    <title>新增供应商返利单</title>
     <link type="text/css" href="../src/plugins/layui/dist/css/layui.css" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/yzg.index.css">
     <style>
         .layui-form-item .layui-form-checkbox[lay-skin=primary] {
             margin-top: 2px;
+        }
+        .layui-table-cell{
+            padding: 0;
         }
     </style>
 </head>
@@ -116,17 +119,6 @@
     <form class="layui-form" id="form-top" action="">
         <div class="form-max-width">
             <div class="layui-form-item">
-                <div class="layui-input-block ml0">
-                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                    <button type="button" class="layui-btn layui-btn-small">模糊查询</button>
-                </div>
-            </div>
-        </div>
-
-    </form>
-    <form action="" id="form-bottom" class="layui-form">
-        <div class="form-max-width">
-            <div class="layui-form-item">
 
                 <div class="layui-inline">
                     <label class="layui-form-label p0 taxt-left">精准检索：</label>
@@ -154,6 +146,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+    </form>
+    <form action="" id="form-bottom" class="layui-form">
+        <div class="form-max-width">
+            <div class="layui-form-item">
+                <div class="layui-input-block ml0">
+                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    <button type="button" class="layui-btn layui-btn-small">模糊查询</button>
+                </div>
+            </div>
             <table id="layui-table-modal"></table>
         </div>
     </form>
@@ -169,7 +172,7 @@
             elem: '#date'
             , showBottom: false
         })
-/**/
+        /**/
         var $ = layui.jquery, layer = layui.layer;
         $(function () {
             $('#addGoods').on('click', function () {
@@ -222,10 +225,6 @@
                 , "sex": "男"
                 , "city": "浙江杭州"
                 , "sign": "人生恰似一场修行"
-                , "experience": "12"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
             }, {
                 "id": "2"
                 , "goodsName": "贤心"
@@ -233,23 +232,16 @@
                 , "sex": "男"
                 , "city": "浙江杭州"
                 , "sign": "人生恰似一场修行"
-                , "experience": "16"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
             }]
 
             , cols: [[
-                {field: 'id', title: 'ID', width: 50}
-                , {checkbox: true, LAY_CHECKED: false}
-                , {field: 'goodsName', title: '商品名', width: 100}
-                , {field: 'number', title: '申请数量', width: 100}
-                , {field: 'sign', title: '收货仓', width: 150}
-                , {field: 'sex', title: '申请人', width: 80}
-                , {field: 'ip', title: '申请单位', width: 100}
-                , {field: 'joinTime', title: '申请时间', width: 100, sort: true}
-                , {field: 'logins', title: '审核状态', width: 100}
-                , {field: 'city', title: '订单状态', width: 100}
+                {field: 'id', title: '序号', width: 50}
+                , {checkbox: true, LAY_CHECKED: false,width:50}
+                , {field: 'goodsName', title: '商品名', width: 190}
+                , {field: 'number', title: '数量', width: 190}
+                , {field: 'sign', title: '单价', width: 190}
+                , {field: 'sex', title: '总价', width: 190}
+                , {field: 'city', title: '备注', width: 190}
             ]]
             , skin: 'row' //表格风格
             , even: true
