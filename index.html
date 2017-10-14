@@ -2,30 +2,58 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <!-- 避免IE使用兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content='easyui,jui,jquery easyui,easyui demo,easyui中文'/>
-    <meta name="description" content='TopJUI前端框架，基于最新版EasyUI前端框架构建，纯HTML调用功能组件，不用写JS代码的EasyUI，专注你的后端业务开发！'/>
-    <title>TopJUI前端框架 - 静态演示</title>
-    <!-- 浏览器标签图片 -->
-    <link rel="shortcut icon" href="./topjui/image/favicon.ico"/>
-    <!-- TopJUI框架样式 -->
-    <link type="text/css" href="./topjui/css/topjui.core.min.css" rel="stylesheet">
-    <link type="text/css" href="./topjui/themes/default/topjui.green.css" rel="stylesheet" id="dynamicTheme"/>
-    <!-- FontAwesome字体图标 -->
-    <link type="text/css" href="./topjui/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-    <!-- jQuery相关引用 -->
-    <script type="text/javascript" src="./topjui/plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="./topjui/plugins/jquery/jquery.cookie.js"></script>
-    <!-- TopJUI框架配置 -->
-    <script type="text/javascript" src="./static/public/js/topjui.config.js"></script>
-    <!-- TopJUI框架核心 -->
-    <script type="text/javascript" src="./topjui/js/topjui.core.min.js"></script>
-    <!-- TopJUI中文支持 -->
-    <script type="text/javascript" src="./topjui/js/locale/topjui.lang.zh_CN.js"></script>
-    <!-- 首页js -->
-    <script type="text/javascript" src="./static/public/js/topjui.index.js" charset="utf-8"></script>
+    <title>易零售</title>
+    <link rel="shortcut icon" href="./src/image/favicon.ico"/>
+    <link type="text/css" href="src/css/core.min.css" rel="stylesheet">
+    <link type="text/css" href="src/themes/default/blue.css" rel="stylesheet"/>
+    <link type="text/css" href="./src/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="./src/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./src/plugins/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="src/js/core.min.js"></script>
+    <script type="text/javascript" src="src/js/index.js" charset="utf-8"></script>
+    <style>
+        .banner .webname {
+            background: #04887C;
+        }
+
+        .banner {
+            background: #009688;
+        }
+
+        .tabs li.tabs-selected a.tabs-inner {
+            border-top-color: #009688;
+        }
+
+        #west .accordion .accordion-header-selected {
+            border-left: 3px #009688 solid;
+        }
+
+        #west .accordion .accordion-header:hover {
+            border-left: 3px #009688 solid;
+        }
+
+        #west {
+            border: 0 none;
+        }
+
+        .bannerbtn:hover {
+            background: none;
+        }
+
+        .tabs li a.tabs-close {
+            height: 12px !important;
+            position: absolute;
+            background-color: #666;
+            top: 14px;
+            border-radius: 10px;
+        }
+
+        .tabs li a.tabs-close:hover {
+            background-color: #999;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,9 +76,8 @@
 </div>
 
 <style type="text/css">
-    /* right */
-    .top_right {
-        /*width: 748px;*/
+    .hide {
+        display: none;
     }
 
     /* top_link */
@@ -206,78 +233,10 @@
         text-decoration-line: none;
     }
 
-    /* 重用类样式 */
-    .f_l {
-        float: left !important;
-    }
-
     .f_r {
         float: right !important;
     }
 
-    .no_margin {
-        margin: 0px !important;
-    }
-
-    .no_border {
-        border: 0px !important;
-    }
-
-    .no_bg {
-        background: none !important;
-    }
-
-    .clear_both {
-        clear: both !important;
-    }
-
-    .display_block {
-        display: block !important;
-    }
-
-    .text_over {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        -moz-binding: url('ellipsis.xml#ellipsis');
-    }
-
-    /* 重用自定义样式 */
-    .w_100 {
-        width: 100%;
-    }
-
-    .w_95 {
-        width: 95%;
-    }
-
-    .indextx {
-        width: 980px;
-        margin: 0 auto;
-        margin-top: 10px;
-        background: #FFFFFF;
-    }
-
-    .w_min_width {
-        min-width: 1200px;
-    }
-
-    .w_1200 {
-        width: 1200px;
-    }
-
-    .w_1067 {
-        width: 1067px;
-    }
-
-    .w_980 {
-        width: 980px;
-    }
-
-    .header {
-        overflow: hidden
-    }
 </style>
 <script>
     $(function () {
@@ -314,43 +273,19 @@
         <table style="float:left;border-spacing:0px;">
             <tr>
                 <td class="webname">
-                    <span class="fa fa-envira" style="font-size:26px; padding-right:8px;"></span>TopJUI前端框架
+                    易零售
                 </td>
                 <td class="collapseMenu" style="text-align: center;cursor: pointer;">
                     <span class="fa fa-chevron-circle-left" style="font-size: 18px;"></span>
                 </td>
                 <td>
                     <table id="topmenucontent" cellpadding="0" cellspacing="0">
-                        <td id="1325" title="这只是静态演示" class="topmenu selected systemName">
+                        <td id="1325" title="" class="hide topmenu selected systemName">
                             <a class="l-btn-text bannerMenu" href="javascript:void(0)">
                                 <p>
                                     <lable class="fa  fa-hand-pointer-o"></lable>
                                 </p>
                                 <p><span style="white-space:nowrap;">静态演示</span></p>
-                            </a>
-                        </td>
-                        <td id="60" title="TopJUI开发文档" class="topmenu systemName">
-                            <a class="l-btn-text bannerMenu" href="javascript:void(0)">
-                                <p>
-                                    <lable class="fa fa-puzzle-piece"></lable>
-                                </p>
-                                <p><span style="white-space:nowrap;">开发文档</span></p>
-                            </a>
-                        </td>
-                        <td id="" title="人力资源" class="topmenu systemName">
-                            <a class="l-btn-text bannerMenu" href="javascript:void(0)">
-                                <p>
-                                    <lable class="fa fa-sort-amount-asc"></lable>
-                                </p>
-                                <p><span style="white-space:nowrap;">人力资源</span></p>
-                            </a>
-                        </td>
-                        <td id="" title="系统设置" class="topmenu systemName">
-                            <a class="l-btn-text bannerMenu" href="javascript:void(0)">
-                                <p>
-                                    <lable class="fa  fa-shield"></lable>
-                                </p>
-                                <p><span style="white-space:nowrap;">系统设置</span></p>
                             </a>
                         </td>
                     </table>
@@ -361,10 +296,8 @@
             <!-- menu -->
             <div class="nav_bar">
                 <ul class="nav clearfix" id="ulMenu">
-
-                    <!-- 单一菜单 | end -->
                     <li class="m">
-                        <h3><a title="官方网站" class="l-btn-text bannerbtn" href="http://www.topjui.com"
+                        <h3><a title="logo" class="l-btn-text bannerbtn" href="http://www.baidu.com"
                                target="_blank"><i class="fa fa-home"></i></a></h3>
                     </li>
                     <li class="s">|</li>
@@ -383,9 +316,9 @@
                                href="javascript:void(0)"><i class="fa fa-cog"></i></a>
                         </h3>
                         <ul class="sub">
-                            <li><a class="fa fa-info-circle" href="http://www.topjui.com/about.html" target="_blank">
+                            <li><a class="fa fa-info-circle" target="_blank">
                                 关于系统</a></li>
-                            <li><a class="fa fa-user" href="http://www.ewsd.cn/contact.html" target="_blank"> 联系我们</a>
+                            <li><a class="fa fa-user" target="_blank"> 联系我们</a>
                             </li>
                         </ul>
                     </li>
@@ -395,8 +328,8 @@
                         <h3>
                             <a id="showUserInfo" style="display:inline-block;" class="fa bannerbtn"
                                href="javascript:void(0)">
-                                <img src="./topjui/image/avatar.jpg" class="user-image" alt="User Image">
-                                <span class="user-name">TopJUI</span>
+                                <img src="./src/image/avatar.jpg" class="user-image" alt="User Image">
+                                <span class="user-name">Username</span>
                             </a>
                         </h3>
                         <ul class="sub">
@@ -417,33 +350,13 @@
          data-options="region:'west',split:true,width:230,border:false,headerCls:'border_right',bodyCls:'border_right'"
          title="" iconCls="fa fa-dashboard">
         <div id="RightAccordion"></div>
-        <!--<div id="menuTab" class="easyui-tabs" data-options="fit:true,border:false">
-            <div title="导航菜单" data-options="iconCls:'fa fa-sitemap'" style="padding:0;">
-                <div id="RightAccordion" class="easyui-accordion"></div>
-            </div>
-            <div title="常用链接" data-options="iconCls:'fa fa-star',closable:true">
-                <ul id="channgyongLink"></ul>
-            </div>
-        </div>-->
     </div>
 
     <div id="center" data-options="region:'center',border:false" style="overflow:hidden;">
         <div id="index_tabs" style="width:100%;height:100%">
-            <div title="系统首页" iconCls="fa fa-home" data-options="border:true,
-            content:'<iframe src=\'./html/portal/index.html\' scrolling=\'auto\' frameborder=\'0\' style=\'width:100%;height:100%;\'></iframe>'"></div>
+            <div title="我的桌面" iconCls="fa fa-home" data-options="border:true,
+            content:'<iframe src=\'./html/index.html\' scrolling=\'auto\' frameborder=\'0\' style=\'width:100%;height:100%;\'></iframe>'"></div>
         </div>
-    </div>
-
-    <div data-options="region:'south',border:true"
-         style="text-align:center;height:30px;line-height:30px;border-bottom:0;overflow:hidden;">
-        <input type="hidden" id="userNameId" name="userNameId" value="${userNameId}"/>
-        <span style="float:left;padding-left:5px;width:30%;text-align: left;">当前用户：TopJUI前端框架</span>
-        <span style="padding-right:5px;width:40%">
-            版权所有 © 2014-2017
-            <a href="http://www.ewsd.cn" target="_blank">深圳易网时代信息技术有限公司</a>
-            <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备16028103号-1</a>
-        </span>
-        <span style="float:right;padding-right:5px;width:30%;text-align: right;">正式版v1.0</span>
     </div>
 </div>
 
@@ -523,13 +436,26 @@
             </td>
         </tr>
     </table>
-</div>
-
-<form id="pwdDialog"
-      data-options="title: '修改密码',
+    <!--</div>-->
+    <div class="panel layout-panel layout-panel-south panel-htop" style="width: 1600px; left: 0px; bottom: 0px;">
+        <div data-options="region:'south',border:true"
+             style="text-align: center; line-height: 30px; border-bottom: 0px; overflow: hidden; width: 1598px; height: 29px;"
+             title="" class="panel-body panel-body-noheader layout-body">
+            <!--<span style="float:left;padding-left:5px;width:30%;text-align: left;">当前用户：123</span>-->
+            <span style="padding-right:5px;width:40%">
+            版权所有 © 2017-2018
+            <a href="http://" target="_blank">南京24点网络科技有限公司</a>
+            <a href="http://" target="_blank">苏ICP备16028103号-1</a>
+        </span>
+            <span style="float:right;padding-right:5px;width:10%;text-align: center;">正式版：v1.0</span>
+        </div>
+    </div>
+    <form id="pwdDialog"
+          data-options="title: '修改密码',
       iconCls:'fa fa-key',
       width: 400,
       height: 260,
       href: '/html/user/modifyPassword.html'"></form>
+</div>
 </body>
 </html>

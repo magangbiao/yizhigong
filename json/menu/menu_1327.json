@@ -4,7 +4,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "文本框",
+    "text": "新增门店要货单",
     "url": "./html/form/textbox.html"
   },
   {
@@ -12,7 +12,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "密码框",
+    "text": "新增采购单",
     "url": "./html/form/passwordbox.html"
   },
   {
@@ -20,7 +20,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "单选框",
+    "text": "新增退货单",
     "url": "./html/form/radio.html"
   },
   {
@@ -28,7 +28,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "多选框",
+    "text": "新增付款单",
     "url": "./html/form/checkbox.html"
   },
   {
@@ -36,7 +36,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "下拉列表框",
+    "text": "新增供应商价保单",
     "url": "./html/form/combobox.html"
   },
   {
@@ -44,7 +44,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "树形下拉框",
+    "text": "新增供应商返利单",
     "url": "./html/form/combotree.html"
   },
   {
@@ -52,7 +52,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "数据表格下拉框",
+    "text": "门店要货列表",
     "url": "./html/form/combogrid.html"
   },
   {
@@ -60,7 +60,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "树形表格下拉框",
+    "text": "采购订单列表",
     "url": "./html/form/combotreegrid.html"
   },
   {
@@ -68,7 +68,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "标签框",
+    "text": "采购退货列表",
     "url": "./html/form/tagbox.html"
   },
   {
@@ -76,7 +76,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "数值输入框",
+    "text": "采购价保列表",
     "url": "./html/form/numberbox.html"
   },
   {
@@ -84,71 +84,7 @@
     "pid": 1327,
     "state": "open",
     "iconCls": "",
-    "text": "日期输入框",
+    "text": "采购返利列表",
     "url": "./html/form/datebox.html"
-  },
-  {
-    "id": 213,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "日期时间输入框",
-    "url": "./html/form/datetimebox.html"
-  },
-  {
-    "id": 214,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "日期时间微调框",
-    "url": "./html/form/datetimespinner.html"
-  },
-  {
-    "id": 215,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "日历",
-    "url": "./html/form/calendar.html"
-  },
-  {
-    "id": 216,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "微调",
-    "url": "./html/form/spinner.html"
-  },
-  {
-    "id": 217,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "数字微调",
-    "url": "./html/form/numberspinner.html"
-  },
-  {
-    "id": 218,
-    "pid": 215,
-    "state": "open",
-    "iconCls": "",
-    "text": "时间微调",
-    "url": "./html/form/timespinner.html"
-  },
-  {
-    "id": 219,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "滑动条",
-    "url": "./html/form/slider.html"
-  },
-  {
-    "id": 220,
-    "pid": 1327,
-    "state": "open",
-    "iconCls": "",
-    "text": "文件框",
-    "url": "./html/form/filebox.html"
   }
 ]

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增采购单</title>
+    <link type="text/css" href="../src/plugins/layui/dist/css/layui.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/css/yzg.index.css">
+    <style>
+        .layui-form-item .layui-form-checkbox[lay-skin=primary] {
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="layui-form-item">
+        <form action="" class="layui-form">
+            <div class="default-info">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">合同编号：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">制单人：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">制单日期：</label>
+                        <div class="layui-input-inline mr0">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="default-info">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">供应商：</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="default-info">
+                <button type="button" id="addGoods" class="layui-btn layui-btn-small">新增商品</button>
+                <button type="button" id="delGoods" class="layui-btn layui-btn-small btn-small">删除</button>
+                <table id="layui-table"></table>
+            </div>
+            <div class="default-info">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可用返利款：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">返利款使用：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可用价保款：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">价保款使用：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">本次支付：</label>
+                        <div class="layui-input-inline mr0">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item mt25 mw">
+                <div class="layui-input-block text-right">
+                    <button type="button" class="layui-btn layui-btn-green" lay-submit="" lay-filter="demo1">
+                        <i class="layui-icon">&#xe605;</i>
+                        提交
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-green" lay-submit="" lay-filter="demo1">
+                        <i class="layui-icon">&#xe654;</i>
+                        暂存
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-gray">
+                        <i class="layui-icon">&#x1006;</i> 关闭
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="GoodsModal" class="modal">
+    <form class="layui-form" id="form-top" action="">
+        <div class="form-max-width">
+            <div class="layui-form-item">
+                <div class="layui-input-block ml0">
+                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    <button type="button" class="layui-btn layui-btn-small">模糊查询</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <form action="" id="form-bottom" class="layui-form">
+        <div class="form-max-width">
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label p0 taxt-left">精准检索：</label>
+                    <div class="layui-input-block ml80">
+                        <select name="" lay-search="">
+                            <option value="">请选择市</option>
+                            <option value="杭州">杭州</option>
+                            <option value="宁波" disabled="">宁波</option>
+                            <option value="温州">温州</option>
+                            <option value="温州">台州</option>
+                            <option value="温州">绍兴</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline mr0">
+                    <div class="layui-input-block ml35">
+                        <select name="" lay-search="">
+                            <option value="">请选择市</option>
+                            <option value="温州">温州</option>
+                            <option value="宁波" disabled="">宁波</option>
+                            <option value="台州">台州</option>
+                            <option value="绍兴">绍兴</option>
+                            <option value="宁波">宁波</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="layui-table-modal"></table>
+        </div>
+    </form>
+</div>
+<script src="../src/plugins/layui/dist/layui.all.js"></script>
+<script>
+    /*
+     * 日期组件
+     * */
+    layui.use(['laydate', 'layer', 'table'], function () {
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#date'
+            , showBottom: false
+        })
+
+        var $ = layui.jquery, layer = layui.layer;
+        $(function () {
+            $('#addGoods').on('click', function () {
+                layer.open({
+                    type: 1
+                    , id: 'modalGoods'
+                    , area: ['700px', '500px']
+                    , title: '新增商品'
+                    , shade: 0.1
+                    , maxmin: true
+                    , anim: 0
+                    , btn: ['<i class="layui-icon">&#xe654;</i> 确认', '<i class="layui-icon">&#x1006;</i> 关闭']
+                    , btnAlign: 'r'
+                    , scrollbar: false
+                    , content: $('#GoodsModal')
+                });
+            });
+            /*
+             $('.layui-btn-modal').on('click', function(){
+             layer.closeAll();
+             });
+             $('.layui-btn-close').on('click',function () {
+             $('#form-top')[0].reset();
+             $('#form-bottom')[0].reset();
+             layer.closeAll();
+             })
+             */
+            $('#delGoods').on('click', function () {
+//eg1
+                layer.confirm('确定要删除吗？', {
+                    btn: ['确定', '取消']
+                }, function(index, layero){
+                    layer.msg('点击了确定按钮');
+                }, function(index){
+                    layer.msg('点击了取消按钮');
+
+                });
+            })
+        });
+
+        var table = layui.table;
+
+        //展示已知数据
+        table.render({
+            elem: '#layui-table'
+            , data: [{
+                "id": "1"
+                , "goodsName": "杜甫"
+                , "number": "xianxin@layui.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "12"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "2"
+                , "goodsName": "贤心"
+                , "number": "xianxin@layui.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "16"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }]
+
+            , cols: [[
+                {field: 'id', title: 'ID', width: 50}
+                , {checkbox: true, LAY_CHECKED: false}
+                , {field: 'goodsName', title: '商品名', width: 100}
+                , {field: 'number', title: '申请数量', width: 100}
+                , {field: 'sign', title: '收货仓', width: 150}
+                , {field: 'sex', title: '申请人', width: 80}
+                , {field: 'ip', title: '申请单位', width: 100}
+                , {field: 'joinTime', title: '申请时间', width: 100, sort: true}
+                , {field: 'logins', title: '审核状态', width: 100}
+                , {field: 'city', title: '订单状态', width: 100}
+            ]]
+            , skin: 'row' //表格风格
+            , even: true
+        });
+        var table = layui.table;
+        table.render({
+            elem: '#layui-table-modal'
+            , data: [{
+                "id": "1"
+                , "goodsName": "杜甫"
+            },
+                {
+                    "id": "2"
+                    , "goodsName": "贤心"
+
+                }]
+            , cols: [[ //标题栏
+                {field: 'id', title: 'ID', width: 30}
+                , {checkbox: true, LAY_CHECKED: false}
+                , {field: 'goodsName', title: '商品名', width: 300}
+            ]]
+            , skin: 'row' //表格风格
+            , even: true
+        });
+    });
+
+</script>
+</body>
+</html>

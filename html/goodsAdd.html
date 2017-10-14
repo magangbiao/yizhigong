@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增门店要货单</title>
+    <link href="../src/plugins/layui/dist/css/layui.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/css/yzg.index.css">
+    <style>
+        .layui-form-label {
+            padding: 5px 5px 5px 0;
+        }
+        .layui-form-label {
+            width: 65px;
+        }
+        .default-info {
+            margin-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="layui-form-item">
+        <form action="" class="layui-form">
+            <div class="default-info">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">申请人：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" readonly autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">申请单位：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">申请门店：</label>
+                        <div class="layui-input-inline mr0">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">收货仓：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label" for="date">申请日期：</label>
+                        <div class="layui-input-inline mr0">
+                            <input type="text" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off"
+                                   class="layui-input" lay-key="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="default-info">
+                <button type="button" id="test1" class="layui-btn layui-btn-small">新增商品</button>
+                <table id="layui-table" lay-filter="demoEvent"></table>
+            </div>
+
+            <div class="layui-form-item mt25 mw">
+                <div class="layui-input-block text-right">
+                    <button type="button" class="layui-btn layui-btn-green" lay-submit="" lay-filter="demo1">
+                        <i class="layui-icon">&#xe605;</i>
+                        提交
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-green">
+                        <i class="layui-icon">&#xe654;</i>
+                       暂存
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-gray">
+                        <i class="layui-icon">&#x1006;</i> 关闭
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="GoodsModal" class="modal">
+    <form class="layui-form" action="">
+    <div class="form-max-width">
+        <div class="layui-form-item">
+            <div class="layui-input-block ml0">
+                <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                <button type="button" class="layui-btn layui-btn-small">模糊查询</button>
+            </div>
+        </div>
+    </div>
+
+    </form>
+    <form action="" class="layui-form">
+       <div class="form-max-width">
+           <div class="layui-form-item">
+
+               <div class="layui-inline">
+                   <label class="layui-form-label p0 taxt-left">精准检索：</label>
+                   <div class="layui-input-block ml80">
+                       <select name="interest" lay-filter="aihao">
+                           <option value="">品类选择</option>
+                       </select>
+                   </div>
+               </div>
+               <div class="layui-inline mr0">
+                   <div class="layui-input-block ml35">
+                       <select name="interest" lay-filter="aihao">
+                           <option value="">品牌选择</option>
+                       </select>
+                   </div>
+               </div>
+           </div>
+           <table id="layui-table-modal"></table>
+       </div>
+    </form>
+</div>
+
+
+<script src="../src/plugins/layui/dist/layui.all.js"></script>
+<script>
+    layui.use(['laydate','layer','table'], function () {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#date'
+            , showBottom: false
+        });
+
+
+        var $ = layui.jquery, layer = layui.layer;
+        $(function () {
+            $('#test1').on('click', function () {
+                layer.open({
+                    type: 1
+                    , area: ['700px', '500px']
+                    , title: '新增商品'
+                    , shade: 0.1
+                    , maxmin: true
+                    , anim: 0
+                    , btn: ['<i class="layui-icon">&#xe654;</i> 确认','<i class="layui-icon">&#x1006;</i> 关闭']
+                    ,btnAlign: 'r'
+                    , scrollbar: false
+                    , content: $('#GoodsModal')
+                });
+            });
+        });
+
+        var table = layui.table;
+
+        //展示已知数据
+        table.render({
+            elem: '#layui-table'
+            , data: [{
+                "id": "删除"
+                , "goodsName": "杜甫"
+                , "number": "xianxin@layui.com"
+                , "sign": "男"
+            },
+                {
+                    "id": "删除"
+                    , "goodsName": "贤心"
+                    , "number": "xianxin@layui.com"
+                    , "sign": "男"
+                }]
+            , cols: [[ //标题栏
+                {field: 'id', title: '操作', align: 'center',width: 260,event: 'del', style:'color: red;font-size: 12px;cursor: pointer;'}
+                , {field: 'goodsName', title: '商品名',align: 'center', width: 260}
+                , {field: 'number', title: '数量 <span class="col-red">(必填)<span>',align: 'center', width: 260}
+                , {field: 'sign', title: '收货仓',align: 'center', width: 260}
+            ]]
+            , skin: 'row' //表格风格
+            , even: true
+
+        });
+        table.on('tool(demoEvent)', function(obj){
+            var data = obj.data;
+            var data = obj.data;
+           if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+    });
+    var table = layui.table;
+    table.render({
+        elem: '#layui-table-modal'
+        , data: [{
+            "id": "1"
+            , "goodsName": "杜甫"
+        },
+            {
+                "id": "2"
+                , "goodsName": "贤心"
+
+            }]
+        , cols: [[ //标题栏
+           {field: 'id', title: 'ID', width: 30}
+            ,{checkbox: true, LAY_CHECKED: false}
+            , {field: 'goodsName', title: '商品名', width: 300}
+        ]]
+        , skin: 'row' //表格风格
+        , even: true
+    });
+</script>
+</body>
+</html>

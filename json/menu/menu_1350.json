@@ -1,26 +1,98 @@
 [
   {
-    "id": 13501,
-    "pid": 1350,
-    "state": "closed",
+    "id": 203,
+    "pid": 1327,
+    "state": "open",
     "iconCls": "",
-    "text": "表单演示",
-    "url": ""
+    "text": "新增门店要货单",
+    "url": "./html/goodsAdd.html"
   },
   {
-    "id": 13502,
-    "pid": 1350,
-    "state": "closed",
+    "id": 204,
+    "pid": 1327,
+    "state": "open",
     "iconCls": "",
-    "text": "表格演示",
-    "url": ""
+    "text": "新增采购单",
+    "url": "./html/purchaseAdd.html"
   },
   {
-    "id": 13503,
-    "pid": 1350,
-    "state": "closed",
+    "id": 2031,
+    "pid": 1327,
+    "state": "open",
     "iconCls": "",
-    "text": "布局演示",
-    "url": ""
+    "text": "新增退货单",
+    "url": "./html/form/radio.html"
+  },
+  {
+    "id": 2041,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "新增付款单",
+    "url": "./html/form/checkbox.html"
+  },
+  {
+    "id": 206,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "新增供应商价保单",
+    "url": "./html/form/combobox.html"
+  },
+  {
+    "id": 207,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "新增供应商返利单",
+    "url": "./html/form/combotree.html"
+  },
+  {
+    "id": 208,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "门店要货列表",
+    "url": "./html/goodsList.html"
+  },
+  {
+    "id": 209,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "采购订单列表",
+    "url": "./html/orderList.html"
+  },
+  {
+    "id": 210,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "采购退货列表",
+    "url": "./html/form/tagbox.html"
+  },
+  {
+    "id": 210,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "采购付款列表",
+    "url": "./html/form/tagbox.html"
+  },
+  {
+    "id": 211,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "采购价保列表",
+    "url": "./html/form/numberbox.html"
+  },
+  {
+    "id": 212,
+    "pid": 1327,
+    "state": "open",
+    "iconCls": "",
+    "text": "采购返利列表",
+    "url": "./html/form/datebox.html"
   }
 ]
